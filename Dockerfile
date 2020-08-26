@@ -12,4 +12,4 @@ RUN mvn -v
 RUN mvn clean install -DskipTests
 EXPOSE 8080
 ADD ./target/TPatos-1.0-SNAPSHOT.jar /developments/
-ENTRYPOINT ["java","-cp","/developments/TPatos-1.0-SNAPSHOT.jar","test"]
+ENTRYPOINT ["java","-jar","/developments/TPatos-1.0-SNAPSHOT.jar"]
