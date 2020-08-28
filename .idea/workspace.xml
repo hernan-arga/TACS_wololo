@@ -18,24 +18,68 @@
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:src" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:src" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:src" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:main" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:ui" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="498917c0-bcf3-4ec1-b8a6-af2c510bae86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cuenta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/EstadoPartida.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Mapa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Partida.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Municipio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Municipio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MunicipioDefensa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MunicipioDefensa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MunicipioProductor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MunicipioProductor.java" afterDir="false" />
+    <list default="true" id="4e635267-77ec-4be4-8f52-591e4cb16be2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/controller/EstadisticasController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/controller/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/controller/PartidasController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/EstadoPartida.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/Jugador.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/Mapa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/ModoMunicipio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/Municipio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/MunicipioDefensa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/MunicipioProductor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/Partida.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/UsersApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/WololoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/controller/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/links/UserLinks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ui/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,39 +90,34 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="D:\Program Files\JetBrains\IntelliJ IDEA 2020.2\plugins\maven\lib\maven3" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="680" />
-    <option name="height" value="728" />
-  </component>
-  <component name="ProjectId" id="1gjwzlB9oLLT5pG8BEM56yDCEja" />
+  <component name="ProjectId" id="1ghPuI6uPua8YFyKeIM6I3Embh7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/bbtutorials/users/entity" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\RodriCary\Desktop\UTN\TACS\angular-java-example\src\main\java\com\bbtutorials\users\entity" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.WololoApplication">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -90,24 +129,58 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="SbtLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$/../../TP TADP/Nueva carpeta (2)/individual-objetos-funcional-grupo1-2020-1c-Matiasga98/scala" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../TP TADP/grupo1-2020-1c/scala" value="PREVIEW" />
-      </map>
-    </option>
+    <configuration name="E2E Tests (angular-nodejs-example)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/src/main/ui/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="WololoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="users" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bbtutorials.users.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bbtutorials.users.WololoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/src/main/ui/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.WololoApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="498917c0-bcf3-4ec1-b8a6-af2c510bae86" name="Default Changelist" comment="" />
-      <created>1598641574218</created>
+      <changelist id="4e635267-77ec-4be4-8f52-591e4cb16be2" name="Default Changelist" comment="" />
+      <created>1598564088189</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1598641574218</updated>
-      <workItem from="1598641580415" duration="3571000" />
+      <updated>1598564088189</updated>
+      <workItem from="1598564108930" duration="406000" />
+      <workItem from="1598564554270" duration="279000" />
+      <workItem from="1598641522287" duration="16000" />
+      <workItem from="1598645184473" duration="5149000" />
     </task>
     <servers />
   </component>
@@ -126,32 +199,45 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="488" y="48" key="#com.intellij.ide.util.MemberChooser" timestamp="1598644369745">
+    <state x="404" y="108" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598650278701">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="48" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1598644369745" />
-    <state x="348" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598644556407">
+    <state x="404" y="108" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1598650278701" />
+    <state x="616" y="94" key="FileChooserDialogImpl" timestamp="1598564429122">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="348" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1598644556407" />
-    <state x="390" y="0" width="585" height="728" key="find.popup" timestamp="1598642643690">
+    <state x="616" y="94" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598564429122" />
+    <state width="661" height="179" key="GridCell.Tab.0.bottom" timestamp="1598650318043">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="390" y="0" width="585" height="728" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1598642643690" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <state width="661" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.0.center" timestamp="1598650318043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.0.left" timestamp="1598650318043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.0.right" timestamp="1598650318043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.1.bottom" timestamp="1598650318044">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598650318044" />
+    <state width="661" height="179" key="GridCell.Tab.1.center" timestamp="1598650318043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.1.left" timestamp="1598650318043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
+    <state width="661" height="179" key="GridCell.Tab.1.right" timestamp="1598650318044">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="661" height="179" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598650318044" />
   </component>
 </project>
