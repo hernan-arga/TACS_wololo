@@ -1,11 +1,9 @@
 public  class MunicipioDefensa implements ModoMunicipio{
 
-    @Override
     public float multDef() {
         return (float)1.25;
     }
 
-    @Override
     public float coefProdGauchos() {
         return 10;
     }

@@ -1,57 +1,60 @@
 public class Municipio {
-    int gauchos;
+    private int gauchos;
 
-    float minDist;
-    float maxDist;
-    float minAlt;
-    float maxAlt;
-    float altura;
 
-    float coefDist = 2;
+    private double altura;
 
-    float coefAlt= 2;
+    private double coefDist = 2;
+
+    private double coefAlt= 2;
 
     ModoMunicipio modo;
 
 
-    float multDef = modo.multDef();                                  //fixme elegir si herencia o delegacion
-    float multProdGauchos = modo.coefProdGauchos();
+    private double multDef = modo.multDef();                 //fixme elegir si herencia o delegacion
+    private double multProdGauchos = modo.coefProdGauchos();
 
-    public void atacarMunicipio( Municipio otroMunicipio){
+    public void atacarMunicipio(Municipio atacante, Municipio defensor, Mapa mapa){
 
     }
 
-    float multiplicadorAltura(){
-       return  (this.altura-minAlt)/(coefAlt*(maxAlt-minAlt));
+    double multiplicadorAltura(Mapa mapa){
+       return  (this.altura-mapa.getMinAltura())/
+               (coefAlt*(mapa.getMaxAltura()-mapa.getMinAltura()));
     }
 
-    int  producirGauchos(){
-        return (int) (modo.coefProdGauchos()*(multiplicadorAltura()));
+    int producirGauchos(Mapa mapa){
+        return (int) (modo.coefProdGauchos()*(multiplicadorAltura(mapa)));
     }
 
-    public boolean seQuedaConGauchosDespuesDeAtacar(Municipio otroMunicipio){
-        return gauchosAtacantesFinal(otroMunicipio)>0;
+    public boolean seQuedaConGauchosDespuesDeAtacar(Municipio otroMunicipio, Mapa mapa){
+        return gauchosAtacantesFinal(otroMunicipio, mapa)>0;
     }
 
     int distanciaAMunicipio(Municipio otroMunicipio){
         return 5;                                                 //FIXME hacerlo bien
     }
 
-    float multDist (Municipio otroMunicipio){
-        return 1- (distanciaAMunicipio(otroMunicipio)-minDist)/(coefDist*(maxDist-minDist));
+    double multDist (Municipio otroMunicipio, Mapa mapa){
+        return 1 - (distanciaAMunicipio(otroMunicipio)-mapa.getDistMin())/
+                (coefDist*(mapa.getDistMax()-mapa.getDistMin()));
     }
 
-    float multAlt (){
-        return 1 + multiplicadorAltura();
+    double multAlt (Mapa mapa){
+        return 1 + multiplicadorAltura(mapa);
     }
 
 
-    public int gauchosAtacantesFinal(Municipio municipioDefensor){
-       return (int) (this.gauchos*this.multDist(municipioDefensor) - municipioDefensor.gauchos*municipioDefensor.multAlt()*municipioDefensor.multDef);
+    public int gauchosAtacantesFinal(Municipio municipioDefensor,
+                                     Mapa mapa){
+       return (int) (this.gauchos*this.multDist(municipioDefensor, mapa)
+               - municipioDefensor.gauchos*municipioDefensor.multAlt(mapa)*municipioDefensor.multDef);
     }
 
-    int gauchosDefensoresFinal(Municipio municipioAtacante){
-        return (int) (Math.ceil(gauchos*multAlt()*multDef - municipioAtacante.gauchos*multDist(this))/(multAlt()*multDef));
+    int gauchosDefensoresFinal(Municipio municipioAtacante, Mapa mapa){
+        return (int) (Math.ceil(gauchos*multAlt(mapa)*multDef
+                - municipioAtacante.gauchos*multDist(municipioAtacante, mapa))/
+                (multAlt(mapa)*multDef));
     }
 
 
