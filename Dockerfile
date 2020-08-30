@@ -11,5 +11,5 @@ COPY . /app
 RUN mvn -v
 RUN mvn clean install -DskipTests
 EXPOSE 8080
-ADD ./target/TPatos-1.0-SNAPSHOT.jar /developments/
-ENTRYPOINT ["java","-jar","/developments/TPatos-1.0-SNAPSHOT.jar"]
+ADD ./target/wololo-0.0.1-SNAPSHOT.jar /developments/
+ENTRYPOINT ["java","-jar","/developments/wololo-0.0.1-SNAPSHOT.jar"]
