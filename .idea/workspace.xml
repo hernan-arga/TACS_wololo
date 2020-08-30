@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7ca550e-819d-49b2-93ea-01710ea6038e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+    <list default="true" id="cae70e77-debf-436f-bcaa-caa9ad954dbb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/EstadisticasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/EstadisticasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/PartidasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/PartidasController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/security/CustomAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/security/CustomAuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsuariosController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,11 +22,11 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Users\Melisa\.m2\wrapper\dists\apache-maven-3.6.3-bin\1iopthnavndlasol9gbrbg6bf2\apache-maven-3.6.3" />
+        <option name="mavenHome" value="C:\Users\RodriCary\.m2\wrapper\dists\apache-maven-3.6.3-bin\1iopthnavndlasol9gbrbg6bf2\apache-maven-3.6.3" />
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1gpC74xnyMugi8aRLNtWuePouuw" />
+  <component name="ProjectId" id="1gq0Ck30znihqb6ven814lU6ZcI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,17 +41,6 @@
     <property name="aspect.path.notification.shown" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WololoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="wololo" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="tacs.wololo.WololoApplication" />
@@ -70,12 +52,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e7ca550e-819d-49b2-93ea-01710ea6038e" name="Default Changelist" comment="" />
-      <created>1598802014024</created>
+      <changelist id="cae70e77-debf-436f-bcaa-caa9ad954dbb" name="Default Changelist" comment="" />
+      <created>1598826689716</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1598802014024</updated>
-      <workItem from="1598802016232" duration="2235000" />
+      <updated>1598826689716</updated>
+      <workItem from="1598826690795" duration="1861000" />
     </task>
     <servers />
   </component>
@@ -83,37 +65,37 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1323" height="186" key="GridCell.Tab.0.bottom" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.0.bottom" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
-    <state width="1323" height="186" key="GridCell.Tab.0.center" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.0.center" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
-    <state width="1323" height="186" key="GridCell.Tab.0.left" timestamp="1598804343827">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.0.left" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1598804343827" />
-    <state width="1323" height="186" key="GridCell.Tab.0.right" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.0.right" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
-    <state width="1323" height="186" key="GridCell.Tab.1.bottom" timestamp="1598804343829">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.1.bottom" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1598804343829" />
-    <state width="1323" height="186" key="GridCell.Tab.1.center" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.1.center" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
-    <state width="1323" height="186" key="GridCell.Tab.1.left" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.1.left" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
-    <state width="1323" height="186" key="GridCell.Tab.1.right" timestamp="1598804343828">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1323" height="243" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
+    <state width="1323" height="243" key="GridCell.Tab.1.right" timestamp="1598828575362">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="186" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="243" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598828575362" />
   </component>
 </project>

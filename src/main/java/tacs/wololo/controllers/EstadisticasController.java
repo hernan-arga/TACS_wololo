@@ -24,8 +24,8 @@ public class EstadisticasController {
     }
 
     // GET   estadisticas/usuarios?id=1
-    @GetMapping(path = "/estadisticas/usuarios/{usuario}")
-    public ResponseEntity<?> usuario(@PathVariable String id){
+    @GetMapping(path = "/estadisticas/usuarios/{usuarioId}")
+    public ResponseEntity<?> usuario(@PathVariable String usuarioId){
         return ResponseEntity.ok(4);
     }
 }
