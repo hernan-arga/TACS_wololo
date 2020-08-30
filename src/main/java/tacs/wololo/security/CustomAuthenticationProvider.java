@@ -24,10 +24,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
+        /*
         final String username = auth.getName();
         final String password = auth.getCredentials().toString();
-
+*/
+        final String username = "test"; // TODO: Hardcodeado, arreglar error
+        final String password = "test";
         User user = userRepository.getUserbyUsername(username);
+
 
         if (user.getPassword().equals(password))
         {

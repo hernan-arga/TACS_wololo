@@ -3,163 +3,37 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e635267-77ec-4be4-8f52-591e4cb16be2" name="Default Changelist" comment="Add Security">
+    <list default="true" id="e7ca550e-819d-49b2-93ea-01710ea6038e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_10_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_annotations_2_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_200.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_infradna_tool_bridge_method_annotation_1_13.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_mysema_codegen_codegen_0_6_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_mysema_commons_mysema_commons_lang_0_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_querydsl_querydsl_apt_4_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_querydsl_querydsl_codegen_4_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_querydsl_querydsl_core_4_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_querydsl_querydsl_jpa_4_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_16.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_3_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_33.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_dom4j_dom4j_2_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_core_compiler_ecj_4_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_11.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_0_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_12_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_18_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_24_0_GA.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_1_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reflections_reflections_0_9_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_autoconfigure_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_rest_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_hateoas_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_rest_core_3_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_rest_hal_browser_3_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_rest_webmvc_3_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_hateoas_spring_hateoas_1_0_4_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sbt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/PartidasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/PartidasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/controllers/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tacs/wololo/security/CustomAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tacs/wololo/security/CustomAuthenticationProvider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager">
-    <option name="groupingKeys">
-      <option value="directory" />
-    </option>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Users\Matias Berardi\.m2\wrapper\dists\apache-maven-3.6.3-bin\1iopthnavndlasol9gbrbg6bf2\apache-maven-3.6.3" />
+        <option name="mavenHome" value="C:\Users\Melisa\.m2\wrapper\dists\apache-maven-3.6.3-bin\1iopthnavndlasol9gbrbg6bf2\apache-maven-3.6.3" />
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1ghPuI6uPua8YFyKeIM6I3Embh7" />
+  <component name="ProjectId" id="1gpC74xnyMugi8aRLNtWuePouuw" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -172,171 +46,74 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Users\RodriCary\Desktop\UTN\TACS\angular-java-example\src\main\java\com\bbtutorials\users\entity" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Spring Boot.WololoApplication (1)">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="E2E Tests (angular-nodejs-example)" type="JavaScriptTestRunnerProtractor">
-      <config-file value="$PROJECT_DIR$/src/main/ui/e2e/protractor.conf.js" />
-      <node-interpreter value="project" />
-      <protractor-options value="" />
-      <envs />
-      <scope-kind value="ALL" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
-      <method v="2" />
-    </configuration>
-    <configuration name="WololoApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="WololoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="wololo" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="tacs.wololo.WololoApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WololoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="users" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bbtutorials.users.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bbtutorials.users.WololoApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Angular CLI Server" type="js.build_tools.npm">
-      <package-json value="$PROJECT_DIR$/src/main/ui/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.WololoApplication" />
-        <item itemvalue="Spring Boot.WololoApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4e635267-77ec-4be4-8f52-591e4cb16be2" name="Default Changelist" comment="" />
-      <created>1598564088189</created>
+      <changelist id="e7ca550e-819d-49b2-93ea-01710ea6038e" name="Default Changelist" comment="" />
+      <created>1598802014024</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1598564088189</updated>
-      <workItem from="1598564108930" duration="406000" />
-      <workItem from="1598564554270" duration="279000" />
-      <workItem from="1598641522287" duration="16000" />
-      <workItem from="1598645184473" duration="5149000" />
-      <workItem from="1598756049498" duration="605000" />
+      <updated>1598802014024</updated>
+      <workItem from="1598802016232" duration="2235000" />
     </task>
-    <task id="LOCAL-00001" summary="Add Security">
-      <created>1598756633657</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1598756633657</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Security" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Security" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="404" y="108" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598650278701">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.0.bottom" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="404" y="108" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1598650278701" />
-    <state x="616" y="94" key="FileChooserDialogImpl" timestamp="1598564429122">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="186" key="GridCell.Tab.0.center" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="616" y="94" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598564429122" />
-    <state width="1280" height="163" key="GridCell.Tab.0.bottom" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="186" key="GridCell.Tab.0.left" timestamp="1598804343827">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.0.center" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1598804343827" />
+    <state width="1323" height="186" key="GridCell.Tab.0.right" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.0.left" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="186" key="GridCell.Tab.1.bottom" timestamp="1598804343829">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.0.right" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1598804343829" />
+    <state width="1323" height="186" key="GridCell.Tab.1.center" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.1.bottom" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="186" key="GridCell.Tab.1.left" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.1.bottom/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598650318044" />
-    <state width="1280" height="163" key="GridCell.Tab.1.center" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
+    <state width="1323" height="186" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
+    <state width="1323" height="186" key="GridCell.Tab.1.right" timestamp="1598804343828">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1280" height="163" key="GridCell.Tab.1.center/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.1.left" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
-    </state>
-    <state width="1280" height="163" key="GridCell.Tab.1.left/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1598650318043" />
-    <state width="1280" height="163" key="GridCell.Tab.1.right" timestamp="1598756323172">
-      <screen x="0" y="0" width="1360" height="728" />
-    </state>
-    <state width="1280" height="163" key="GridCell.Tab.1.right/0.0.1360.728@0.0.1360.728" timestamp="1598756323172" />
-    <state width="661" height="179" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1598650318044" />
-    <state x="272" y="97" key="Vcs.Push.Dialog.v2" timestamp="1598756662265">
-      <screen x="0" y="0" width="1360" height="728" />
-    </state>
-    <state x="272" y="97" key="Vcs.Push.Dialog.v2/0.0.1360.728@0.0.1360.728" timestamp="1598756662265" />
+    <state width="1323" height="186" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1598804343828" />
   </component>
 </project>

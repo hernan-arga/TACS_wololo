@@ -19,19 +19,19 @@ import tacs.wololo.model.User;
 public class UsersController
 {
 	@PostMapping(path = "/users")
-	public ResponseEntity<?> CrearUsuario(@RequestBody User user) {
+	public ResponseEntity<?> crearUsuario(@RequestBody User user) {
         /*log.info("UsersController:  list users");
         Users resource = usersService.saveUser(user);*/
         return ResponseEntity.ok(3);
     }
 
     @GetMapping(path = "/login")
-    public ResponseEntity<?> Login(){
+    public ResponseEntity<?> login(){
 	    return ResponseEntity.ok(4);
     }
 
     @GetMapping(path = "/signUp")
-    public ResponseEntity<?> SignUp(){
+    public ResponseEntity<?> signUp(){
         return ResponseEntity.ok(4);
     }
 }

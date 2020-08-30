@@ -15,13 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 
     @GetMapping(path = "/home")
-    public ResponseEntity<?> Home(){
+    public ResponseEntity<?> home(){
         return ResponseEntity.ok(4);
     }
 
     //GET   home/partidas?orderBy={fecha}
     @GetMapping(path = "/home/partidas")
-    public ResponseEntity<?> OrdenarPartidasPor(@RequestParam("orderBy") Date fecha)
+    public ResponseEntity<?> ordenarPartidasPor(@RequestParam("orderBy") Date fecha)
     {
         return ResponseEntity.ok(4);
     }

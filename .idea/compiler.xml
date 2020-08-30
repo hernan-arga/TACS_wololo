@@ -7,17 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="wololo" />
-        <module name="users" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="users" target="1.8" />
       <module name="wololo" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="users" options="-parameters" />
       <module name="wololo" options="-parameters" />
     </option>
   </component>
