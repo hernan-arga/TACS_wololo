@@ -3,17 +3,16 @@ package tacs.wololo.model;
 public class Municipio {
     private int gauchos;
 
-
     private double altura;
 
     private double coefDist = 2;
 
     private double coefAlt= 2;
 
-    ModoMunicipio modo;
+    private ModoMunicipio modo;
 
 
-    private double multDef = modo.multDef();                 //fixme elegir si herencia o delegacion
+    private double multDef = modo.multDef();
     private double multProdGauchos = modo.coefProdGauchos();
 
     public void atacarMunicipio(Municipio atacante, Municipio defensor, Mapa mapa){

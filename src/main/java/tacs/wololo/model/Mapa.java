@@ -3,18 +3,10 @@ package tacs.wololo.model;
 import java.util.List;
 
 public class Mapa {
-    private List<Municipio> municipios;
+    private Provincia provincia;
     private double maxAltura;
     private double minAltura;
     private double distMax;
-
-    public List<Municipio> getMunicipios() {
-        return municipios;
-    }
-
-    public void setMunicipios(List<Municipio> municipios) {
-        this.municipios = municipios;
-    }
 
     public double getMaxAltura() {
         return maxAltura;
