@@ -13,8 +13,8 @@ import tacs.wololo.model.EstadoPartida;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class HomeController {
-
+public class HomeController
+{
     @GetMapping(path = "/home")
     public ResponseEntity<?> home(){
         return ResponseEntity.ok(4);

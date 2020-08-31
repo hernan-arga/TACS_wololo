@@ -20,8 +20,6 @@ public class UsuariosController
 {
 	@PostMapping(path = "/usuarios")
 	public ResponseEntity<?> crearUsuario(@RequestBody User user) {
-        /*log.info("UsersController:  list users");
-        Users resource = usersService.saveUser(user);*/
         return ResponseEntity.ok(3);
     }
 
@@ -32,6 +30,11 @@ public class UsuariosController
 
     @GetMapping(path = "/signUp")
     public ResponseEntity<?> signUp(){
+        return ResponseEntity.ok(4);
+    }
+
+    @GetMapping(path = "/logout")
+    public ResponseEntity<?> logOut(){
         return ResponseEntity.ok(4);
     }
 }

@@ -10,7 +10,8 @@ import tacs.wololo.model.User;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class PartidasController {
+public class PartidasController
+{
     @GetMapping(path = "/partida")
     public ResponseEntity<?> partida(){
         return ResponseEntity.ok(4);
@@ -22,16 +23,13 @@ public class PartidasController {
     }
 
     @PostMapping(path = "/partidas")
-    public ResponseEntity<?> nuevaPartidaAgregada(@RequestBody User user) {
-        /*log.info("UsersController:  list users");
-        Users resource = usersService.saveUser(user);*/
+    public ResponseEntity<?> nuevaPartidaAgregada(@RequestBody Partida partida) {
         return ResponseEntity.ok(3);
     }
 
     //PUT   partidas/{partida}?estado={estado}
     @PutMapping(path = "/partidas/{partida}", params = "estado")
-    public ResponseEntity<?> actualizarEstadoDePartida(@PathVariable Partida partida,
-                                                       EstadoPartida estado) {
+    public ResponseEntity<?> actualizarEstadoDePartida(@PathVariable Partida partida, EstadoPartida estado) {
         return ResponseEntity.ok(3);
     }
 }

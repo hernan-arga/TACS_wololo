@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import tacs.wololo.security.CustomAuthenticationProvider;
 
 @EnableWebSecurity
-public class MultipleAuthProvidersSecurityConfig extends WebSecurityConfigurerAdapter {
+public class AuthProvidersSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomAuthenticationProvider customAuthProvider;
@@ -22,11 +22,12 @@ public class MultipleAuthProvidersSecurityConfig extends WebSecurityConfigurerAd
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception
+    {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/admin/*")
+                .antMatchers("/api/estadisticas/**")
                 .hasAuthority("ADMIN")
                 .and()
                 .authorizeRequests()
@@ -35,7 +36,8 @@ public class MultipleAuthProvidersSecurityConfig extends WebSecurityConfigurerAd
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 }
