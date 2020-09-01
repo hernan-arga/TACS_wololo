@@ -11,5 +11,5 @@ COPY . /app
 RUN mvn -v
 RUN mvn clean install -DskipTests
 EXPOSE 8080
-ADD ./target/wololo-0.0.1-SNAPSHOT.jar /developments/
+ONBUILD ADD ./target/wololo-0.0.1-SNAPSHOT.jar /developments/
 ENTRYPOINT ["java","-jar","/developments/wololo-0.0.1-SNAPSHOT.jar"]

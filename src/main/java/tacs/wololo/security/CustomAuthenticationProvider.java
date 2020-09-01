@@ -23,8 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String password = auth.getCredentials().toString();
 
         User user = userRepository.getUserbyUsername(username);
-
-
+        
         if (user.getPassword().equals(password))
         {
             return new UsernamePasswordAuthenticationToken(username, password
