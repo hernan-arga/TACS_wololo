@@ -1,22 +1,17 @@
 package tacs.wololo.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import tacs.wololo.model.User;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
-public class UserRepository
+@Repository
+public interface UserRepository extends JpaRepository<User, Long>
 {
-    private Map<String, User> userMap = new HashMap<>();
+    Optional<User> findByUsername(String username);
 
-    public UserRepository()
-    {
-        userMap.put("test", new User("test", "test", "ADMIN"));
-        userMap.put("user", new User("user", "pass", "USER"));
-    }
+    Boolean existsByUsername(String username);
 
-    public User getUserbyUsername(String username)
-    {
-        return userMap.get(username);
-    }
+    Boolean existsByEmail(String email);
 }

@@ -1,9 +1,12 @@
 package tacs.wololo.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,18 +26,12 @@ public class UsuariosController
         return ResponseEntity.ok(3);
     }
 
-    @GetMapping(path = "/login")
-    public ResponseEntity<?> login(){
-	    return ResponseEntity.ok(4);
-    }
+    @GetMapping("/users/me")
+    public UserDetails getCurrentUser()
+    {
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    @GetMapping(path = "/signUp")
-    public ResponseEntity<?> signUp(){
-        return ResponseEntity.ok(4);
-    }
-
-    @GetMapping(path = "/logout")
-    public ResponseEntity<?> logOut(){
-        return ResponseEntity.ok(4);
+        return userDetails;
     }
 }
