@@ -11,21 +11,36 @@ public class Municipio {
 
     private ModoMunicipio modo;
 
+    public Municipio(int gauchos, double altura, ModoMunicipio modo)
+    {
+        this.gauchos = gauchos;
+        this.altura = altura;
+        this.modo = modo;
+    }
 
-    private double multDef = modo.multDef();
-    private double multProdGauchos = modo.coefProdGauchos();
+    public ModoMunicipio getModo() {
+        return modo;
+    }
+
+
 
     public void atacarMunicipio(Municipio atacante, Municipio defensor, Mapa mapa){
 
     }
 
-    double multiplicadorAltura(Mapa mapa){
+    private double multiplicadorAltura(Mapa mapa){
        return  (this.altura-mapa.getMinAltura())/
-               (coefAlt*(mapa.getMaxAltura()-mapa.getMinAltura()));
+               (coefAlt*(mapa.getMaxAltura()-mapa.getMinAltura())); // TODO: ver que pasa si altura min = altura max
     }
 
-    int producirGauchos(Mapa mapa){
-        return (int) (modo.coefProdGauchos()*(multiplicadorAltura(mapa)));
+    public void producirGauchos(Mapa mapa){
+        int gauchosAAgregar = (int) (modo.getCoefProdGauchos()*(this.multiplicadorAltura(mapa)));
+        this.agregarGauchos(gauchosAAgregar);
+    }
+
+    private void agregarGauchos(int gauchos)
+    {
+        this.gauchos+=gauchos;
     }
 
     public boolean seQuedaConGauchosDespuesDeAtacar(Municipio otroMunicipio, Mapa mapa){
@@ -49,14 +64,22 @@ public class Municipio {
     public int gauchosAtacantesFinal(Municipio municipioDefensor,
                                      Mapa mapa){
        return (int) (this.gauchos*this.multDist(municipioDefensor, mapa)
-               - municipioDefensor.gauchos*municipioDefensor.multAlt(mapa)*municipioDefensor.multDef);
+               - municipioDefensor.gauchos*municipioDefensor.multAlt(mapa)*municipioDefensor.getModo().getMultDef());
     }
 
     int gauchosDefensoresFinal(Municipio municipioAtacante, Mapa mapa){
-        return (int) (Math.ceil(gauchos*multAlt(mapa)*multDef
+        return (int) (Math.ceil(gauchos*multAlt(mapa)* modo.getMultDef()
                 - municipioAtacante.gauchos*multDist(municipioAtacante, mapa))/
-                (multAlt(mapa)*multDef));
+                (multAlt(mapa)* modo.getMultDef()));
     }
 
+    // --------------- Getters y Setters --------------
+    public void setModo(ModoMunicipio modo) {
+        this.modo = modo;
+    }
 
+    public int getGauchos()
+    {
+        return this.gauchos;
+    }
 }

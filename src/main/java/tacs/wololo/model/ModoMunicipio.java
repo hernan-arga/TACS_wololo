@@ -1,9 +1,29 @@
 package tacs.wololo.model;
 
-public interface ModoMunicipio {
-    float multDef();
-    float coefProdGauchos();
-    public ModoMunicipio cambioDeModo();
+public abstract class ModoMunicipio {
+    public float multDef;
+    public float coefProdGauchos;
+
+    public float getMultDef()
+    {
+        return this.multDef;
+    }
+
+    public float getCoefProdGauchos()
+    {
+        return this.coefProdGauchos;
+    }
+
+    public void setMultDef(float multDef)
+    {
+        this.multDef = multDef;
+    }
+
+    public void setCoefProdGauchos(float coefProdGauchos)
+    {
+        this.coefProdGauchos = coefProdGauchos;
+    }
+
 }
 
 

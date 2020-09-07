@@ -1,17 +1,12 @@
 package tacs.wololo.model;
 
-public class MunicipioProductor implements ModoMunicipio{
+public class MunicipioProductor extends ModoMunicipio{
 
 
-    public float multDef() {
-        return 1;
+    public MunicipioProductor()
+    {
+        this.multDef = 1;
+        this.coefProdGauchos = 15;
     }
 
-    public float coefProdGauchos() {
-        return 15;
-    }
-
-    public ModoMunicipio cambioDeModo(){
-        return  new MunicipioDefensa();           //fixme esto mepa que esta mal
-    }
 }
