@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @PreAuthorize("hasRole('ADMIN')")
-public class EstadisticasController
+public class StatisticsController
 {
-    @GetMapping(path = "/estadisticas/municipios")
-    public ResponseEntity<?> municipios(){
+    @GetMapping(path = "/statistics/municipalities")
+    public ResponseEntity<?> municipalities(){
         return ResponseEntity.ok(4);
     }
 
-    @GetMapping(path = "/estadisticas/partidas")
-    public ResponseEntity<?> partidas(){
+    @GetMapping(path = "/statistics/games")
+    public ResponseEntity<?> games(){
         return ResponseEntity.ok(4);
     }
 
-    @GetMapping(path = "/estadisticas/usuarios")
-    public ResponseEntity<?> usuarios(){
+    @GetMapping(path = "/statistics/users")
+    public ResponseEntity<?> users(){
         return ResponseEntity.ok(4);
     }
 
     // GET   estadisticas/usuarios?id=1
-    @GetMapping(path = "/estadisticas/usuarios/{usuarioId}")
-    public ResponseEntity<?> usuario(@PathVariable String usuarioId){
+    @GetMapping(path = "/statistics/users/{userId}")
+    public ResponseEntity<?> user(@PathVariable String userId){
         return ResponseEntity.ok(4);
     }
 }

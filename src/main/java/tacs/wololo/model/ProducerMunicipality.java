@@ -1,9 +1,9 @@
 package tacs.wololo.model;
 
-public class MunicipioProductor extends ModoMunicipio{
+public class ProducerMunicipality extends MunicipalityMode {
 
 
-    public MunicipioProductor()
+    public ProducerMunicipality()
     {
         this.multDef = 1;
         this.coefProdGauchos = 15;

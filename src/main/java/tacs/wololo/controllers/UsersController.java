@@ -19,10 +19,10 @@ import tacs.wololo.model.User;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-public class UsuariosController
+public class UsersController
 {
-	@PostMapping(path = "/usuarios")
-	public ResponseEntity<?> crearUsuario(@RequestBody User user) {
+	@PostMapping(path = "/users")
+	public ResponseEntity<?> createUser(@RequestBody User user) {
         return ResponseEntity.ok(3);
     }
 
