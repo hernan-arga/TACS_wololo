@@ -1,15 +1,28 @@
-FROM java:8
-FROM maven:alpine
+#### Stage 1: Build the application
+FROM openjdk:8-jdk-alpine as build
 
-# image layer
 WORKDIR /app
-ADD pom.xml /app
-RUN mvn verify clean --fail-never
 
-# Image layer: with the application
-COPY . /app
-RUN mvn -v
-RUN mvn clean install -DskipTests
-EXPOSE 8080
-ONBUILD ADD ./target/wololo-0.0.1-SNAPSHOT.jar /developments/
-ENTRYPOINT ["java","-jar","/developments/wololo-0.0.1-SNAPSHOT.jar"]
+COPY mvnw .
+COPY .mvn .mvn
+
+COPY pom.xml .
+
+RUN dos2unix mvnw
+RUN ./mvnw dependency:go-offline -B
+
+COPY src src
+
+RUN ./mvnw package -DskipTests
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
+#### Stage 2: A minimal docker image with command to run the app 
+FROM openjdk:8-jre-alpine
+
+ARG DEPENDENCY=/app/target/dependency
+
+COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+
+ENTRYPOINT ["java","-cp","app:app/lib/*","tacs.wololo.WololoApplication"]
