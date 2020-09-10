@@ -5,6 +5,8 @@ public class Map {
     private double maxHeight;
     private double minHeight;
     private double distMax;
+    private double distMin;
+
 
     public double getMaxHeight() {
         return maxHeight;
@@ -38,6 +40,6 @@ public class Map {
         this.distMin = distMin;
     }
 
-    private double distMin;
+
 
 }
