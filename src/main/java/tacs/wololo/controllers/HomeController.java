@@ -17,33 +17,5 @@ public class HomeController
     public ResponseEntity<?> home(){
         return ResponseEntity.ok(4);
     }
-
-    //GET   home/partidas?orderDate={fecha}
-    @GetMapping(path = "/home/games", params = "orderDate")
-    public ResponseEntity<?> orderGamesByDate(Date orderDate)
-    {
-        return ResponseEntity.ok(4);
-    }
-
-    //GET   home/partidas?orderState={estado}
-    @GetMapping(path = "/home/games", params = "orderState")
-    public ResponseEntity<?> orderGamesByState(GameState orderState)
-    {
-        return ResponseEntity.ok(4);
-    }
-
-    //GET   home/partidas?filterDate={fecha}
-    @GetMapping(path = "/home/games", params = "filterDate")
-    public ResponseEntity<?> filterGamesByDate(Date filterDate)
-    {
-        return ResponseEntity.ok(4);
-    }
-
-    //GET   home/partidas?filterState={estado}
-    @GetMapping(path = "/home/games", params = "filterState")
-    public ResponseEntity<?> filterGamesByState(GameState filterState)
-    {
-        return ResponseEntity.ok(4);
-    }
-
+    
 }
