@@ -3,10 +3,12 @@ package tacs.wololo.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tacs.wololo.model.ERole;
@@ -49,12 +51,6 @@ public class AuthController
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping(path = "/login")
-    public ResponseEntity<?> login(HttpServletRequest request)
-    {
-        return ResponseEntity.ok(4);
-    }
-
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -75,11 +71,6 @@ public class AuthController
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));
-    }
-
-    @GetMapping(path = "/signUp")
-    public ResponseEntity<?> signUp(){
-        return ResponseEntity.ok(4);
     }
 
     @PostMapping("/signup")
@@ -112,9 +103,11 @@ public class AuthController
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @GetMapping(path = "/logout")
-    public ResponseEntity<?> logOut()
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/jwt")
+    public MessageResponse renewJWT()
     {
-        return ResponseEntity.ok(4);
+        return new MessageResponse(jwtUtils.generateJwtToken
+                (SecurityContextHolder.getContext().getAuthentication()));
     }
 }
