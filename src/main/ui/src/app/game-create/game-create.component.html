@@ -3,7 +3,7 @@
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Busca rivales</ng-template>
             <p style="display: inline;">¿A quien enfrentaras el dia de hoy?</p>
-            <mat-form-field style="margin-left: 30px;">
+            <mat-form-field>
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput formControlName="firstCtrl" required>
             </mat-form-field>
@@ -14,14 +14,24 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Elige modo de juego">
         <form [formGroup]="secondFormGroup">
-            <p style="display: inline;">¿En donde tendra lugar vuestro combate?</p>
-            <mat-form-field style="margin-left: 30px;" appearance="fill">
+            <p>¿En donde tendra lugar vuestro combate?</p>
+            <mat-form-field appearance="fill">
                 <mat-label style="color: white">Provincia de combate</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let province of provinces" [value]="province">
-                        {{province}}
+                <mat-select (selectionChange)="alreadySelectedProvince(municipalitiesAmount)" 
+                            formControlName="secondCtrlFirstCondition" required 
+                            [(value)]="municipalitiesAmount">
+                    <mat-option *ngFor="let province of provinces" [value]="province.municipalitiesCant">
+                        {{province.name}}
                     </mat-option>
                 </mat-select>
+            </mat-form-field>
+
+            <br>
+            <p>¿Cuantas municipalidades?</p>
+            <mat-form-field>
+                <mat-label style="color: white">Cantidad</mat-label>                
+                <input type="number" pattern="[1-{{municipalitiesAmount}}]" matInput
+                    formControlName="secondCtrlSecondCondition" required>
             </mat-form-field>
             <div>
                 <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
@@ -37,7 +47,7 @@
             <button mat-button class="btn btn-success" (click)="stepper.reset()">Confirmar
                 <span class="material-icons" style="margin-bottom: 4px;">
                     done
-                    </span>
+                </span>
             </button>
         </div>
     </mat-step>

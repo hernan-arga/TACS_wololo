@@ -1,10 +1,6 @@
-<div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
+<div class="card col-lg-8">
+  <h4 class="card-header">Registrarse</h4>
+    <div class="card-body">
       <form
         *ngIf="!isSuccessful"
         name="form"
@@ -13,7 +9,7 @@
         novalidate
       >
         <div class="form-group">
-          <label for="username">Username</label>
+          <label for="username">Nombre De Usuario</label>
           <input
             type="text"
             class="form-control"
@@ -25,12 +21,12 @@
             #username="ngModel"
           />
           <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-            <div *ngIf="username.errors.required">Username is required</div>
+            <div *ngIf="username.errors.required">Nombre de usuario es requerido</div>
             <div *ngIf="username.errors.minlength">
-              Username must be at least 3 characters
+              El Nombre de usuario debe contener minimo 3 caracteres
             </div>
             <div *ngIf="username.errors.maxlength">
-              Username must be at most 20 characters
+              El Nombre de usuario debe contener maximo 20 caracteres
             </div>
           </div>
         </div>
@@ -46,14 +42,14 @@
             #email="ngModel"
           />
           <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-            <div *ngIf="email.errors.required">Email is required</div>
+            <div *ngIf="email.errors.required">Se requiere un email</div>
             <div *ngIf="email.errors.email">
-              Email must be a valid email address
+              El email debe ser valido
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Contraseña</label>
           <input
             type="password"
             class="form-control"
@@ -64,9 +60,9 @@
             #password="ngModel"
           />
           <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.required">Una contraseña es requerida</div>
             <div *ngIf="password.errors.minlength">
-              Password must be at least 6 characters
+              La contraseña debe tener minimo 6 caracteres
             </div>
           </div>
         </div>
@@ -75,12 +71,12 @@
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed!<br />{{ errorMessage }}
+          Registro fallido!<br />{{ errorMessage }}
         </div>
       </form>
   
       <div class="alert alert-success" *ngIf="isSuccessful">
-        Your registration is successful!
+        Tu registro ha sido exitoso!
       </div>
     </div>
   </div>
