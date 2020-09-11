@@ -1,0 +1,20 @@
+.mat-stepper-horizontal {
+    margin-top: 25px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+::ng-deep .mat-step-text-label{
+    color: white;
+  }
+
+::ng-deep .mat-label{
+  color: white;
+}
+
+/* underline border color on focused */
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
+    color: white !important;
+}

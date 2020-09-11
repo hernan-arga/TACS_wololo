@@ -1,1 +1,44 @@
-<p>game-create works!</p>
+<mat-horizontal-stepper class="bg-dark text-white" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Busca rivales</ng-template>
+            <p style="display: inline;">¿A quien enfrentaras el dia de hoy?</p>
+            <mat-form-field style="margin-left: 30px;">
+                <mat-label>Nombre de usuario</mat-label>
+                <input matInput formControlName="firstCtrl" required>
+            </mat-form-field>
+            <div>
+                <button class="btn btn-info" mat-button matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Elige modo de juego">
+        <form [formGroup]="secondFormGroup">
+            <p style="display: inline;">¿En donde tendra lugar vuestro combate?</p>
+            <mat-form-field style="margin-left: 30px;" appearance="fill">
+                <mat-label style="color: white">Provincia de combate</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let province of provinces" [value]="province">
+                        {{province}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
+                <button mat-button class="btn btn-info" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>¡A Pelear!</ng-template>
+        <p>¿Estas Listo?</p>
+        <div>
+            <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
+            <button mat-button class="btn btn-success" (click)="stepper.reset()">Confirmar
+                <span class="material-icons" style="margin-bottom: 4px;">
+                    done
+                    </span>
+            </button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Province } from '../shared/models/province.model';
+import { ProvincesService } from '../_services/provinces.service';
+
+/**
+ * @title Stepper overview
+ */
 
 @Component({
   selector: 'app-game-create',
@@ -7,9 +14,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameCreateComponent implements OnInit {
 
-  constructor() { }
+  isLinear = true;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
-  ngOnInit(): void {
+  provinces: String[] = ['Buenos Aires'];
+
+  constructor(private _formBuilder: FormBuilder, private provincesService: ProvincesService) {}
+
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+
+    this.provinces = this.provincesService.getProvincesList();
+    
   }
+
 
 }
