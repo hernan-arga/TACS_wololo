@@ -32,8 +32,9 @@ public class Municipality {
     {
         this.gauchos = gauchos;
         this.mode = mode;
-    }
-
+        this.height=height;          //Nunca deberia instanciarse un Municipio por el constructor, siempre por GAME
+    }                                //GAME los crea mediante lo que levanta de la API, pero el constructor queda
+                                     //Porque es util para testear
 
 
 
