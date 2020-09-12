@@ -4,6 +4,8 @@ import tacs.wololo.model.APIs.GeoData.Centroide;
 
 import tacs.wololo.model.APIs.GeoData.Provincia;
 
+import java.time.Clock;
+
 public class Municipality {
 
     //API DATA tiene que ser en español  ¯\_(ツ)_/¯.
@@ -28,11 +30,14 @@ public class Municipality {
 
     private Player owner;
 
-    public Municipality(int gauchos, double height, MunicipalityMode mode)
+    public Municipality(Player owner, int gauchos, double height, MunicipalityMode mode, Centroide centroide)
     {
+        this.owner = owner;
         this.gauchos = gauchos;
+        this.height=height;
         this.mode = mode;
-        this.height=height;          //Nunca deberia instanciarse un Municipio por el constructor, siempre por GAME
+        this.centroide = centroide;
+                                    //Nunca deberia instanciarse un Municipio por el constructor, siempre por GAME
     }                                //GAME los crea mediante lo que levanta de la API, pero el constructor queda
                                      //Porque es util para testear
 
@@ -67,7 +72,7 @@ public class Municipality {
         return 1 + heightMultiplier(map);
     }
 
-    public void attackMunicipality(Municipality atacante, Municipality defender, Map map){
+    public void attackMunicipality(Municipality defender, Map map){
         if(gauchosRemainAfterAttack(defender,map)){
             defender.setOwner(this.owner);
             setGauchos(endingAttackingGauchos(defender,map));
@@ -136,6 +141,11 @@ public class Municipality {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    public Player getOwner()
+    {
+        return this.owner;
     }
 
     public void setGauchos(int gauchos) {
