@@ -3,23 +3,19 @@ package tacs.wololo.model;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game {
     Map map;
     String province; //TODO: averiguar de que tipo es esto
     Date date;
-    List<Player> players;
+    Queue<Player> players;
     GameState state;
     List<Municipality> municipalities;
     int municipalityLimit;
 
-
-    public Game(Map map, String province, Date date, List<Player> players, GameState state) {
+    public Game(Map map, String province, Date date, Queue<Player> players, GameState state) {
 
         GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
         this.map = map;
@@ -79,4 +75,10 @@ public class Game {
         }
         return parts;
     }
+
+    private void changeTurn() {
+        players.add(players.peek());
+        players.remove();
+    }
+
 }
