@@ -14,12 +14,12 @@ import { ProvincesService } from '../_services/provinces.service';
   styleUrls: ['./game-create.component.css']
 })
 export class GameCreateComponent implements OnInit {
-  municipalitiesAmount = 1;
+  municipalitiesAmount = 0;
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isInputDisabled: boolean = true;
-  provinces: ProvinceInfo[];
+  provinces: ProvinceInfo[] = new Array();
 
   constructor(private _formBuilder: FormBuilder, private provincesService: ProvincesService) {}
 
@@ -29,17 +29,22 @@ export class GameCreateComponent implements OnInit {
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrlFirstCondition: ['', Validators.required],
-      secondCtrlSecondCondition: [{value:'', disabled: this.isInputDisabled}, Validators.required]
+      secondCtrlSecondCondition: [{value:''}, Validators.required]
     });
 
-    this.provinces = this.provincesService.getProvincesList();
+    this.provincesService.getProvincesList().subscribe( 
+
+      result => {result.forEach(p => this.provinces.push(p))}
+      );
+
+      
   }
 
-  alreadySelectedProvince(municipalitiesAmount:Number){
+  /*alreadySelectedProvince(municipalitiesAmount:Number){
     if(municipalitiesAmount>0){
       this.secondFormGroup.controls.secondCtrlSecondCondition.enable();
     }
-  }
+  }*/
 
 
 

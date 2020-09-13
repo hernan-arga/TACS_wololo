@@ -7,4 +7,6 @@ public class Provincia {
     public String id;
     public String nombre;
 
+    public Provincia() {
+    }
 }

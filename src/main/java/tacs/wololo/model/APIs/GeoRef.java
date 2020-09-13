@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import tacs.wololo.model.APIs.GeoData.DatosMunicipio;
 
+import tacs.wololo.model.APIs.GeoData.DatosProvincia;
+import tacs.wololo.model.APIs.GeoData.Provincia;
 import tacs.wololo.model.Municipality;
 
 import java.util.List;
@@ -29,7 +31,13 @@ public class GeoRef {
     }
     public List<Municipality> municipioPorProvincia(String provincia) {
 
-        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/municipios"+"?provincia="+provincia, DatosMunicipio.class).municipios;
+        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/municipios"+"?provincia="+provincia+"&max=1000", DatosMunicipio.class).municipios;
+
+    }
+
+    public List<Provincia> listarProvincias() {
+
+        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/provincias", DatosProvincia.class).provincias;
 
     }
 

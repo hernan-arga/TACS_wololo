@@ -26,3 +26,18 @@
 p{
   display: inline;
 }
+
+::ng-deep .mat-slider{
+  width: 100%;
+  color: blue;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill, ::ng-deep .mat-accent .mat-slider-thumb, 
+::ng-deep .mat-accent .mat-slider-thumb-label
+{
+  background-color: #3f51b5;
+}
+
+::ng-deep .mat-select-value{
+  color: white;
+}

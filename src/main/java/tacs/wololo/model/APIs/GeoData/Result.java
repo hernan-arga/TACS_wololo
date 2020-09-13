@@ -7,4 +7,6 @@ public class Result {
     public Double elevation;
     public Location location;
 
+    public Result() {
+    }
 }

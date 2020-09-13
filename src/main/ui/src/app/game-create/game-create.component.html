@@ -17,7 +17,7 @@
             <p>¿En donde tendra lugar vuestro combate?</p>
             <mat-form-field appearance="fill">
                 <mat-label style="color: white">Provincia de combate</mat-label>
-                <mat-select (selectionChange)="alreadySelectedProvince(municipalitiesAmount)" 
+                <mat-select 
                             formControlName="secondCtrlFirstCondition" required 
                             [(value)]="municipalitiesAmount">
                     <mat-option *ngFor="let province of provinces" [value]="province.municipalitiesCant">
@@ -25,14 +25,19 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
             <br>
             <p>¿Cuantas municipalidades?</p>
-            <mat-form-field>
-                <mat-label style="color: white">Cantidad</mat-label>                
-                <input type="number" pattern="[1-{{municipalitiesAmount}}]" matInput
-                    formControlName="secondCtrlSecondCondition" required>
-            </mat-form-field>
+            <br>
+            <br>
+                <mat-slider
+                    formControlName="secondCtrlSecondCondition"
+                    thumbLabel
+                    tickInterval="1000"
+                    min="1"
+                    max="{{municipalitiesAmount}}"></mat-slider>      
+                <!--<input type="number" 
+                min="1" max = "{{municipalitiesAmount}}"
+                matInput formControlName="secondCtrlSecondCondition" required>-->
             <div>
                 <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
                 <button mat-button class="btn btn-info" matStepperNext>Next</button>

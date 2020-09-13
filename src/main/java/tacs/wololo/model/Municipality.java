@@ -17,6 +17,8 @@ public class Municipality {
     //--
 
 
+    public Municipality() {
+    }
 
     private int gauchos;
 

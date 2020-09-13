@@ -6,4 +6,6 @@ public class Parametros {
 
     public String nombre;
 
+    public Parametros() {
+    }
 }
