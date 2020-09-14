@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import tacs.wololo.model.User;
+import tacs.wololo.services.implementations.ProvinceService;
+import tacs.wololo.services.implementations.UserService;
 
 @Slf4j
 @RestController
 @RequestMapping("/api")
 public class UsersController
 {
-	@PostMapping(path = "/users")
-	public ResponseEntity<?> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(3);
+    @Autowired
+    UserService userService;
+
+	@GetMapping(path = "/users")
+	public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ok(userService.getUsersList());
     }
 
     @GetMapping("/users/me")

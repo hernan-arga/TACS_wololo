@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Province } from '../shared/models/province.model';
 import { ProvinceInfo } from '../shared/models/provinceInfo.model';
 import { ProvincesService } from '../_services/provinces.service';
+import { UserInfo } from '../shared/models/userInfo.model';
+import { UsersService } from '../_services/users.service';
 
 /**
  * @title Stepper overview
@@ -20,8 +22,10 @@ export class GameCreateComponent implements OnInit {
   secondFormGroup: FormGroup;
   isInputDisabled: boolean = true;
   provinces: ProvinceInfo[] = new Array();
+  users: UserInfo[] = new Array();
 
-  constructor(private _formBuilder: FormBuilder, private provincesService: ProvincesService) {}
+  constructor(private _formBuilder: FormBuilder, private provincesService: ProvincesService,
+    private usersService: UsersService) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -33,10 +37,14 @@ export class GameCreateComponent implements OnInit {
     });
 
     this.provincesService.getProvincesList().subscribe( 
-
       result => {result.forEach(p => this.provinces.push(p))}
-      );
+    );
 
+    this.usersService.getUsersList().subscribe( 
+      result => {result.forEach(p => this.users.push(p))}
+    );
+
+    console.log(this.users);
       
   }
 
