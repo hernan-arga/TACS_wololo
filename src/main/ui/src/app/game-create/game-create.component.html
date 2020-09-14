@@ -3,13 +3,32 @@
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Busca rivales</ng-template>
             <p style="display: inline;">¿A quien enfrentaras el dia de hoy?</p>
-            <mat-form-field>
+            <!--<mat-form-field>
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput formControlName="firstCtrl" required>
-            </mat-form-field>
+            </mat-form-field>-->
+            <mat-form-field class="example-full-width">
+                <input type="text"
+                       placeholder="Elige oponente"
+                       aria-label="Number"
+                       matInput
+                       formControlName="firstCtrl"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
+                    {{user.username}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && isNotAUsernameValid()">
+                Debe insertar un usuario valido
+                </mat-error>
+              
             <div>
-                <button class="btn btn-info" mat-button matStepperNext>Next</button>
+                <button id="next-button" class="btn btn-info" [disabled]="isNotAUsernameValid()" mat-button matStepperNext>Next</button>
             </div>
+            
         </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Elige modo de juego">

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Province } from '../shared/models/province.model';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import { ProvinceInfo } from '../shared/models/provinceInfo.model';
 import { ProvincesService } from '../_services/provinces.service';
 import { UserInfo } from '../shared/models/userInfo.model';
 import { UsersService } from '../_services/users.service';
+import { Observable } from 'rxjs/internal/Observable';
+import {map, startWith} from 'rxjs/operators';
 
 /**
  * @title Stepper overview
@@ -24,17 +25,13 @@ export class GameCreateComponent implements OnInit {
   provinces: ProvinceInfo[] = new Array();
   users: UserInfo[] = new Array();
 
+  myControl = new FormControl();
+  filteredUsers: Observable<UserInfo[]>;
+
   constructor(private _formBuilder: FormBuilder, private provincesService: ProvincesService,
     private usersService: UsersService) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrlFirstCondition: ['', Validators.required],
-      secondCtrlSecondCondition: [{value:''}, Validators.required]
-    });
 
     this.provincesService.getProvincesList().subscribe( 
       result => {result.forEach(p => this.provinces.push(p))}
@@ -44,16 +41,30 @@ export class GameCreateComponent implements OnInit {
       result => {result.forEach(p => this.users.push(p))}
     );
 
-    console.log(this.users);
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', [Validators.required]]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrlFirstCondition: ['', Validators.required],
+      secondCtrlSecondCondition: [{value:''}, [Validators.required]]
+    });
+
+
+    this.filteredUsers = this.firstFormGroup.controls.firstCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
       
   }
 
-  /*alreadySelectedProvince(municipalitiesAmount:Number){
-    if(municipalitiesAmount>0){
-      this.secondFormGroup.controls.secondCtrlSecondCondition.enable();
-    }
-  }*/
+  private _filter(value: String): UserInfo[] {
+    const filterValue = value.toLowerCase();
 
+    return this.users.filter(user => user.username.toLowerCase().includes(filterValue));
+  }
 
-
+  public isNotAUsernameValid(): Boolean { 
+      return !this.users.some(user => this.firstFormGroup.controls.firstCtrl.value == user.username);
+  };
 }

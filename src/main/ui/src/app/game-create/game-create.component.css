@@ -41,3 +41,8 @@ p{
 ::ng-deep .mat-select-value{
   color: white;
 }
+
+::ng-deep .mat-button.mat-button-disabled.mat-button-disabled{
+  color: rgb(119, 119, 119);
+  background-color: rgb(59, 59, 59);
+}
