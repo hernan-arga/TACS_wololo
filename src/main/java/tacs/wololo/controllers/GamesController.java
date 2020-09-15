@@ -20,11 +20,6 @@ public class GamesController
     @Autowired
     GameService gameService;
 
-    @GetMapping(path = "/game")
-    public ResponseEntity<?> game(){
-        return ResponseEntity.ok(4);
-    }
-
     @PostMapping(path = "/games")
     public ResponseEntity<?> newGame(@RequestBody GameInfoDto game) {
         gameService.createGame(game);
