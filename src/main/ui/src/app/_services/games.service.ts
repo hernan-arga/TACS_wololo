@@ -21,7 +21,9 @@ export class GamesService {
   createGame(gameInfo: GameInfo): Observable<any>  {
     console.log(gameInfo);
     return this.http.post(API_URL + 'games', {
-      gameInfo: gameInfo
+      playersUsernames: gameInfo.playersUsernames,
+      provinceName: gameInfo.provinceName,
+      municipalitiesCant: gameInfo.municipalitiesCant
     }, httpOptions);
   }
 

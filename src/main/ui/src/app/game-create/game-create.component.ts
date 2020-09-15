@@ -85,12 +85,14 @@ export class GameCreateComponent implements OnInit {
   public createGame() {
     var userNames = new Array<String>();
     var municipalitiesCant = this.secondFormGroup.controls.secondCtrlSecondCondition.value;
-    var provinceName = this.secondFormGroup.controls.secondCtrlFirstCondition.value;
+    var provinceName = this.provinceSelected.name;
     userNames.push(this.firstFormGroup.controls.firstCtrl.value);
     userNames.push(this.currentUserUsername);
 
     var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName);
-    this.gamesService.createGame(gameInfo);
+    this.gamesService.createGame(gameInfo).subscribe(
+      data => {}
+    );
   }
 
   /*public municipalitiesQuantity(province: ProvinceInfo): number{

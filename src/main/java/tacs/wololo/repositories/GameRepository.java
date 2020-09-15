@@ -15,7 +15,6 @@ public class GameRepository {
     private List<GameInfoDto> gamesInfo =  new ArrayList<GameInfoDto>();
 
     public void addGame(GameInfoDto gameInfoDto){
-        System.out.println(gameInfoDto);
         gamesInfo.add(gameInfoDto);
     }
 

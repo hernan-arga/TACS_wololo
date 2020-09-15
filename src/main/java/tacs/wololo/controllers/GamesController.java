@@ -27,7 +27,6 @@ public class GamesController
 
     @PostMapping(path = "/games")
     public ResponseEntity<?> newGame(@RequestBody GameInfoDto game) {
-        System.out.println("controller");
         gameService.createGame(game);
         return ResponseEntity.ok(new MessageResponse("Juego creado exitosamente!"));
     }
