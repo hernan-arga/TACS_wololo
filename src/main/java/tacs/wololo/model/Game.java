@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Game {
     Map map;
-    String province; //TODO: averiguar de que tipo es esto
+    String province;
     Date date;
     Queue<Player> players;
     GameState state;

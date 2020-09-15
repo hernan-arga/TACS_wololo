@@ -38,8 +38,8 @@
                 <mat-label style="color: white">Provincia de combate</mat-label>
                 <mat-select 
                             formControlName="secondCtrlFirstCondition" required 
-                            [(value)]="municipalitiesAmount">
-                    <mat-option *ngFor="let province of provinces" [value]="province.municipalitiesCant">
+                            [(value)]="provinceSelected">
+                    <mat-option *ngFor="let province of provinces" [value]="province">
                         {{province.name}}
                     </mat-option>
                 </mat-select>
@@ -52,8 +52,8 @@
                     formControlName="secondCtrlSecondCondition"
                     thumbLabel
                     tickInterval="1000"
-                    min="1"
-                    max="{{municipalitiesAmount}}"></mat-slider>      
+                    min="2"
+                    max="{{provinceSelected.municipalitiesCant}}"></mat-slider>      
                 <!--<input type="number" 
                 min="1" max = "{{municipalitiesAmount}}"
                 matInput formControlName="secondCtrlSecondCondition" required>-->
@@ -68,7 +68,7 @@
         <p>¿Estas Listo?</p>
         <div>
             <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
-            <button mat-button class="btn btn-success" (click)="stepper.reset()">Confirmar
+            <button mat-button class="btn btn-success" (click)="createGame()">Confirmar
                 <span class="material-icons" style="margin-bottom: 4px;">
                     done
                 </span>
