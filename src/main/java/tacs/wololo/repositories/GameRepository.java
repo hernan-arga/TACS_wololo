@@ -14,6 +14,11 @@ public class GameRepository {
 
     private List<GameInfoDto> gamesInfo =  new ArrayList<GameInfoDto>();
 
+    public void setGamesInfo(List<GameInfoDto> gamesInfo)
+    {
+        this.gamesInfo = gamesInfo;
+    }
+
     public void addGame(GameInfoDto gameInfoDto){
         gamesInfo.add(gameInfoDto);
     }
