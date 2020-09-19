@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import tacs.wololo.model.DTOs.GameInfoDto;
+import tacs.wololo.model.Game;
 import tacs.wololo.security.payload.MessageResponse;
 import tacs.wololo.services.implementations.GameService;
 
@@ -35,6 +36,17 @@ public class GamesController
                 getAuthentication().getPrincipal();
 
         return gameService.getGames(userDetails.getUsername());
+    }
+
+    @GetMapping(path = "/games")
+    public GameInfoDto getGame(@RequestParam Number gameID)
+    {
+        System.out.println(gameID);
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
+                getAuthentication().getPrincipal();
+
+        return gameService.getGames(userDetails.getUsername()).get(0);
     }
 
 }

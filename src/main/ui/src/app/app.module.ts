@@ -20,6 +20,7 @@ import { GameCreateComponent } from './game-create/game-create.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 import { MatNativeDateModule } from '@angular/material/core';
+import { GamePlayComponent } from './game-play/game-play.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     BoardUserComponent,
     BoardModeratorComponent,
     ProfileComponent,
-    GameCreateComponent
+    GameCreateComponent,
+    GamePlayComponent
   ],
   imports: [
     BrowserModule,

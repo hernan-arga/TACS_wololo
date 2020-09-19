@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../shared/models/userInfo.model';
 import { GameInfo } from '../shared/models/gameInfo.model';
+import { Game } from '../shared/models/Game.model';
 
 const API_URL = 'http://localhost:8080/api/';
 const httpOptions = {
@@ -14,17 +15,22 @@ const httpOptions = {
 })
 export class GamesService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
 
-  createGame(gameInfo: GameInfo): Observable<any>  {
+  createGame(gameInfo: GameInfo): Observable<any> {
     console.log(gameInfo);
     return this.http.post(API_URL + 'games', {
       playersUsernames: gameInfo.playersUsernames,
       provinceName: gameInfo.provinceName,
       municipalitiesCant: gameInfo.municipalitiesCant
     }, httpOptions);
+  }
+
+  getGame(id: Number): Observable<Game> {
+    let searchParam = new HttpParams().set('gameID', id.toString());
+    return this.http.get<Game>(API_URL + 'game', { params: searchParam });
   }
 
 }

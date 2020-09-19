@@ -9,6 +9,7 @@ import {map, startWith} from 'rxjs/operators';
 import { GamesService } from '../_services/games.service';
 import { GameInfo } from '../shared/models/gameInfo.model';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { Router } from '@angular/router';
 
 /**
  * @title Stepper overview
@@ -37,7 +38,8 @@ export class GameCreateComponent implements OnInit {
               private provincesService: ProvincesService,
               private usersService: UsersService,
               private gamesService: GamesService,
-              private tokenStorageService: TokenStorageService) {}
+              private tokenStorageService: TokenStorageService,
+              private router: Router) {}
 
   ngOnInit() {
 
@@ -93,6 +95,11 @@ export class GameCreateComponent implements OnInit {
     this.gamesService.createGame(gameInfo).subscribe(
       data => {}
     );
+
+    let id = 3;
+    // TODO: /game/id
+    this.router.navigateByUrl('/game/'+id);
+
   }
 
   /*public municipalitiesQuantity(province: ProvinceInfo): number{

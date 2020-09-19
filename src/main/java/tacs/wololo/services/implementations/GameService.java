@@ -71,4 +71,6 @@ public class GameService {
 
         return gameInfoDtos;
     }
+
+    //todo: get game by id
 }
