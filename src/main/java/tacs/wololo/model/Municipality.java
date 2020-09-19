@@ -158,5 +158,31 @@ public class Municipality {
         return mode;
     }
 
+    public Centroide getCentroide() {
+        return centroide;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getCoefDist() {
+        return coefDist;
+    }
+
+    public double getCoefAlt() {
+        return coefAlt;
+    }
 }

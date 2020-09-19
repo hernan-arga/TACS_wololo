@@ -34,7 +34,7 @@ public class ProvinceService implements IProvinceService {
 
     @Scheduled(fixedDelay = 86400000) //cada 24 hs
     public void updateProvincesList(){
-        //TODO: hay provincias que la api no devuelve los municipios y la api solo devuelve hasta 10
+        //TODO: hay provincias que la api no devuelve los municipios
         List<String> provinciasBaneadas = Arrays.asList("Entre Ríos", "Santiago del Estero",
                 "Santa Cruz", "Ciudad Autónoma de Buenos Aires");
 

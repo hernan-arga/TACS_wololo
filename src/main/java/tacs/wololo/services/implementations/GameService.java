@@ -64,13 +64,23 @@ public class GameService {
         for(Game game : games)
         {
             List<String> usernames = new ArrayList<Player>(game.getPlayers())
-                    .stream().map(p -> p.getUsername()).collect(Collectors.toList());
+                    .stream().map(Player::getUsername).collect(Collectors.toList());
 
-            gameInfoDtos.add(new GameInfoDto(usernames, game.getProvince(), game.getMunicipalityLimit()));
+            for(Player player : game.getPlayers())
+            {
+                System.out.println("Hola");
+                System.out.println(player.getMunicipalities());
+            }
+
+            gameInfoDtos.add(new GameInfoDto(usernames, game.getProvince(), game.getMunicipalityLimit()
+                    , game.getId()));
         }
 
         return gameInfoDtos;
     }
 
-    //todo: get game by id
+    public Game getGame(Long gameId, String username)
+    {
+        return gameRepository.getGame(gameId, username);
+    }
 }

@@ -13,4 +13,8 @@ public class Province {
     public void setMunicipalities(List<Municipality> municipalities) {
         this.municipalities = municipalities;
     }
+
+    public String getName() {
+        return name;
+    }
 }

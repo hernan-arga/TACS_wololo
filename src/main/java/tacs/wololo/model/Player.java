@@ -40,4 +40,8 @@ public class Player
     public String getUsername() {
         return username;
     }
+
+    public List<Municipality> getMunicipalities() {
+        return municipalities;
+    }
 }
