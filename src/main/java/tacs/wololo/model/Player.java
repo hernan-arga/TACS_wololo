@@ -3,12 +3,19 @@ package tacs.wololo.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player
+{
     private String username;
     private List<Municipality> municipalities = new ArrayList<>();
 
+    public Player() {
+    }
 
-    public void moveGauchos(int amount,Municipality origin, Municipality destination) throws Exception {
+    public Player(String username) {
+        this.username = username;
+    }
+
+    public void moveGauchos(int amount, Municipality origin, Municipality destination) throws Exception {
         this.validateMunicipalitiesBelongToMe(origin, destination);
         this.validateEnoughGauchos(amount, origin);
         origin.removeGauchos(amount);
@@ -28,5 +35,9 @@ public class Player {
     public void addMunicipality(Municipality municipality)
     {
         this.municipalities.add(municipality);
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

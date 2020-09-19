@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GameRepositoryTests {
+    /*
     @Autowired
     private GameRepository gameRepository;
     private GameInfoDto funnyGame;
@@ -60,4 +61,5 @@ public class GameRepositoryTests {
 
         Assert.assertEquals(emptyUsernames, gameRepository.getGamesInfoByUserName("Sebastian"));
     }
+     */
 }

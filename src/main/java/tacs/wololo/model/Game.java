@@ -15,8 +15,9 @@ public class Game {
     List<Municipality> municipalities;
     int municipalityLimit;
 
-    public Game(Map map, String province, Date date, Queue<Player> players, GameState state) {
+    public Game(Map map, String province, Date date, Queue<Player> players, GameState state, int municipalityLimit) {
 
+        this.municipalityLimit = municipalityLimit;
         GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
         this.map = map;
         this.province = province;
@@ -81,4 +82,15 @@ public class Game {
         players.remove();
     }
 
+    public Queue<Player> getPlayers() {
+        return players;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public int getMunicipalityLimit() {
+        return municipalityLimit;
+    }
 }

@@ -20,7 +20,6 @@ public class UserService implements IUserService {
     public UserService() {
 
     }
-
     public List<UserInfoDto> getUsersList() {
         List<UserInfoDto> usersInfoDto = new ArrayList<UserInfoDto>();
         userRepository.findAll().forEach(user ->

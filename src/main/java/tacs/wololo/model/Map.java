@@ -1,6 +1,7 @@
 package tacs.wololo.model;
 
-public class Map {
+public class Map
+{
     private Province province;
     private double maxHeight;
     private double minHeight;
@@ -39,7 +40,5 @@ public class Map {
     public void setDistMin(double distMin) {
         this.distMin = distMin;
     }
-
-
 
 }
