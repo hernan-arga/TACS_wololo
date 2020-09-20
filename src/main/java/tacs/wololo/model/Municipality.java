@@ -155,6 +155,7 @@ public class Municipality {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+        owner.addMunicipality(this);
     }
 
     public Player getOwner()

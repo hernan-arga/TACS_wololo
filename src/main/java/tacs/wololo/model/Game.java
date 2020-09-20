@@ -57,10 +57,15 @@ public class Game {
     }
 
     private void sortMunicipalities(){
-        List<List<Municipality>> municipalitiesYetToBeAdded = this.chopped(municipalities,players.size());
+        int municipalitiesPerPlayer = 0;
+        if(municipalities.size()/players.size()*players.size()==municipalities.size()){
+            municipalitiesPerPlayer = municipalities.size()/players.size();
+        }
+        else{
+            municipalitiesPerPlayer = municipalities.size()/players.size()+1;
+        }
+        List<List<Municipality>> municipalitiesYetToBeAdded = this.chopped(municipalities,municipalitiesPerPlayer);
         players.stream().forEach(z->assignMunicipalities(z,municipalitiesYetToBeAdded) );
-        int municipalitiesPerPlayer = this.municipalities.size()/this.players.size();
-
     }
 
     private void assignMunicipalities(Player player, List<List<Municipality>> municipalities){
