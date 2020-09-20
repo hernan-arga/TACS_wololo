@@ -10,6 +10,7 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { MatSortModule } from '@angular/material/sort';
 import { GameCreateComponent } from './game-create/game-create.component';
+import { GamePlayComponent } from './game-play/game-play.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'create', component: GameCreateComponent },
+  { path: 'game/:id', component: GamePlayComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

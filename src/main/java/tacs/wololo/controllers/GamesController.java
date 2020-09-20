@@ -38,9 +38,10 @@ public class GamesController
         return gameService.getGames(userDetails.getUsername());
     }
 
-    @GetMapping(path = "/games")
-    public GameInfoDto getGame(@RequestParam Number gameID)
+    @GetMapping(path = "/game")
+    public GameInfoDto getGame(@RequestParam int gameID)
     {
+        System.out.println("hoal");
         System.out.println(gameID);
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().

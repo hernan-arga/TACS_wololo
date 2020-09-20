@@ -47,9 +47,9 @@ export class GameCreateComponent implements OnInit {
     this.currentUserUsername = user.username;
 
     this.provincesService.getProvincesList().subscribe( 
-      result => {result.forEach(p => this.provinces.push(p))}
+      result => {result.forEach(p => this.provinces.push(p)); this.sortProvinces();}
     );
-
+    
     this.provinceSelected = new ProvinceInfo("provincia sin seleccionar", 2);
 
     //TODO: sacar al mismo usuario con el que estoy logueado pues contra mi mismo no voy a pelear
@@ -70,8 +70,17 @@ export class GameCreateComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => this._filter(value))
-      );
+      );     
       
+      
+  }
+
+  sortProvinces(){
+    this.provinces.sort(function (p1, p2) {
+      if (p1.name > p2.name) {return 1;}
+      if (p1.name < p2.name) {return -1;}
+      return 0;
+    });
   }
 
   private _filter(value: String): UserInfo[] {
@@ -98,7 +107,7 @@ export class GameCreateComponent implements OnInit {
 
     let id = 3;
     // TODO: /game/id
-    this.router.navigateByUrl('/game/'+id);
+    this.router.navigate(['/game', id]);
 
   }
 
