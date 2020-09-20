@@ -5,6 +5,8 @@ import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoData.Provincia;
 
 import java.time.Clock;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Municipality {
 
@@ -15,10 +17,6 @@ public class Municipality {
     public Provincia provincia;
 
     //--
-
-
-    public Municipality() {
-    }
 
     private int gauchos;
 
@@ -31,6 +29,10 @@ public class Municipality {
     private MunicipalityMode mode;
 
     private Player owner;
+
+    private List<Movement> movements = new ArrayList<>();
+
+    public Municipality() { }
 
     public Municipality(Player owner, int gauchos, double height, MunicipalityMode mode, Centroide centroide)
     {
@@ -75,7 +77,9 @@ public class Municipality {
     }
 
     public void attackMunicipality(Municipality defender, Map map){
-        if(gauchosRemainAfterAttack(defender,map)){
+        boolean winTheBattleAttacker = gauchosRemainAfterAttack(defender,map);
+
+        if(winTheBattleAttacker){
             defender.setOwner(this.owner);
             setGauchos(endingAttackingGauchos(defender,map));
         }
@@ -83,6 +87,13 @@ public class Municipality {
             setGauchos(0);
             defender.setGauchos(defender.endingDefendersGauchos(this,map));
         }
+
+        defender.addMovement(new MovementDefend(defender.getGauchos(), this.nombre, winTheBattleAttacker));
+    }
+
+    public void addMovement(Movement movement)
+    {
+        this.movements.add(movement);
     }
 
     private double heightMultiplier(Map map){
@@ -92,6 +103,7 @@ public class Municipality {
 
     public void produceGauchos(Map map){
         int gauchosToAdd = (int) (mode.getCoefProdGauchos()*(this.heightMultiplier(map)));
+        this.addMovement(new MovementProduce(this.gauchos, gauchosToAdd));
         this.addGauchos(gauchosToAdd);
     }
 
@@ -156,6 +168,10 @@ public class Municipality {
 
     public MunicipalityMode getMode() {
         return mode;
+    }
+
+    public List<Movement> getMovements() {
+        return movements;
     }
 
     public Centroide getCentroide() {
