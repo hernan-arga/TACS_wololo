@@ -28,4 +28,9 @@ public class GameRepository {
 
         return gamesList;
     }
+
+    public Game getGame(Long id, String username)
+    {
+        return getGames(username).stream().filter(g -> g.getId().equals(id)).findFirst().orElse(null);
+    }
 }

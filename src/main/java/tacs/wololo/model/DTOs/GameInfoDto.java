@@ -4,6 +4,7 @@ import java.util.List;
 
 public class GameInfoDto {
 
+    Long gameId;
     List<String> playersUsernames;
     String provinceName;
     int municipalitiesCant;
@@ -32,13 +33,21 @@ public class GameInfoDto {
         this.municipalitiesCant = municipalitiesCant;
     }
 
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
 
     public GameInfoDto() {
     }
 
-    public GameInfoDto(List<String> playersUsernames, String provinceName, int municipalitiesCant) {
+    public GameInfoDto(List<String> playersUsernames, String provinceName, int municipalitiesCant, Long gameId) {
         this.playersUsernames = playersUsernames;
         this.provinceName = provinceName;
         this.municipalitiesCant = municipalitiesCant;
+        this.gameId = gameId;
     }
 }

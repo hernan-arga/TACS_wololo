@@ -41,4 +41,7 @@ public class Map
         this.distMin = distMin;
     }
 
+    public Province getProvince() {
+        return province;
+    }
 }

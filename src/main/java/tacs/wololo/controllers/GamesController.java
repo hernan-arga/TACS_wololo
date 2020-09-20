@@ -38,8 +38,9 @@ public class GamesController
         return gameService.getGames(userDetails.getUsername());
     }
 
-    @GetMapping(path = "/game")
-    public GameInfoDto getGame(@RequestParam int gameID)
+
+    @GetMapping(path = "/games/{id}")
+    public ResponseEntity<?> getGame(@PathVariable(value = "id") Long gameID)
     {
         System.out.println("hoal");
         System.out.println(gameID);
@@ -47,7 +48,14 @@ public class GamesController
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
                 getAuthentication().getPrincipal();
 
-        return gameService.getGames(userDetails.getUsername()).get(0);
+        Game game = gameService.getGame(gameID, userDetails.getUsername());
+
+        System.out.println(game);
+
+        if(game == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(game);
     }
 
 }

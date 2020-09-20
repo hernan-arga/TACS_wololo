@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game {
+    Long id;
     Map map;
     String province;
     Date date;
@@ -17,6 +18,7 @@ public class Game {
 
     public Game(Map map, String province, Date date, Queue<Player> players, GameState state, int municipalityLimit) {
 
+        this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
         GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
         this.map = map;
@@ -92,5 +94,25 @@ public class Game {
 
     public int getMunicipalityLimit() {
         return municipalityLimit;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public List<Municipality> getMunicipalities() {
+        return municipalities;
     }
 }
