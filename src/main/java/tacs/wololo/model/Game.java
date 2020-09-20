@@ -89,6 +89,11 @@ public class Game {
         players.remove();
     }
 
+    public Municipality getMunicipality(String id)
+    {
+        return municipalities.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+    }
+
     public Queue<Player> getPlayers() {
         return players;
     }
