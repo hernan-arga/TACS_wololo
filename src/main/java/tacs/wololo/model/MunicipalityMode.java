@@ -1,6 +1,7 @@
 package tacs.wololo.model;
 
-public abstract class MunicipalityMode {
+public abstract class MunicipalityMode
+{
     public float multDef;
     public float coefProdGauchos;
 

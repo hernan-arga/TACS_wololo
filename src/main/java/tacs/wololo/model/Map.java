@@ -8,6 +8,9 @@ public class Map
     private double distMax;
     private double distMin;
 
+    public Map() {
+    }
+
 
     public double getMaxHeight() {
         return maxHeight;
@@ -44,4 +47,6 @@ public class Map
     public Province getProvince() {
         return province;
     }
+
+
 }

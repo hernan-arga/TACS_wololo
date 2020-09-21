@@ -1,5 +1,6 @@
 package tacs.wololo.model;
 
+import net.minidev.json.annotate.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
@@ -16,6 +17,9 @@ public class Game {
     List<Municipality> municipalities;
     int municipalityLimit;
 
+    public Game() {
+    }
+
     public Game(Map map, String province, Date date, Queue<Player> players, GameState state, int municipalityLimit) {
 
         this.id = System.currentTimeMillis();
@@ -30,6 +34,10 @@ public class Game {
         this.setDists(this.municipalities);
         this.setHeights();
         this.sortMunicipalities();
+        for (Municipality municipality : this.municipalities) {
+            municipality.setGauchos(10);
+            municipality.setMode(new DefendingMunicipality());
+        }
 
     }
 
