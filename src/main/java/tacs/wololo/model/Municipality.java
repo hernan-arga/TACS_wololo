@@ -202,4 +202,8 @@ public class Municipality {
     public double getCoefAlt() {
         return coefAlt;
     }
+
+    public void setMovements(List<Movement> movements) {
+        this.movements = movements;
+    }
 }

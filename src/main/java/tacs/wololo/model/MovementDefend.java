@@ -10,4 +10,20 @@ public class MovementDefend extends Movement{
         this.attackingMunicipality = attackingMunicipality;
         this.winTheBattle = winTheBattle;
     }
+
+    public String getAttackingMunicipality() {
+        return attackingMunicipality;
+    }
+
+    public void setAttackingMunicipality(String attackingMunicipality) {
+        this.attackingMunicipality = attackingMunicipality;
+    }
+
+    public boolean isWinTheBattle() {
+        return winTheBattle;
+    }
+
+    public void setWinTheBattle(boolean winTheBattle) {
+        this.winTheBattle = winTheBattle;
+    }
 }

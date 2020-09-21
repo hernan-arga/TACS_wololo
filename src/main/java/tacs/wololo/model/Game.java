@@ -94,6 +94,8 @@ public class Game {
         return municipalities.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
     }
 
+    // --------------- Getters y Setters --------------
+
     public Queue<Player> getPlayers() {
         return players;
     }

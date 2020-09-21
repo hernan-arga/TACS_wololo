@@ -8,4 +8,12 @@ public class MovementProduce extends Movement{
         super(finalGauchos);
         this.gauchosProduced = gauchosProduced;
     }
+
+    public int getGauchosProduced() {
+        return gauchosProduced;
+    }
+
+    public void setGauchosProduced(int gauchosProduced) {
+        this.gauchosProduced = gauchosProduced;
+    }
 }

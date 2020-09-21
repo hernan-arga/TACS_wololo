@@ -5,12 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import tacs.wololo.model.*;
 import tacs.wololo.model.DTOs.GameInfoDto;
 import tacs.wololo.model.DTOs.ProvinceInfoDto;
-import tacs.wololo.model.Game;
-import tacs.wololo.model.GameState;
 import tacs.wololo.model.Map;
-import tacs.wololo.model.Player;
 import tacs.wololo.repositories.GameRepository;
 import tacs.wololo.repositories.ProvinceRepository;
 import tacs.wololo.repositories.UserRepository;
@@ -54,10 +52,15 @@ public class GameService {
 
     public List<GameInfoDto> getGames(String username)
     {
+        System.out.println("Cambia algo");
         List<Game> games = gameRepository.getGames(username);
 
         if(games.isEmpty())
+        {
+            System.out.println("Estoy vacio");
             return new ArrayList<>();
+        }
+
 
         List<GameInfoDto> gameInfoDtos = new ArrayList<>();
 
@@ -83,4 +86,30 @@ public class GameService {
     {
         return gameRepository.getGame(gameId, username);
     }
+
+    public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)
+    {
+        Game game = gameRepository.getGame(idGame, username);
+        if(game == null)
+            return null; // FIXME, puse esto pero no se si es una buena idea
+
+        Municipality municipality = game.getMunicipality(idMunicipality);
+
+        if(municipality == null)
+            return null; // FIXME, puse esto pero no se si es una buena idea
+
+
+        // TODO: SACAR. Dejo el comentario igual para testear, pero sacar para la entrega.
+        // --------
+        /*
+        List<Movement> movements = new ArrayList<>();
+        movements.add(new MovementDefend(10, "Chaco", true));
+        movements.add(new MovementProduce(20, 5));
+
+        municipality.setMovements(movements);*/
+        // --------
+
+        return municipality.getMovements();
+    }
+
 }
