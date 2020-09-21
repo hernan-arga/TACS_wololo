@@ -54,10 +54,15 @@ public class GameService {
 
     public List<GameInfoDto> getGames(String username)
     {
+        System.out.println("Cambia algo");
         List<Game> games = gameRepository.getGames(username);
 
         if(games.isEmpty())
+        {
+            System.out.println("Estoy vacio");
             return new ArrayList<>();
+        }
+
 
         List<GameInfoDto> gameInfoDtos = new ArrayList<>();
 
@@ -119,4 +124,30 @@ public class GameService {
 
         return 0;
     }
+
+    public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)
+    {
+        Game game = gameRepository.getGame(idGame, username);
+        if(game == null)
+            return null; // FIXME, puse esto pero no se si es una buena idea
+
+        Municipality municipality = game.getMunicipality(idMunicipality);
+
+        if(municipality == null)
+            return null; // FIXME, puse esto pero no se si es una buena idea
+
+
+        // TODO: SACAR. Dejo el comentario igual para testear, pero sacar para la entrega.
+        // --------
+        /*
+        List<Movement> movements = new ArrayList<>();
+        movements.add(new MovementDefend(10, "Chaco", true));
+        movements.add(new MovementProduce(20, 5));
+
+        municipality.setMovements(movements);*/
+        // --------
+
+        return municipality.getMovements();
+    }
+
 }

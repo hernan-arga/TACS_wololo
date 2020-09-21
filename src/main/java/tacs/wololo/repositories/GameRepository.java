@@ -21,6 +21,11 @@ public class GameRepository {
         games.add(game);
     }
 
+    public List<Game> gamesitos() // TODO: SACAR
+    {
+        return this.games;
+    }
+
     public List<Game> getGames(String username)
     {
         List<Game> gamesList = games.stream().filter(g -> g.getPlayers().stream()
