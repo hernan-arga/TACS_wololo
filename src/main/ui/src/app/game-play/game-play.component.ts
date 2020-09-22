@@ -12,6 +12,7 @@ import { GameState } from "../shared/models/GameState.model";
 import { CoordinatesService } from '../_services/coordinates.service';
 import { Municipality } from '../shared/models/municipality.model';
 import { MapPosition } from '../shared/models/mapPosition.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-game-play',
@@ -20,6 +21,8 @@ import { MapPosition } from '../shared/models/mapPosition.model';
 })
 export class GamePlayComponent implements OnInit {
   private routeSub: Subscription;
+  selectControl: FormControl = new FormControl()
+
   game: GameInfo; //TODO: cambiar a Game
   gameId: Number;
   imgSizeX: number = 366;
@@ -33,38 +36,38 @@ export class GamePlayComponent implements OnInit {
     province: {
       name: 'Córdoba',
       municipalities: [
-      {
-        nombre: 'Municipalidad 2',
-        posX: 0,
-        posY: 0,
-        centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
-        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-        mode: { multDef: 4, coefProdGauchos: 6 }
-      },
-      {
-        nombre: 'Municipalidad 3',
-        posX: 0,
-        posY: 0,
-        centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-        mode: { multDef: 4, coefProdGauchos: 6 }
-      },
-      {
-        nombre: 'Municipalidad 4',
-        posX: 0,
-        posY: 0,
-        centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
-        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-        mode: { multDef: 4, coefProdGauchos: 6 }
-      },
-      {
-        nombre: 'Municipalidad 5',
-        posX: 0,
-        posY: 0,
-        centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
-        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-        mode: { multDef: 4, coefProdGauchos: 6 }
-      }
+        {
+          nombre: 'Municipalidad 2',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
+          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+          mode: { multDef: 4, coefProdGauchos: 6 }
+        },
+        {
+          nombre: 'Municipalidad 3',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
+          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+          mode: { multDef: 4, coefProdGauchos: 6 }
+        },
+        {
+          nombre: 'Municipalidad 4',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
+          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+          mode: { multDef: 4, coefProdGauchos: 6 }
+        },
+        {
+          nombre: 'Municipalidad 5',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
+          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+          mode: { multDef: 4, coefProdGauchos: 6 }
+        }
       ]
     }
   }
@@ -128,19 +131,16 @@ export class GamePlayComponent implements OnInit {
     this.gameMock.players.forEach(p => p.municipalities
       .forEach(m => { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
       ));
-
-
   }
 
-  
   //Ecuaciones de interpolacion
   private assignPositionToMunicipality(municipality: Municipality) {
     let lonMun = municipality.centroide.lon, latMun = municipality.centroide.lat,
-    latMin = this.gameMock.map.latMin, lonMin = this.gameMock.map.lonMin,
-    latMax = this.gameMock.map.latMax, lonMax = this.gameMock.map.lonMax;
+      latMin = this.gameMock.map.latMin, lonMin = this.gameMock.map.lonMin,
+      latMax = this.gameMock.map.latMax, lonMax = this.gameMock.map.lonMax;
 
-    municipality.posX = this.imgSizeX*0.15 + (lonMun - lonMin)*(this.imgSizeX*0.70 - this.imgSizeX*0.15)/(lonMax-lonMin);
-    municipality.posY = this.imgSizeY*0.15 + (latMun - latMax)*(this.imgSizeY*0.80 - this.imgSizeY*0.15)/(latMin-latMax);
+    municipality.posX = this.imgSizeX * 0.15 + (lonMun - lonMin) * (this.imgSizeX * 0.70 - this.imgSizeX * 0.15) / (lonMax - lonMin);
+    municipality.posY = this.imgSizeY * 0.15 + (latMun - latMax) * (this.imgSizeY * 0.80 - this.imgSizeY * 0.15) / (latMin - latMax);
   }
 
   private convertCoordinates(municipalitiy: Municipality) {
@@ -158,6 +158,34 @@ export class GamePlayComponent implements OnInit {
       "left": municipality.posX.toString() + 'px',
       "background": color
     }
+  }
+
+  public realizeAction(municipalitiy: Municipality) {
+    switch (this.selectControl.value) {
+      case 'attack': 
+        this.attack(municipalitiy);
+        break;
+      case 'move': 
+        this.moveGauchos(municipalitiy);
+        break;
+      case 'modify': 
+        this.modifySpecialization(municipalitiy);
+        break;
+      default: 
+        throw("Se pidio una accion invalida");
+    }
+  }
+
+  public attack(municipality: Municipality) {
+    console.log(municipality.nombre);
+  }
+
+  public moveGauchos(municipality: Municipality) {
+    console.log(municipality.gauchos);
+  }
+
+  public modifySpecialization(municipality: Municipality) {
+    console.log(municipality.mode);
   }
 
 }

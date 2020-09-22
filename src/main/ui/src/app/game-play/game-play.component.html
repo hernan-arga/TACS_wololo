@@ -4,9 +4,12 @@
     <div *ngFor="let player of gameMock.players; let i = index">
         <div *ngFor="let municipality of player.municipalities">
             <div class="municipality-elements">
-                <button ngbDropdownItem class="cen" [ngStyle]="calculatePositionAndColor(i, municipality)">
-                    <span class="tcen">{{municipality.nombre}}</span>
-                </button>
+                <select id="actions" class="cen" [formControl]="selectControl" [ngStyle]="calculatePositionAndColor(i, municipality)" (change)="realizeAction(municipality); ">
+                    <option disabled selected value> -- Elije Acción -- </option>
+                    <option value="attack">Atacar</option>
+                    <option value="move">Mover Gauchos</option>
+                    <option value="modify">Modificar Especialización</option>
+                </select>
             </div>
         </div>
     </div>
