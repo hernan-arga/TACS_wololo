@@ -30,7 +30,9 @@ public class Game {
         this.date = date;
         this.players = players;
         this.state = state;
-        this.municipalities = geoRef.municipioPorProvincia(province).stream().limit(municipalityLimit).collect(Collectors.toList());
+        this.municipalities = geoRef.municipioPorProvincia(province);
+        this.setMapLatAndLon();
+        this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
         this.setHeights();
         this.sortMunicipalities();
@@ -39,6 +41,15 @@ public class Game {
             municipality.setMode(new DefendingMunicipality());
         }
 
+    }
+
+    private void setMapLatAndLon(){
+        List<Double> latitudes = this.municipalities.stream().map(m -> m.centroide.lat).collect(Collectors.toList());
+        List<Double> longitudes = this.municipalities.stream().map(m -> m.centroide.lon).collect(Collectors.toList());
+        this.map.setLatMax(Collections.max(latitudes));
+        this.map.setLonMax(Collections.max(longitudes));
+        this.map.setLatMin(Collections.min(latitudes));
+        this.map.setLonMin(Collections.min(longitudes));
     }
 
     private void setDists(List<Municipality> municipalities){

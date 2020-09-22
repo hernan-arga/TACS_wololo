@@ -4,9 +4,9 @@
     <div *ngFor="let player of gameMock.players; let i = index">
         <div *ngFor="let municipality of player.municipalities">
             <div class="municipality-elements">
-                <p class="cen" [ngStyle]="calculatePositionAndColor(i, municipality)">
+                <button ngbDropdownItem class="cen" [ngStyle]="calculatePositionAndColor(i, municipality)">
                     <span class="tcen">{{municipality.nombre}}</span>
-                </p>
+                </button>
             </div>
         </div>
     </div>

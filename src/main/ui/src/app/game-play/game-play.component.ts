@@ -28,17 +28,44 @@ export class GamePlayComponent implements OnInit {
   matrizPositions: MapPosition[][] = new Array<Array<MapPosition>>();
 
   mapMock: Map = {
+    latMax: -30.9830362325549, lonMax: -63.7340063162336, latMin: -34.0601407054622, lonMin: -64.5025780020643,
     maxHeight: 9, minHeight: 2, distMax: 4,
     province: {
       name: 'Córdoba',
-      municipalities: [{
-        nombre: 'Municipalidad 1',
+      municipalities: [
+      {
+        nombre: 'Municipalidad 2',
         posX: 0,
         posY: 0,
-        centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
+        centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
         gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
         mode: { multDef: 4, coefProdGauchos: 6 }
-      }]
+      },
+      {
+        nombre: 'Municipalidad 3',
+        posX: 0,
+        posY: 0,
+        centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
+        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+        mode: { multDef: 4, coefProdGauchos: 6 }
+      },
+      {
+        nombre: 'Municipalidad 4',
+        posX: 0,
+        posY: 0,
+        centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
+        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+        mode: { multDef: 4, coefProdGauchos: 6 }
+      },
+      {
+        nombre: 'Municipalidad 5',
+        posX: 0,
+        posY: 0,
+        centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
+        gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+        mode: { multDef: 4, coefProdGauchos: 6 }
+      }
+      ]
     }
   }
 
@@ -93,59 +120,27 @@ export class GamePlayComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.initializeMatrizPosition();
-
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
     });
     this.gamesService.getGame(this.gameId).subscribe(data => this.game = data);
 
     this.gameMock.players.forEach(p => p.municipalities
-      .forEach(m => {this.convertCoordinates(m); this.assignPositionToMunicipality(m);}
-    ));
-    
-    
-  }
+      .forEach(m => { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
+      ));
 
-  private initializeMatrizPosition() {
-    for (let y = 0; y <= 10; y++) {
-      let row: MapPosition[] = new Array<MapPosition>();
-      for (let x = 0; x <= 10; x++) {
-        row.push(new MapPosition(this.imgSizeX / 10 * (x+1), this.imgSizeY / 10 * (y+1)));
-      }
-      this.matrizPositions.push(row);
-    }
 
   }
 
+  
+  //Ecuaciones de interpolacion
   private assignPositionToMunicipality(municipality: Municipality) {
-    var i = 1, j = 1;
+    let lonMun = municipality.centroide.lon, latMun = municipality.centroide.lat,
+    latMin = this.gameMock.map.latMin, lonMin = this.gameMock.map.lonMin,
+    latMax = this.gameMock.map.latMax, lonMax = this.gameMock.map.lonMax;
 
-    while(municipality.posX > this.matrizPositions[i][j].posX){
-      j++;
-    }
-    
-    while(municipality.posY > this.matrizPositions[i][j].posY){
-      i++;
-    }
-
-    if(this.matrizPositions[i][j].free){
-      municipality.posX = this.matrizPositions[i][j].posX;
-      municipality.posY = this.matrizPositions[i][j].posY;
-      this.matrizPositions[i][j].free = false;
-    }
-    
-    else{
-      while(!this.matrizPositions[i][j].free){
-        i++;
-        while(!this.matrizPositions[i][j].free){
-          j++;
-        }
-      }
-      municipality.posX = this.matrizPositions[i][j].posX;
-      municipality.posY = this.matrizPositions[i][j].posY;
-      this.matrizPositions[i][j].free = false;
-    }
+    municipality.posX = this.imgSizeX*0.15 + (lonMun - lonMin)*(this.imgSizeX*0.70 - this.imgSizeX*0.15)/(lonMax-lonMin);
+    municipality.posY = this.imgSizeY*0.15 + (latMun - latMax)*(this.imgSizeY*0.80 - this.imgSizeY*0.15)/(latMin-latMax);
   }
 
   private convertCoordinates(municipalitiy: Municipality) {

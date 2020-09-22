@@ -7,10 +7,45 @@ public class Map
     private double minHeight;
     private double distMax;
     private double distMin;
+    private double latMax;
+    private double latMin;
+    private double lonMax;
+    private double lonMin;
 
     public Map() {
     }
 
+    public double getLatMax() {
+        return latMax;
+    }
+
+    public void setLatMax(double latMax) {
+        this.latMax = latMax;
+    }
+
+    public double getLatMin() {
+        return latMin;
+    }
+
+    public void setLatMin(double latMin) {
+        this.latMin = latMin;
+    }
+
+    public double getLonMax() {
+        return lonMax;
+    }
+
+    public void setLonMax(double lonMax) {
+        this.lonMax = lonMax;
+    }
+
+    public double getLonMin() {
+        return lonMin;
+    }
+
+    public void setLonMin(double lonMin) {
+        this.lonMin = lonMin;
+    }
 
     public double getMaxHeight() {
         return maxHeight;

@@ -20,6 +20,7 @@ export class BoardUserComponent implements OnInit {
     {
       province: 'Chaco', date: new Date("2019-03-16"), state: GameState.IN_PROGRESS,
       map: {
+        latMax: 3, lonMax: 2, latMin:1, lonMin: 1,
         maxHeight: 9, minHeight: 2, distMax: 4,
         province: {
           name: 'Chaco',
@@ -58,6 +59,7 @@ export class BoardUserComponent implements OnInit {
     {
       province: 'Formosa', date: new Date("2018-03-16"), state: GameState.CANCELLED,
       map: {
+        latMax: 3, lonMax: 2, latMin:1, lonMin: 1,
         maxHeight: 9, minHeight: 2, distMax: 4,
         province: {
           name: 'Formosa',

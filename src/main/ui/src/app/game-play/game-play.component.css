@@ -19,12 +19,12 @@ body {
     vertical-align: middle;
 }
 
-.imdesc p {
+.imdesc button {
     text-align: center;
     background: #ff000c;
 }
 
-.imdesc p.cen {
+.imdesc button.cen {
     position: absolute;
     width: 15px;
     height: 15px;
