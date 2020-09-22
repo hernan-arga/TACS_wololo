@@ -24,6 +24,10 @@ export class BoardUserComponent implements OnInit {
         province: {
           name: 'Chaco',
           municipalities: [{
+            nombre: 'Municipalidad 1',
+            posX: 0,
+            posY: 0,
+            centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
             gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
             mode: { multDef: 4, coefProdGauchos: 6 }
           }]
@@ -31,12 +35,20 @@ export class BoardUserComponent implements OnInit {
       },
       players: [{
         username: "testUser", municipalities: [{
+          nombre: 'Municipalidad 1',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
           gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
           mode: { multDef: 4, coefProdGauchos: 6 }
         }]
       },
       {
         username: "testUser2", municipalities: [{
+          nombre: 'Municipalidad 1',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
           gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
           mode: { multDef: 4, coefProdGauchos: 6 }
         }]
@@ -50,6 +62,10 @@ export class BoardUserComponent implements OnInit {
         province: {
           name: 'Formosa',
           municipalities: [{
+            nombre: 'Municipalidad 1',
+            posX: 0,
+            posY: 0,
+            centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
             gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
             mode: { multDef: 4, coefProdGauchos: 6 }
           }]
@@ -57,6 +73,10 @@ export class BoardUserComponent implements OnInit {
       },
       players: [{
         username: "testUser", municipalities: [{
+          nombre: 'Municipalidad 1',
+          posX: 0,
+          posY: 0,
+          centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
           gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
           mode: { multDef: 4, coefProdGauchos: 6 }
         }]

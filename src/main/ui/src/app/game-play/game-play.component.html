@@ -1,3 +1,17 @@
+<div class="imdesc">
+    <img src="../assets/provinces/Cordoba.png" />
 
-<img src="../assets/provinces/Cordoba.png" class="center">
+    <div *ngFor="let player of gameMock.players; let i = index">
+        <div *ngFor="let municipality of player.municipalities">
+            <div class="municipality-elements">
+                <p class="cen" [ngStyle]="calculatePositionAndColor(i, municipality)">
+                    <span class="tcen">{{municipality.nombre}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<!-- {{ (municipality.nombre.length>6)? 
+                    (municipality.nombre | slice:0:6)+'..':(municipality.nombre) }} -->
