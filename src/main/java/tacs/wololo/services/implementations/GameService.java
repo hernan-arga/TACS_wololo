@@ -1,27 +1,21 @@
 package tacs.wololo.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import tacs.wololo.model.*;
 import tacs.wololo.model.DTOs.GameInfoDto;
 import tacs.wololo.model.DTOs.GameStatusDto;
 import tacs.wololo.model.DTOs.MunicipalityDto;
-import tacs.wololo.model.DTOs.ProvinceInfoDto;
 import tacs.wololo.model.Map;
+import tacs.wololo.model.*;
 import tacs.wololo.repositories.GameRepository;
-import tacs.wololo.repositories.ProvinceRepository;
 import tacs.wololo.repositories.UserRepository;
+import tacs.wololo.services.IGameService;
 
-import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 import java.util.stream.Collectors;
 
 @Service
-public class GameService {
+public class GameService implements IGameService {
 
     @Autowired
     GameRepository gameRepository;
@@ -94,13 +88,12 @@ public class GameService {
         for(Municipality municipality : game.getMunicipalities())
         {
             municipalityDtos.add(new MunicipalityDto(municipality.getCentroide(),
-                    municipality.getId(), municipality.getNombre(), municipality.getProvincia()
-            ,municipality.getGauchos(), municipality.getHeight(), municipality.getCoefDist()
-            ,municipality.getCoefAlt(), municipality.getMode(), municipality.getOwner().getUsername(),
-                    municipality.getMovements()));
+                    municipality.getId(), municipality.getNombre(), municipality.getGauchos(),
+                    municipality.getHeight(), municipality.getMode(),
+                    municipality.getOwner().getUsername(), municipality.getMovements()));
         }
 
-        return new GameStatusDto(game.getId(), game.getMap(), game.getProvince(), game.getDate()
+        return new GameStatusDto(game.getId(), game.getProvince(), game.getDate()
         , playersNames, game.getState(), municipalityDtos, game.getMunicipalityLimit());
     }
 
@@ -108,13 +101,8 @@ public class GameService {
     {
         Game game = gameRepository.getGame(gameId, username);
 
-        System.out.println(game);
-
         Municipality attack = game.getMunicipality(attackMun);
         Municipality defence = game.getMunicipality(defenceMun);
-
-        System.out.println(attack);
-        System.out.println(defence);
 
         if(attack == null || defence == null)
             return -1;
@@ -128,6 +116,7 @@ public class GameService {
     public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)
     {
         Game game = gameRepository.getGame(idGame, username);
+
         if(game == null)
             return null; // FIXME, puse esto pero no se si es una buena idea
 

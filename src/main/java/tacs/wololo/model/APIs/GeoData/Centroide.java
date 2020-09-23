@@ -17,4 +17,11 @@ public class Centroide {
         this.lon = lon;
     }
 
+    public Double getLat() {
+        return lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
 }

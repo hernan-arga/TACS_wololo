@@ -1,7 +1,6 @@
 package tacs.wololo.model.DTOs;
 
 import tacs.wololo.model.GameState;
-import tacs.wololo.model.Map;
 
 import java.util.Date;
 import java.util.List;
@@ -9,20 +8,23 @@ import java.util.List;
 public class GameStatusDto
 {
     Long id;
-    Map map;
     String province;
+
     Date date;
+
     List<String> players;
+
     GameState state;
+
     List<MunicipalityDto> municipalities;
+
     int municipalityLimit;
 
     public GameStatusDto() {
     }
 
-    public GameStatusDto(Long id, Map map, String province, Date date, List<String> players, GameState state, List<MunicipalityDto> municipalities, int municipalityLimit) {
+    public GameStatusDto(Long id, String province, Date date, List<String> players, GameState state, List<MunicipalityDto> municipalities, int municipalityLimit) {
         this.id = id;
-        this.map = map;
         this.province = province;
         this.date = date;
         this.players = players;
@@ -33,10 +35,6 @@ public class GameStatusDto
 
     public Long getId() {
         return id;
-    }
-
-    public Map getMap() {
-        return map;
     }
 
     public String getProvince() {
