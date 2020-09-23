@@ -2,7 +2,8 @@ package tacs.wololo.model;
 
 import java.util.List;
 
-public class Province {
+public class Province
+{
     private String name;
     private List<Municipality> municipalities;
 

@@ -2,12 +2,9 @@ package tacs.wololo.model.DTOs;
 
 import tacs.wololo.model.GameState;
 import tacs.wololo.model.Map;
-import tacs.wololo.model.Municipality;
-import tacs.wololo.model.Player;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Queue;
 
 public class GameStatusDto
 {
