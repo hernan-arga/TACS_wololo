@@ -3,10 +3,10 @@
 
     <div *ngFor="let player of gameMock.players; let i = index">
         <div *ngFor="let municipality of player.municipalities">
-            <div class="municipality-elements">
-                <select [attr.disabled]="isSelectDisabled(player)? '' : null" id="actions"
-                    class="cen" id="{{municipality.nombre}}" [formControl]="selectControl" [ngStyle]="calculatePositionAndColor(i, municipality)"
-                    (change)="realizeAction(municipality); ">
+            <div class="municipality-elements" [formGroup] = "selectForm">
+                <select [attr.disabled]="isSelectDisabled(player, municipality)? '' : null" id="actions"
+                    class="cen" formControlName="{{municipality.nombre}}" [ngStyle]="calculatePositionAndColor(i, municipality)"
+                    (change)="realizeAction($event, municipality); ">
 
                     <option selected value> -- Elije Acción -- </option>
                     <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="prepareAttack">Preparar ataque</option>

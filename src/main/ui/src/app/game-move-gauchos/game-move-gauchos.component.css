@@ -1,0 +1,8 @@
+::ng-deep .mat-slider{
+    width: 100%;
+    color: blue;
+}
+
+::ng-deep .mat-dialog-actions{
+    margin-left: 25%;
+}

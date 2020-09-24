@@ -12,9 +12,11 @@ import { GameState } from "../shared/models/GameState.model";
 import { CoordinatesService } from '../_services/coordinates.service';
 import { Municipality } from '../shared/models/municipality.model';
 import { MapPosition } from '../shared/models/mapPosition.model';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validator } from '@angular/forms';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos.component';
 
 @Component({
   selector: 'app-game-play',
@@ -23,12 +25,14 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class GamePlayComponent implements OnInit {
   private routeSub: Subscription;
-  selectControl: FormControl = new FormControl();
+  
+  selectForm: FormGroup;
   currentUserUsername: String;
 
   municipalityInAction: Municipality;
   attackMode: boolean = false;
   moveMode: boolean = false;
+  cantGauchosToMove: number = 0;
 
   game: GameInfo; //TODO: cambiar a Game
   gameId: Number;
@@ -56,7 +60,7 @@ export class GamePlayComponent implements OnInit {
           posX: 0,
           posY: 0,
           centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+          gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
           mode: { multDef: 4, coefProdGauchos: 6 }
         },
         {
@@ -93,7 +97,7 @@ export class GamePlayComponent implements OnInit {
       posX: 0,
       posY: 0,
       centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+      gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
       mode: { multDef: 4, coefProdGauchos: 6 }
     }
     ]
@@ -128,9 +132,15 @@ export class GamePlayComponent implements OnInit {
   constructor(private gamesService: GamesService, private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
     private coordinateService: CoordinatesService,
-    private cdRef:ChangeDetectorRef) { }
+    private cdRef:ChangeDetectorRef,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    let group={}    
+      this.gameMock.map.province.municipalities.forEach(m=>{
+        group[m.nombre]=new FormControl('');  
+      })
+    this.selectForm = new FormGroup(group);
 
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
@@ -172,8 +182,24 @@ export class GamePlayComponent implements OnInit {
     }
   }
 
-  public realizeAction(municipalitiy: Municipality) {
-    switch (this.selectControl.value) {
+  openMoveGauchosDialog(municipalitiy:Municipality): void {
+    const dialogRef = this.dialog.open(GameMoveGauchosComponent, {
+      width: '250px',
+      data: municipalitiy,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Gauchos a mover: '+result);
+      this.cantGauchosToMove = result;
+    });
+  }
+
+  public realizeAction(event:any, municipalitiy: Municipality) {
+    //this.selectForm.value
+    //let action = event.target.value
+    //console.log(this.selectForm.value[municipalitiy.nombre]);
+    switch (this.selectForm.value[municipalitiy.nombre]) {
       case 'prepareAttack': 
         this.attackMode = true;
         this.municipalityInAction = municipalitiy;
@@ -182,6 +208,7 @@ export class GamePlayComponent implements OnInit {
       case 'prepareMove':
         this.moveMode = true;
         this.municipalityInAction = municipalitiy;
+        this.openMoveGauchosDialog(municipalitiy);
         this.cdRef.detectChanges();
         break;
       case 'modify': 
@@ -203,7 +230,8 @@ export class GamePlayComponent implements OnInit {
   }
 
   public moveGauchos(municipality: Municipality) {
-    console.log("Mover gauchos desde: "+this.municipalityInAction.nombre+" a "+municipality.nombre);
+    console.log("Mover "+this.cantGauchosToMove+" desde: "+this.municipalityInAction.nombre
+                +" a "+municipality.nombre);
   }
 
   public modifySpecialization(municipality: Municipality) {
@@ -218,10 +246,11 @@ export class GamePlayComponent implements OnInit {
     return this.playerIsCurrentUser(player);
   }
 
-  public isSelectDisabled(player: Player): boolean{
+  public isSelectDisabled(player: Player, municipalitiy: Municipality): boolean{
+    let municipalityWantsToMove = this.selectForm.value[municipalitiy.nombre] === 'prepareMove';
     return (!this.playerIsCurrentUser(player) && !this.attackMode) ||
           (this.playerIsCurrentUser(player) && this.attackMode) ||
-          (this.playerIsCurrentUser(player) && this.moveMode ); //que desactive solo el que se selecciono para mover
+          (this.playerIsCurrentUser(player) && this.moveMode && municipalityWantsToMove); //que desactive solo el que se selecciono para mover
   }
 
 }

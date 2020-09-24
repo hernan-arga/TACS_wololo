@@ -21,6 +21,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { GamePlayComponent } from './game-play/game-play.component';
+import { GameMoveGauchosComponent } from './game-move-gauchos/game-move-gauchos.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { GamePlayComponent } from './game-play/game-play.component';
     BoardModeratorComponent,
     ProfileComponent,
     GameCreateComponent,
-    GamePlayComponent
+    GamePlayComponent,
+    GameMoveGauchosComponent
   ],
   imports: [
     BrowserModule,
