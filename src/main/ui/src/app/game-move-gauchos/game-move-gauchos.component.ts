@@ -16,8 +16,7 @@ export class GameMoveGauchosComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<GameMoveGauchosComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Municipality,
-    private _formBuilder: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: Municipality) {
       this.municipality = data;
     }
 
@@ -26,7 +25,7 @@ export class GameMoveGauchosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }

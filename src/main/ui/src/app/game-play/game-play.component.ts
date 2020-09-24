@@ -17,6 +17,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos.component';
+import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-turn-to-play.component';
 
 @Component({
   selector: 'app-game-play',
@@ -32,6 +33,8 @@ export class GamePlayComponent implements OnInit {
   municipalityInAction: Municipality;
   attackMode: boolean = false;
   moveMode: boolean = false;
+  alreadyPlayed: boolean = false;
+  isCurrentlyUserTurn: boolean;
   cantGauchosToMove: number = 0;
 
   game: GameInfo; //TODO: cambiar a Game
@@ -143,16 +146,24 @@ export class GamePlayComponent implements OnInit {
     this.selectForm = new FormGroup(group);
 
     const user = this.tokenStorageService.getUser();
-    this.currentUserUsername = user.username;
+    this.currentUserUsername = user.username;    
 
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
     });
-    this.gamesService.getGame(this.gameId).subscribe(data => this.game = data);
+    this.gamesService.getGame(this.gameId).subscribe(
+      data => {this.game = data;});
+
+      this.isCurrentlyUserTurn = this.gameMock.players[0].username === user.username;
 
     this.gameMock.players.forEach(p => p.municipalities
       .forEach(m => { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
       ));
+
+      if(!this.isCurrentlyUserTurn){
+        this.openNotYourTurnDialog();
+      }
+    
   }
 
   //Ecuaciones de interpolacion
@@ -180,6 +191,13 @@ export class GamePlayComponent implements OnInit {
       "left": municipality.posX.toString() + 'px',
       "background": color
     }
+  }
+
+  openNotYourTurnDialog(): void {
+    const dialogRef = this.dialog.open(GameNotTurnToPlayComponent, {
+      width: '400px',
+      disableClose: true
+    });
   }
 
   openMoveGauchosDialog(municipalitiy:Municipality): void {
@@ -213,12 +231,15 @@ export class GamePlayComponent implements OnInit {
         break;
       case 'modify': 
         this.modifySpecialization(municipalitiy);
+        this.alreadyPlayed = true;
         break;
       case 'attack':
         this.attack(municipalitiy);
+        this.alreadyPlayed = true;
         break;
       case 'move':
         this.moveGauchos(municipalitiy);
+        this.alreadyPlayed = true;
         break;
       default: 
         throw("Se pidio una accion invalida");
@@ -250,7 +271,8 @@ export class GamePlayComponent implements OnInit {
     let municipalityWantsToMove = this.selectForm.value[municipalitiy.nombre] === 'prepareMove';
     return (!this.playerIsCurrentUser(player) && !this.attackMode) ||
           (this.playerIsCurrentUser(player) && this.attackMode) ||
-          (this.playerIsCurrentUser(player) && this.moveMode && municipalityWantsToMove); //que desactive solo el que se selecciono para mover
+          (this.playerIsCurrentUser(player) && this.moveMode && municipalityWantsToMove) ||
+          this.alreadyPlayed || !this.isCurrentlyUserTurn;
   }
 
 }

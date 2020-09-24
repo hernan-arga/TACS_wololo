@@ -1,16 +1,11 @@
-::ng-deep .mat-slider{
-    width: 100%;
-    color: blue;
-}
-
-::ng-deep .mat-dialog-actions{
-    margin-left: 25%;
-}
-
 ::ng-deep .mat-dialog-container{
     background: #827979;
     color: rgba(255, 255, 255, 0.829);
     
+}
+
+::ng-deep .mat-dialog-actions{
+    margin-left: 35%;
 }
 
 ::ng-deep .mat-dialog-title{

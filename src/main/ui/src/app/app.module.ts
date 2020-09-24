@@ -22,6 +22,7 @@ import {DemoMaterialModule} from './material-module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { GamePlayComponent } from './game-play/game-play.component';
 import { GameMoveGauchosComponent } from './game-move-gauchos/game-move-gauchos.component';
+import { GameNotTurnToPlayComponent } from './game-not-turn-to-play/game-not-turn-to-play.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { GameMoveGauchosComponent } from './game-move-gauchos/game-move-gauchos.
     ProfileComponent,
     GameCreateComponent,
     GamePlayComponent,
-    GameMoveGauchosComponent
+    GameMoveGauchosComponent,
+    GameNotTurnToPlayComponent
   ],
   imports: [
     BrowserModule,
