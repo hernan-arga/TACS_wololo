@@ -13,6 +13,8 @@ import { CoordinatesService } from '../_services/coordinates.service';
 import { Municipality } from '../shared/models/municipality.model';
 import { MapPosition } from '../shared/models/mapPosition.model';
 import { FormControl } from '@angular/forms';
+import { TokenStorageService } from '../_services/token-storage.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-game-play',
@@ -21,7 +23,12 @@ import { FormControl } from '@angular/forms';
 })
 export class GamePlayComponent implements OnInit {
   private routeSub: Subscription;
-  selectControl: FormControl = new FormControl()
+  selectControl: FormControl = new FormControl();
+  currentUserUsername: String;
+
+  municipalityInAction: Municipality;
+  attackMode: boolean = false;
+  moveMode: boolean = false;
 
   game: GameInfo; //TODO: cambiar a Game
   gameId: Number;
@@ -119,9 +126,14 @@ export class GamePlayComponent implements OnInit {
   };
 
   constructor(private gamesService: GamesService, private route: ActivatedRoute,
-    private coordinateService: CoordinatesService) { }
+    private tokenStorageService: TokenStorageService,
+    private coordinateService: CoordinatesService,
+    private cdRef:ChangeDetectorRef) { }
 
   ngOnInit(): void {
+
+    const user = this.tokenStorageService.getUser();
+    this.currentUserUsername = user.username;
 
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
@@ -162,14 +174,24 @@ export class GamePlayComponent implements OnInit {
 
   public realizeAction(municipalitiy: Municipality) {
     switch (this.selectControl.value) {
-      case 'attack': 
-        this.attack(municipalitiy);
+      case 'prepareAttack': 
+        this.attackMode = true;
+        this.municipalityInAction = municipalitiy;
+        this.cdRef.detectChanges(); // Esto es porque tira Expression has changed after it was checked        
         break;
-      case 'move': 
-        this.moveGauchos(municipalitiy);
+      case 'prepareMove':
+        this.moveMode = true;
+        this.municipalityInAction = municipalitiy;
+        this.cdRef.detectChanges();
         break;
       case 'modify': 
         this.modifySpecialization(municipalitiy);
+        break;
+      case 'attack':
+        this.attack(municipalitiy);
+        break;
+      case 'move':
+        this.moveGauchos(municipalitiy);
         break;
       default: 
         throw("Se pidio una accion invalida");
@@ -177,15 +199,29 @@ export class GamePlayComponent implements OnInit {
   }
 
   public attack(municipality: Municipality) {
-    console.log(municipality.nombre);
+    console.log("Atacar desde: "+this.municipalityInAction.nombre+" a "+municipality.nombre);
   }
 
   public moveGauchos(municipality: Municipality) {
-    console.log(municipality.gauchos);
+    console.log("Mover gauchos desde: "+this.municipalityInAction.nombre+" a "+municipality.nombre);
   }
 
   public modifySpecialization(municipality: Municipality) {
     console.log(municipality.mode);
+  }
+
+  public playerIsCurrentUser(player: Player): boolean {
+    return player.username == this.currentUserUsername;
+  }
+
+  public isCurrentPlayerOption(player: Player): boolean{
+    return this.playerIsCurrentUser(player);
+  }
+
+  public isSelectDisabled(player: Player): boolean{
+    return (!this.playerIsCurrentUser(player) && !this.attackMode) ||
+          (this.playerIsCurrentUser(player) && this.attackMode) ||
+          (this.playerIsCurrentUser(player) && this.moveMode ); //que desactive solo el que se selecciono para mover
   }
 
 }

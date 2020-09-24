@@ -4,11 +4,16 @@
     <div *ngFor="let player of gameMock.players; let i = index">
         <div *ngFor="let municipality of player.municipalities">
             <div class="municipality-elements">
-                <select id="actions" class="cen" [formControl]="selectControl" [ngStyle]="calculatePositionAndColor(i, municipality)" (change)="realizeAction(municipality); ">
-                    <option disabled selected value> -- Elije Acción -- </option>
-                    <option value="attack">Atacar</option>
-                    <option value="move">Mover Gauchos</option>
-                    <option value="modify">Modificar Especialización</option>
+                <select [attr.disabled]="isSelectDisabled(player)? '' : null" id="actions"
+                    class="cen" id="{{municipality.nombre}}" [formControl]="selectControl" [ngStyle]="calculatePositionAndColor(i, municipality)"
+                    (change)="realizeAction(municipality); ">
+
+                    <option selected value> -- Elije Acción -- </option>
+                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="prepareAttack">Preparar ataque</option>
+                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="prepareMove">Mover Gauchos</option>
+                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="modify">Modificar Especialización</option>
+                    <option *ngIf="isCurrentPlayerOption(player) && this.moveMode" value="move">Asentar Gauchos Aqui!</option>
+                    <option *ngIf="!isCurrentPlayerOption(player)" value="attack">Atacar!</option>
                 </select>
             </div>
         </div>
