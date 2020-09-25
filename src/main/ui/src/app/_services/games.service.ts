@@ -29,9 +29,9 @@ export class GamesService {
   }
 
   //TODO: Observable<Game>
-  getGame(id: Number): Observable<GameInfo> {
-    let searchParam = new HttpParams().set('gameID', id.toString());
-    return this.http.get<GameInfo>(API_URL + 'game', { params: searchParam });
+  getGame(id: Number): Observable<Game> {
+    //let searchParam = new HttpParams().set('gameID', id.toString());
+    return this.http.get<Game>(API_URL + 'game/'+id.toString(), { responseType: 'json' });  //{ params: searchParam }
   }
 
 }

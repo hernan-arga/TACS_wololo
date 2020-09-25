@@ -102,12 +102,9 @@ export class GameCreateComponent implements OnInit {
 
     var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName);
     this.gamesService.createGame(gameInfo).subscribe(
-      data => {}
+      data => {console.log(data.id); this.router.navigate(['/game', data.id]);}
     );
-
-    let id = 3;
-    // TODO: /game/id
-    this.router.navigate(['/game', id]);
+    
 
   }
 

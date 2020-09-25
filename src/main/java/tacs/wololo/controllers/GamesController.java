@@ -20,8 +20,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin
 @RequestMapping("/api/games")
 public class GamesController
 {

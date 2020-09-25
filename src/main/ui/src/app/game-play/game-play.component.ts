@@ -37,52 +37,55 @@ export class GamePlayComponent implements OnInit {
   isCurrentlyUserTurn: boolean;
   cantGauchosToMove: number = 0;
 
-  game: GameInfo; //TODO: cambiar a Game
+  game: Game; //TODO: cambiar a Game
   gameId: Number;
   imgSizeX: number = 366;
   imgSizeY: number = 557;
 
   matrizPositions: MapPosition[][] = new Array<Array<MapPosition>>();
 
+
+  municipalitiesMock: Municipality[] = [
+    {
+      nombre: 'Municipalidad 2',
+      posX: 0,
+      posY: 0,
+      centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
+      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+      mode: { multDef: 4, coefProdGauchos: 6 }
+    },
+    {
+      nombre: 'Municipalidad 3',
+      posX: 0,
+      posY: 0,
+      centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
+      gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
+      mode: { multDef: 4, coefProdGauchos: 6 }
+    },
+    {
+      nombre: 'Municipalidad 4',
+      posX: 0,
+      posY: 0,
+      centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
+      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+      mode: { multDef: 4, coefProdGauchos: 6 }
+    },
+    {
+      nombre: 'Municipalidad 5',
+      posX: 0,
+      posY: 0,
+      centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
+      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+      mode: { multDef: 4, coefProdGauchos: 6 }
+    }
+  ]
+
   mapMock: Map = {
     latMax: -30.9830362325549, lonMax: -63.7340063162336, latMin: -34.0601407054622, lonMin: -64.5025780020643,
     maxHeight: 9, minHeight: 2, distMax: 4,
     province: {
       name: 'Córdoba',
-      municipalities: [
-        {
-          nombre: 'Municipalidad 2',
-          posX: 0,
-          posY: 0,
-          centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
-          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-          mode: { multDef: 4, coefProdGauchos: 6 }
-        },
-        {
-          nombre: 'Municipalidad 3',
-          posX: 0,
-          posY: 0,
-          centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-          gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
-          mode: { multDef: 4, coefProdGauchos: 6 }
-        },
-        {
-          nombre: 'Municipalidad 4',
-          posX: 0,
-          posY: 0,
-          centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
-          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-          mode: { multDef: 4, coefProdGauchos: 6 }
-        },
-        {
-          nombre: 'Municipalidad 5',
-          posX: 0,
-          posY: 0,
-          centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
-          gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-          mode: { multDef: 4, coefProdGauchos: 6 }
-        }
-      ]
+      municipalities: this.municipalitiesMock
     }
   }
 
@@ -128,7 +131,8 @@ export class GamePlayComponent implements OnInit {
   ];
 
   gameMock: Game = {
-    province: "Cordoba", date: new Date("2018-03-16"), map: this.mapMock,
+    province: "Río Negro", date: new Date("2018-03-16"), map: this.mapMock,
+    municipalityLimit: 3, municipalities: this.municipalitiesMock,
     state: GameState.FINISHED, players: this.playersMock
   };
 
@@ -152,7 +156,9 @@ export class GamePlayComponent implements OnInit {
       this.gameId = params['id']
     });
     this.gamesService.getGame(this.gameId).subscribe(
-      data => {this.game = data;});
+      data => {this.game = data; console.log(data);});
+
+      
 
       this.isCurrentlyUserTurn = this.gameMock.players[0].username === user.username;
 
@@ -232,14 +238,17 @@ export class GamePlayComponent implements OnInit {
       case 'modify': 
         this.modifySpecialization(municipalitiy);
         this.alreadyPlayed = true;
+        this.cdRef.detectChanges();
         break;
       case 'attack':
         this.attack(municipalitiy);
         this.alreadyPlayed = true;
+        this.cdRef.detectChanges();
         break;
       case 'move':
         this.moveGauchos(municipalitiy);
         this.alreadyPlayed = true;
+        this.cdRef.detectChanges();
         break;
       default: 
         throw("Se pidio una accion invalida");

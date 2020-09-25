@@ -15,12 +15,22 @@ export class BoardUserComponent implements OnInit {
   games: Array<Game>;
   sortedData: Game[];
 
+  municipalitiesTest = [{
+    nombre: 'Municipalidad 1',
+    posX: 0,
+    posY: 0,
+    centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
+    gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
+    mode: { multDef: 4, coefProdGauchos: 6 }
+  }]
   //XXX: Esto es para testear borrarlo despues
   gamesTest: Array<Game> = [
     {
+      municipalityLimit: 3,
+      municipalities: this.municipalitiesTest,
       province: 'Chaco', date: new Date("2019-03-16"), state: GameState.IN_PROGRESS,
       map: {
-        latMax: 3, lonMax: 2, latMin:1, lonMin: 1,
+        latMax: 3, lonMax: 2, latMin: 1, lonMin: 1,
         maxHeight: 9, minHeight: 2, distMax: 4,
         province: {
           name: 'Chaco',
@@ -57,9 +67,11 @@ export class BoardUserComponent implements OnInit {
     },
 
     {
+      municipalityLimit: 3,
+      municipalities: this.municipalitiesTest,
       province: 'Formosa', date: new Date("2018-03-16"), state: GameState.CANCELLED,
       map: {
-        latMax: 3, lonMax: 2, latMin:1, lonMin: 1,
+        latMax: 3, lonMax: 2, latMin: 1, lonMin: 1,
         maxHeight: 9, minHeight: 2, distMax: 4,
         province: {
           name: 'Formosa',
