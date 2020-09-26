@@ -61,8 +61,8 @@ public class Game
     }
 
     private void setMapLatAndLon(){
-        List<Double> latitudes = this.municipalities.stream().map(m -> m.getCentroide().lat).collect(Collectors.toList());
-        List<Double> longitudes = this.municipalities.stream().map(m -> m.getCentroide().lon).collect(Collectors.toList());
+        List<Double> latitudes = this.municipalities.stream().map(m -> m.getCentroide().getLat()).collect(Collectors.toList());
+        List<Double> longitudes = this.municipalities.stream().map(m -> m.getCentroide().getLon()).collect(Collectors.toList());
         this.map.setLatMax(Collections.max(latitudes));
         this.map.setLonMax(Collections.max(longitudes));
         this.map.setLatMin(Collections.min(latitudes));
@@ -81,7 +81,9 @@ public class Game
 
     private void setHeights(AsterAPI asterAPI){
             //TODO hacerlo singleton
-        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.centroide).collect(Collectors.toList()));
+        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.getCentroide()).collect(Collectors.toList()));
+        System.out.println(municipalities.get(0).getHeight());
+        System.out.println(heights);
         this.map.setMaxHeight(Collections.max(heights));
         this.map.setMinHeight(Collections.min(heights));
         this.municipalities.stream().forEach(z->this.setHeight(z,heights));

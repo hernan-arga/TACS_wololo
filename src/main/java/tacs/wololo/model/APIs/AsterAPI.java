@@ -23,6 +23,11 @@ public class AsterAPI {
 
     }
 
+    /*
+    *
+    * Returns heights of geographical coordinates
+    *
+    * */
     public List<Double> multipleHeights(List<Centroide> centroides) {
 
 
