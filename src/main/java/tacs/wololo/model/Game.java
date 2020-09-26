@@ -1,44 +1,54 @@
 package tacs.wololo.model;
 
-import net.minidev.json.annotate.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game {
+public class Game
+{
     Long id;
     Map map;
-    String province;
     Date date;
-    Queue<Player> players;
+
+    Queue<String> players;
+
     GameState state;
+
     List<Municipality> municipalities;
+
     int municipalityLimit;
 
     public Game() {
     }
 
-    public Game(Map map, String province, Date date, Queue<Player> players, GameState state, int municipalityLimit) {
-
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit)
+    {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
         GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
         this.map = map;
-        this.province = province;
         this.date = date;
         this.players = players;
         this.state = state;
-        this.municipalities = geoRef.municipioPorProvincia(province);
+        this.municipalities = geoRef.municipioPorProvincia(map.getProvince());
         this.setMapLatAndLon();
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
         this.setHeights();
         this.sortMunicipalities();
-        for (Municipality municipality : this.municipalities) {
-            municipality.setGauchos(10);
-            municipality.setMode(new DefendingMunicipality());
+
+        Random random = new Random();
+
+        for (Municipality municipality : this.municipalities)  //TODO:Parametrizar por config file
+        {
+            municipality.setGauchos(random.nextInt(15));
+
+            if(random.nextInt(100) < 25)
+                municipality.setMode(new ProducerMunicipality());
+            else
+                municipality.setMode(new DefendingMunicipality());
         }
 
     }
@@ -75,7 +85,8 @@ public class Game {
         heights.remove(0);
     }
 
-    private void sortMunicipalities(){
+    private void sortMunicipalities()
+    {
         int municipalitiesPerPlayer = 0;
         if(municipalities.size()/players.size()*players.size()==municipalities.size()){
             municipalitiesPerPlayer = municipalities.size()/players.size();
@@ -87,7 +98,7 @@ public class Game {
         players.stream().forEach(z->assignMunicipalities(z,municipalitiesYetToBeAdded) );
     }
 
-    private void assignMunicipalities(Player player, List<List<Municipality>> municipalities){
+    private void assignMunicipalities(String player, List<List<Municipality>> municipalities){
         municipalities.get(0).stream().forEach(z->z.setOwner(player));
         municipalities.remove(0);
     }
@@ -108,19 +119,28 @@ public class Game {
         players.remove();
     }
 
-    public Municipality getMunicipality(String id)
+    public Municipality getMunicipality(String name)
     {
-        return municipalities.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+        return municipalities.stream().filter(m -> m.getNombre().equals(name)).findFirst().orElse(null);
+    }
+
+    public void moveGauchos(int amount, Municipality origin, Municipality destination)
+    {
+        this.validateEnoughGauchos(amount, origin);
+        origin.removeGauchos(amount);
+        destination.addGauchos(amount);
+    }
+
+    private void validateEnoughGauchos(int amount, Municipality origin)
+    {
+        if((origin.getGauchos() - amount) < 0)
+            throw new RuntimeException("El municipio no posee suficientes gauchos");
     }
 
     // --------------- Getters y Setters --------------
 
-    public Queue<Player> getPlayers() {
+    public Queue<String> getPlayers() {
         return players;
-    }
-
-    public String getProvince() {
-        return province;
     }
 
     public int getMunicipalityLimit() {
@@ -145,5 +165,10 @@ public class Game {
 
     public List<Municipality> getMunicipalities() {
         return municipalities;
+    }
+
+    public String getProvince()
+    {
+        return this.map.getProvince();
     }
 }

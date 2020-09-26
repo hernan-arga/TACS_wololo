@@ -1,16 +1,12 @@
 package tacs.wololo.model.DTOs;
 
-public class AttackDto
+public class ActionDto
 {
     String attackMun;
     String defenceMun;
+    int ammount;
 
-    public AttackDto() {
-    }
-
-    public AttackDto(String attackMun, String defenceMun) {
-        this.attackMun = attackMun;
-        this.defenceMun = defenceMun;
+    public ActionDto() {
     }
 
     public String getAttackMun() {
@@ -19,5 +15,9 @@ public class AttackDto
 
     public String getDefenceMun() {
         return defenceMun;
+    }
+
+    public int getAmmount() {
+        return ammount;
     }
 }

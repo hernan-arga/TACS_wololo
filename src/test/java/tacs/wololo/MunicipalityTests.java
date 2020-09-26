@@ -1,24 +1,15 @@
 package tacs.wololo;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import tacs.wololo.model.*;
-import tacs.wololo.model.APIs.GeoData.Centroide;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import tacs.wololo.model.Map;
+import tacs.wololo.model.Municipality;
 
 public class MunicipalityTests {
     private Municipality municipality;
     private Municipality municipalityStrong;
     private Municipality municipalityWeak;
     private Map map;
-    private Player ownerStrong;
-    private Player ownerWeak;
 
+    /*
     @Before
     public void init()
     {
@@ -109,4 +100,5 @@ public class MunicipalityTests {
         modoDefensaModif.setMultDef(1.5f);
         assertEquals(1.5, modoDefensaModif.getMultDef(),0);
     }
+     */
 }

@@ -3,8 +3,6 @@ package tacs.wololo.services.implementations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tacs.wololo.model.DTOs.GameInfoDto;
-import tacs.wololo.model.DTOs.GameStatusDto;
-import tacs.wololo.model.DTOs.MunicipalityDto;
 import tacs.wololo.model.Map;
 import tacs.wololo.model.*;
 import tacs.wololo.repositories.GameRepository;
@@ -12,7 +10,6 @@ import tacs.wololo.repositories.UserRepository;
 import tacs.wololo.services.IGameService;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class GameService implements IGameService {
@@ -27,95 +24,91 @@ public class GameService implements IGameService {
 
     }
 
-    public void createGame(GameInfoDto gameInfoDto)
+    public GameInfoDto createGameDto(Game game)
+    {
+        return new GameInfoDto((LinkedList) game.getPlayers(), game.getProvince(),
+                game.getMunicipalityLimit(), game.getId());
+    }
+
+    public Game createGame(GameInfoDto gameInfoDto)
     {
         List<String> playersUsernames = gameInfoDto.getPlayersUsernames();
         Collections.shuffle(playersUsernames);
 
-        Queue<Player> players = new LinkedList<>();
+        Queue<String> playerQueue = new LinkedList<String>(playersUsernames);
 
-        for(String username : playersUsernames)
-        {
-            Player player = new Player(username);
-            players.add(player);
-        }
+        Map map = new Map(gameInfoDto.getProvinceName());
 
-        Game game = new Game(new Map(), gameInfoDto.getProvinceName(), new Date(),
-                players, GameState.CREATED, gameInfoDto.getMunicipalitiesCant());
+        Game game = new Game(map, new Date(),
+                playerQueue, GameState.CREATED, gameInfoDto.getMunicipalitiesCant());
 
-        gameRepository.addGame(game);
+        gameRepository.addGame(game.getId(), game);
+
+        return game;
     }
 
-    public List<GameInfoDto> getGames(String username)
+    public List<Game> getGames(String username)
     {
-        System.out.println("Cambia algo");
-        List<Game> games = gameRepository.getGames(username);
-
-        if(games.isEmpty())
-        {
-            System.out.println("Estoy vacio");
-            return new ArrayList<>();
-        }
-
-
-        List<GameInfoDto> gameInfoDtos = new ArrayList<>();
-
-        for(Game game : games)
-        {
-            List<String> usernames = new ArrayList<Player>(game.getPlayers())
-                    .stream().map(Player::getUsername).collect(Collectors.toList());
-
-            gameInfoDtos.add(new GameInfoDto(usernames, game.getProvince(), game.getMunicipalityLimit()
-                    , game.getId()));
-        }
-
-        return gameInfoDtos;
+        return gameRepository.getGames(username);
     }
 
-    public GameStatusDto getGame(Long gameId, String username)
+    public Game getGame(String username, Long id)
     {
-        Game game = gameRepository.getGame(gameId, username);
+        Optional<Game> game = gameRepository.getGames(username).stream().filter(g -> g.getId().equals(id)).findFirst();
 
-        List<String> playersNames = new ArrayList<>();
+        if(game.isPresent())
+            return game.get();
 
-        List<MunicipalityDto> municipalityDtos = new ArrayList<>();
-
-        for(Player player : game.getPlayers())
-        {
-            playersNames.add(player.getUsername());
-        }
-
-        for(Municipality municipality : game.getMunicipalities())
-        {
-            municipalityDtos.add(new MunicipalityDto(municipality.getCentroide(),
-                    municipality.getId(), municipality.getNombre(), municipality.getGauchos(),
-                    municipality.getHeight(), municipality.getMode(),
-                    municipality.getOwner().getUsername(), municipality.getMovements()));
-        }
-
-        return new GameStatusDto(game.getId(), game.getProvince(), game.getDate()
-        , playersNames, game.getState(), municipalityDtos, game.getMunicipalityLimit());
+        throw new RuntimeException();
     }
 
-    public int processAttack(String username, Long gameId, String attackMun, String defenceMun)
+    public void moveGauchos(String username, Long id, String sourceS, String targetS, int ammount)
     {
-        Game game = gameRepository.getGame(gameId, username);
+        Game game = getGame(username, id);
 
-        Municipality attack = game.getMunicipality(attackMun);
-        Municipality defence = game.getMunicipality(defenceMun);
+        Municipality source = game.getMunicipality(sourceS);
 
-        if(attack == null || defence == null)
-            return -1;
+        Municipality target = game.getMunicipality(targetS);
 
-        if(attack.attackMunicipality(defence, game.getMap()))
-            return 1;
+        if(source == null || target == null)
+            throw new RuntimeException("Municipio no existente");
 
-        return 0;
+        if(!(source.getOwner().contentEquals(username) && target.getOwner().contentEquals(username)))
+            throw new RuntimeException("Municipio no valido");
+
+        game.moveGauchos(ammount, source, target);
+    }
+
+    public List<Municipality> getMunicipalities(Long id, String username)
+    {
+        Game game =  gameRepository.getGamebyKey(id);
+
+        if(!game.getPlayers().contains(username))
+            throw new RuntimeException("Juego no encontrado");
+
+        return game.getMunicipalities();
+    }
+
+    public void attackMunicipality(String username, Long id, String sourceS, String targetS)
+    {
+        Game game = getGame(username, id);
+
+        Municipality source = game.getMunicipality(sourceS);
+
+        Municipality target = game.getMunicipality(targetS);
+
+        if(source == null || target == null)
+            throw new RuntimeException("Municipio no existente");
+
+        if(!(source.getOwner().contentEquals(username)) || target.getOwner().contentEquals(username))
+            throw new RuntimeException("Municipio no valido");
+
+        source.attackMunicipality(target, game.getMap());
     }
 
     public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)
     {
-        Game game = gameRepository.getGame(idGame, username);
+        Game game = getGame(username, idGame);
 
         if(game == null)
             return null; // FIXME, puse esto pero no se si es una buena idea
@@ -128,15 +121,13 @@ public class GameService implements IGameService {
 
         // TODO: SACAR. Dejo el comentario igual para testear, pero sacar para la entrega.
         // --------
-        /*
         List<Movement> movements = new ArrayList<>();
         movements.add(new MovementDefend(10, "Chaco", true));
         movements.add(new MovementProduce(20, 5));
 
-        municipality.setMovements(movements);*/
+        municipality.setMovements(movements);
         // --------
 
         return municipality.getMovements();
     }
-
 }

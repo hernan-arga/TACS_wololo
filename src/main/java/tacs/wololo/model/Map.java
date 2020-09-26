@@ -1,8 +1,11 @@
 package tacs.wololo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Map
 {
-    private Province province;
+    @JsonIgnore
+    private String province;
     private double maxHeight;
     private double minHeight;
     private double distMax;
@@ -13,6 +16,10 @@ public class Map
     private double lonMin;
 
     public Map() {
+    }
+
+    public Map(String province) {
+        this.province = province;
     }
 
     public double getLatMax() {
@@ -79,7 +86,7 @@ public class Map
         this.distMin = distMin;
     }
 
-    public Province getProvince() {
+    public String getProvince() {
         return province;
     }
 

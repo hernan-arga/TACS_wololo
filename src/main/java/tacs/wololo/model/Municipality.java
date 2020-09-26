@@ -1,10 +1,9 @@
 package tacs.wololo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.GeoData.Centroide;
-
 import tacs.wololo.model.APIs.GeoData.Provincia;
 
-import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +11,13 @@ public class Municipality {
 
     //API DATA tiene que ser en español  ¯\_(ツ)_/¯.
     public Centroide centroide;
+
+    @JsonIgnore
     public String id;
+
     public String nombre;
+
+    @JsonIgnore
     public Provincia provincia;
 
     //--
@@ -22,30 +26,28 @@ public class Municipality {
 
     private double height;
 
-    private double coefDist = 2;
+    @JsonIgnore
+    private final double coefDist = 2;
 
-    private double coefAlt = 2;
+    @JsonIgnore
+    private final double coefAlt = 2;
 
     private MunicipalityMode mode;
 
-    private Player owner;
+    private String owner;
 
     private List<Movement> movements = new ArrayList<>();
 
     public Municipality() { }
 
-    public Municipality(Player owner, int gauchos, double height, MunicipalityMode mode, Centroide centroide)
+    public Municipality(String owner, int gauchos, double height, MunicipalityMode mode, Centroide centroide)
     {
         this.owner = owner;
         this.gauchos = gauchos;
         this.height=height;
         this.mode = mode;
         this.centroide = centroide;
-                                    //Nunca deberia instanciarse un Municipio por el constructor, siempre por GAME
-    }                                //GAME los crea mediante lo que levanta de la API, pero el constructor queda
-                                     //Porque es util para testear
-
-
+    }
 
     public double distanceToMunicipality(Municipality other)
     {
@@ -76,10 +78,12 @@ public class Municipality {
         return 1 + heightMultiplier(map);
     }
 
-    public boolean attackMunicipality(Municipality defender, Map map){
+    public boolean attackMunicipality(Municipality defender, Map map)
+    {
         boolean winTheBattleAttacker = gauchosRemainAfterAttack(defender,map);
 
-        if(winTheBattleAttacker){
+        if(winTheBattleAttacker)
+        {
             defender.setOwner(this.owner);
             setGauchos(endingAttackingGauchos(defender,map));
         }
@@ -88,7 +92,7 @@ public class Municipality {
             defender.setGauchos(defender.endingDefendersGauchos(this,map));
         }
 
-        defender.addMovement(new MovementDefend(defender.getGauchos(), this.nombre, winTheBattleAttacker));
+        defender.addMovement(new MovementDefend(defender.getGauchos(), this.nombre, !winTheBattleAttacker));
 
         return winTheBattleAttacker;
     }
@@ -165,12 +169,11 @@ public class Municipality {
         this.height = height;
     }
 
-    public void setOwner(Player owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
-        owner.addMunicipality(this);
     }
 
-    public Player getOwner()
+    public String getOwner()
     {
         return this.owner;
     }
