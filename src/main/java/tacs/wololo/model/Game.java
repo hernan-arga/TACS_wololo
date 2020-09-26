@@ -82,8 +82,6 @@ public class Game
     private void setHeights(AsterAPI asterAPI){
             //TODO hacerlo singleton
         List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.getCentroide()).collect(Collectors.toList()));
-        System.out.println(municipalities.get(0).getHeight());
-        System.out.println(heights);
         this.map.setMaxHeight(Collections.max(heights));
         this.map.setMinHeight(Collections.min(heights));
         this.municipalities.stream().forEach(z->this.setHeight(z,heights));

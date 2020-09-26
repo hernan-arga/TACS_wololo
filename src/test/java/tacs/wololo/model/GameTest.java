@@ -37,9 +37,10 @@ public class GameTest {
 
         centroide1 = new Centroide(120.1, -60.0);
         centroide2 = new Centroide(126.1, -67.0);
-        List<Centroide> centroides = new LinkedList<>();
-        centroides.add(centroide2);
+        List<Centroide> centroides = new ArrayList<>();
         centroides.add(centroide1);
+        centroides.add(centroide2);
+
 
 
         municipality1 = mock(Municipality.class);
@@ -60,8 +61,8 @@ public class GameTest {
 
         //when(municipality1.setHeight(Double height)).then()) suponiendo que se ejecuta como función vacía
 
-        heights.add(municipality1.getHeight());
-        heights.add(municipality2.getHeight());
+        heights.add((double) 100);
+        heights.add((double) 150);
 
         players = new LinkedList<>();
         players.add("fulano");
@@ -82,6 +83,13 @@ public class GameTest {
     @Test
     public void maximumHeightReturns150() {
 //(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
-        Assert.assertEquals(aGame.getMap().getMaxHeight(), 150);
+        Assert.assertEquals(aGame.getMap().getMaxHeight(), 150.0, 0);
+    }
+
+
+    @Test
+    public void minHeightReturns100() {
+//(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
+        Assert.assertEquals(aGame.getMap().getMinHeight(), 100.0, 0);
     }
 }
