@@ -18,11 +18,13 @@ import static org.mockito.Mockito.when;
 public class GameTest {
 
     private Game aGame;
+    private Game easyGame;
     private Map aMap;
     private GameState state;
     private static int MUNICIPALITY_LIMIT = 15; //DEPENDE DE LA PROVINCIA
     private Municipality municipality1;
     private Municipality municipality2;
+    private Municipality municipality3;
     private Queue<String> players;
     GeoRef geoRefMock;
     AsterAPI asterAPImock;
@@ -45,6 +47,7 @@ public class GameTest {
 
         municipality1 = mock(Municipality.class);
         municipality2 = mock(Municipality.class);
+        municipality3 = mock(Municipality.class);
         List<Municipality> municipalities = new ArrayList<>();
         municipalities.add(municipality1);
         municipalities.add(municipality2);
@@ -69,6 +72,8 @@ public class GameTest {
         players.add("mengano");
         //players.add("fran");
 
+
+
         aMap = new Map(PROVINCIA);
 
         geoRefMock = mock(GeoRef.class);
@@ -78,6 +83,27 @@ public class GameTest {
         //(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
         aGame = new Game(aMap, new Date(), players, GameState.CREATED, MUNICIPALITY_LIMIT, geoRefMock, asterAPImock);
         //TODO El constructor no debería recibir estado de juego
+
+        easyGame = new Game();
+
+        municipalities.add(municipality3);
+
+        when(municipality1.getOwner()).thenReturn("fulano");
+        when(municipality2.getOwner()).thenReturn("mengano");
+        when(municipality3.getOwner()).thenReturn("mengano");
+
+        easyGame.setPlayers(players);
+        easyGame.setMunicipalities(municipalities);
+    }
+
+    @Test
+    public void getScoreBoard() {
+        List<ElementScoreBoard> elementScoreBoards = easyGame.getScoreBoard();
+
+        Assert.assertEquals("fulano", elementScoreBoards.get(0).getPlayer());
+        Assert.assertEquals(1, elementScoreBoards.get(0).getCantMunicipalitiesHavePlayer());
+        Assert.assertEquals("mengano", elementScoreBoards.get(1).getPlayer());
+        Assert.assertEquals(2, elementScoreBoards.get(1).getCantMunicipalitiesHavePlayer());
     }
 
     @Test
