@@ -19,20 +19,21 @@ public class Game
     List<Municipality> municipalities;
 
     int municipalityLimit;
+    GeoRef geoRef;
 
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit)
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
     {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
-        GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
+        this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
         this.map = map;
         this.date = date;
         this.players = players;
         this.state = state;
-        this.municipalities = geoRef.municipioPorProvincia(map.getProvince());
+        this.municipalities = this.geoRef.municipioPorProvincia(map.getProvince());
         this.setMapLatAndLon();
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
@@ -98,6 +99,10 @@ public class Game
         players.stream().forEach(z->assignMunicipalities(z,municipalitiesYetToBeAdded) );
     }
 
+
+/*
+* Asign a list of municipalities to a player
+* */
     private void assignMunicipalities(String player, List<List<Municipality>> municipalities){
         municipalities.get(0).stream().forEach(z->z.setOwner(player));
         municipalities.remove(0);
