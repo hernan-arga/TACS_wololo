@@ -2,7 +2,9 @@ package tacs.wololo.repositories;
 
 import org.springframework.stereotype.Repository;
 import tacs.wololo.model.Game;
+import tacs.wololo.model.GameState;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +30,17 @@ public class GameRepository {
                 .collect(Collectors.toList());
     }
 
-    /*
-    public List<Game> gamesitos() // TODO: SACAR
+    // proveer estadísticas de cantidad de partidas creadas, en curso, terminadas y canceladas
+    // permitiendo seleccionar el rango de fechas
+
+    public List<Game> getGamesByState(GameState state, Date dateMin, Date datemax)
     {
-        return this.games;
+        return games.values().stream().filter(
+                g -> g.getState().equals(state) && g.getDate().after(dateMin) && g.getDate().before(datemax))
+                .collect(Collectors.toList());
     }
+
+    /*
 
     public List<Game> getGames(String username)
     {
