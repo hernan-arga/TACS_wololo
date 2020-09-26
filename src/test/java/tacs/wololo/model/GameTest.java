@@ -92,6 +92,8 @@ public class GameTest {
         when(municipality2.getOwner()).thenReturn("mengano");
         when(municipality3.getOwner()).thenReturn("mengano");
 
+        when(municipality1.getGauchos()).thenReturn(5);
+
         easyGame.setPlayers(players);
         easyGame.setMunicipalities(municipalities);
     }
@@ -104,6 +106,12 @@ public class GameTest {
         Assert.assertEquals(1, elementScoreBoards.get(0).getCantMunicipalitiesHavePlayer());
         Assert.assertEquals("mengano", elementScoreBoards.get(1).getPlayer());
         Assert.assertEquals(2, elementScoreBoards.get(1).getCantMunicipalitiesHavePlayer());
+    }
+
+
+    @Test(expected = Exception.class)
+    public void moveMoreGauchosThanIHave() throws Exception {
+        easyGame.moveGauchos(100, municipality1, municipality2);
     }
 
     @Test
