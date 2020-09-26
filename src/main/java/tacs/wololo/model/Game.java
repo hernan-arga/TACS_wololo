@@ -156,6 +156,8 @@ public class Game
         return players;
     }
 
+
+
     public int getMunicipalityLimit() {
         return municipalityLimit;
     }
@@ -172,8 +174,17 @@ public class Game
         return date;
     }
 
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
     public GameState getState() {
         return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 
     public List<Municipality> getMunicipalities() {
