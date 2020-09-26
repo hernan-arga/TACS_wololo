@@ -24,7 +24,8 @@ public class Game
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI )
+
     {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
@@ -37,7 +38,7 @@ public class Game
         this.setMapLatAndLon();
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
-        this.setHeights();
+        this.setHeights(asterAPI);
         this.sortMunicipalities();
 
         Random random = new Random();
@@ -60,8 +61,8 @@ public class Game
     }
 
     private void setMapLatAndLon(){
-        List<Double> latitudes = this.municipalities.stream().map(m -> m.centroide.lat).collect(Collectors.toList());
-        List<Double> longitudes = this.municipalities.stream().map(m -> m.centroide.lon).collect(Collectors.toList());
+        List<Double> latitudes = this.municipalities.stream().map(m -> m.getCentroide().lat).collect(Collectors.toList());
+        List<Double> longitudes = this.municipalities.stream().map(m -> m.getCentroide().lon).collect(Collectors.toList());
         this.map.setLatMax(Collections.max(latitudes));
         this.map.setLonMax(Collections.max(longitudes));
         this.map.setLatMin(Collections.min(latitudes));
@@ -78,13 +79,15 @@ public class Game
         return municipalities.stream().map(x -> x.distanceToMunicipality(municipality)).collect(Collectors.toList());
     }
 
-    private void setHeights(){
-        AsterAPI asterAPI = new AsterAPI();     //TODO hacerlo singleton
+    private void setHeights(AsterAPI asterAPI){
+            //TODO hacerlo singleton
         List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.centroide).collect(Collectors.toList()));
         this.map.setMaxHeight(Collections.max(heights));
         this.map.setMinHeight(Collections.min(heights));
         this.municipalities.stream().forEach(z->this.setHeight(z,heights));
     }
+
+
 
     private void setHeight(Municipality municipality,List<Double> heights){
         municipality.setHeight(heights.get(0));
