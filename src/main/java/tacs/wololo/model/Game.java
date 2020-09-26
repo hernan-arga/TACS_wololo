@@ -54,6 +54,11 @@ public class Game
 
     }
 
+    public void setPlayers(Queue<String> players)
+    {
+        this.players = players;
+    }
+
     private void setMapLatAndLon(){
         List<Double> latitudes = this.municipalities.stream().map(m -> m.centroide.lat).collect(Collectors.toList());
         List<Double> longitudes = this.municipalities.stream().map(m -> m.centroide.lon).collect(Collectors.toList());
