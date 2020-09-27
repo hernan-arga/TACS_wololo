@@ -39,13 +39,25 @@ export class GamesService {
 
   moveGauchos(action: Action, id: Number): Observable<any> {
     return this.http.post(API_URL + 'games/' + id.toString() + "/moves", {
-      actionDto: action
+      attackMun: action.attackMun,
+      defenceMun: action.defenceMun,
+      ammount: action.ammount
     }, httpOptions);
   }
 
   attackGauchos(action: Action, id: Number): Observable<any> {
-    return this.http.post(API_URL + 'games/' + id.toString() + "/attack", {
-      actionDto: action
+    return this.http.post(API_URL + 'games/' + id.toString() + "/attacks", {
+      attackMun: action.attackMun,
+      defenceMun: action.defenceMun,
+      ammount: action.ammount
+    }, httpOptions);
+  }
+
+  changeMode(action: Action, id: Number):Observable<any>{
+    return this.http.post(API_URL + 'games/' + id.toString() + "/municipalities/mode", {
+      attackMun: action.attackMun,
+      defenceMun: action.defenceMun,
+      ammount: action.ammount
     }, httpOptions);
   }
 

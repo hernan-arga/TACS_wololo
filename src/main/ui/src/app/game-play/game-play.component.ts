@@ -19,6 +19,7 @@ import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos
 import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-turn-to-play.component';
 import { delay } from 'rxjs/operators';
 import { Action } from '../shared/models/action.model';
+import { GameMovementSuccessfulComponent } from '../game-movement-successful/game-movement-successful.component';
 
 @Component({
   selector: 'app-game-play',
@@ -150,7 +151,6 @@ export class GamePlayComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Gauchos a mover: ' + result);
       this.cantGauchosToMove = result;
     });
   }
@@ -169,6 +169,7 @@ export class GamePlayComponent implements OnInit {
         this.cdRef.detectChanges();
         break;
       case 'modify':
+        this.municipalityInAction = municipalitiy;
         this.modifySpecialization(municipalitiy);
         this.alreadyPlayed = true;
         this.cdRef.detectChanges();
@@ -180,7 +181,7 @@ export class GamePlayComponent implements OnInit {
         break;
       case 'move':
         this.moveGauchos(municipalitiy);
-        this.alreadyPlayed = true;
+        //this.alreadyPlayed = true;
         this.cdRef.detectChanges();
         break;
       default:
@@ -189,12 +190,13 @@ export class GamePlayComponent implements OnInit {
   }
 
   public attack(municipalityTarget: Municipality) {
-    console.log("Atacar desde: " + this.municipalityInAction.nombre + " a " + municipalityTarget.nombre);
 
     let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, 0);
     this.gamesService.attackGauchos(action, this.gameId).subscribe(
       data => {
-        console.log(data);
+        this.game = data;
+        this.openDialogMovementSuccessful(
+          "Has atacado desde " + action.attackMun+ " a "+ action.defenceMun);
       },
       err => {
         console.log("Hubo un error al atacar");
@@ -204,12 +206,12 @@ export class GamePlayComponent implements OnInit {
   }
 
   public moveGauchos(municipalityTarget: Municipality) {
-    console.log("Mover " + this.cantGauchosToMove + " desde: " + this.municipalityInAction.nombre
-      + " a " + municipalityTarget.nombre);
     let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, this.cantGauchosToMove);
     this.gamesService.moveGauchos(action, this.gameId).subscribe(
       data => {
-        console.log(data);
+        this.game = data;
+        this.openDialogMovementSuccessful(
+          "Has movido "+action.ammount+" gauchos desde " + action.attackMun+ " a "+ action.defenceMun);
       },
       err => {
         console.log("Hubo un error al mover los gauchos");
@@ -217,8 +219,28 @@ export class GamePlayComponent implements OnInit {
     );
   }
 
-  public modifySpecialization(municipality: Municipality) {
-    console.log(municipality.mode);
+  public modifySpecialization(municipalityTarget: Municipality) {
+    let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, this.cantGauchosToMove);
+    this.gamesService.changeMode(action, this.gameId).subscribe(
+      data => {
+        this.game = data;
+        this.openDialogMovementSuccessful(
+          "Has modificado la especializacion de " + action.attackMun);
+      },
+      err => {
+        console.log("Hubo un error al cambiar la especialidad");
+      }
+    );
+  }
+
+  openDialogMovementSuccessful(msg: string): void {
+    const dialogRef = this.dialog.open(GameMovementSuccessfulComponent, {
+      width: '400px',
+      data: msg
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
   public playerIsCurrentUser(player: string): boolean {

@@ -23,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { GamePlayComponent } from './game-play/game-play.component';
 import { GameMoveGauchosComponent } from './game-move-gauchos/game-move-gauchos.component';
 import { GameNotTurnToPlayComponent } from './game-not-turn-to-play/game-not-turn-to-play.component';
+import { GameMovementSuccessfulComponent } from './game-movement-successful/game-movement-successful.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { GameNotTurnToPlayComponent } from './game-not-turn-to-play/game-not-tur
     GameCreateComponent,
     GamePlayComponent,
     GameMoveGauchosComponent,
-    GameNotTurnToPlayComponent
+    GameNotTurnToPlayComponent,
+    GameMovementSuccessfulComponent
   ],
   imports: [
     BrowserModule,
