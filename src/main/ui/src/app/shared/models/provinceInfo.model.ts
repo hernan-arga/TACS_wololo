@@ -1,5 +1,4 @@
 export class ProvinceInfo {
-  //id: number;
   name: String;
   municipalitiesCant: number;
 

@@ -4,12 +4,12 @@ import { Player } from "./Player.model";
 import { Municipality } from './municipality.model';
 
 export class Game {
-  //id: number;
+  id: number;
   province: string;
   date: Date;
   map: Map;
   state: GameState;
-  players: Array<Player>;
+  players: Array<string>;
   municipalityLimit: Number;
   municipalities: Array<Municipality>;
 }

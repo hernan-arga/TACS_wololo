@@ -1,7 +1,16 @@
 package tacs.wololo;
 
+import org.junit.Before;
+import org.junit.Test;
+import tacs.wololo.model.APIs.GeoData.Centroide;
+import tacs.wololo.model.DefendingMunicipality;
 import tacs.wololo.model.Map;
 import tacs.wololo.model.Municipality;
+import tacs.wololo.model.ProducerMunicipality;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MunicipalityTests {
     private Municipality municipality;
@@ -9,19 +18,12 @@ public class MunicipalityTests {
     private Municipality municipalityWeak;
     private Map map;
 
-    /*
     @Before
     public void init()
     {
-        ownerStrong = new Player();
-        ownerWeak = new Player();
-
-        municipality = new Municipality(ownerStrong,10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
-        municipalityStrong = new Municipality(ownerStrong,10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
-        municipalityWeak = new Municipality(ownerWeak,5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
-
-        ownerStrong.addMunicipality(municipality);
-        ownerStrong.addMunicipality(municipalityStrong);
+        municipality = new Municipality("strong",10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
+        municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
+        municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
 
         map = mock(Map.class);
         when(map.getMaxHeight()).thenReturn((double) 20);
@@ -36,7 +38,7 @@ public class MunicipalityTests {
     {
         municipalityStrong.attackMunicipality(municipalityWeak, map);
 
-        assertEquals(ownerStrong, municipalityWeak.getOwner());
+        assertEquals("strong", municipalityWeak.getOwner());
         assertEquals(2102,municipalityStrong.getGauchos());
     }
 
@@ -47,25 +49,6 @@ public class MunicipalityTests {
 
         assertEquals(0,municipalityWeak.getGauchos());
         assertEquals(10000, municipalityStrong.getGauchos());
-    }
-
-    @Test
-    public void moveGauchos() throws Exception {
-        ownerStrong.moveGauchos(5, municipalityStrong, municipality);
-
-        assertEquals(15, municipality.getGauchos());
-        assertEquals(9995, municipalityStrong.getGauchos());
-    }
-
-
-    @Test(expected = Exception.class)
-    public void moveMoreGauchosThanIHave() throws Exception {
-        ownerStrong.moveGauchos(100, municipality, municipalityStrong);
-    }
-
-    @Test(expected = Exception.class)
-    public void moveMoreGauchosFromMunicipalityIDontHave() throws Exception {
-        ownerStrong.moveGauchos(1, municipalityWeak, municipalityStrong);
     }
 
     // Cada turno es posible cambiar el estado de un municipio entre producción o defensa
@@ -100,5 +83,5 @@ public class MunicipalityTests {
         modoDefensaModif.setMultDef(1.5f);
         assertEquals(1.5, modoDefensaModif.getMultDef(),0);
     }
-     */
+
 }

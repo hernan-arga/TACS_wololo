@@ -1,4 +1,5 @@
 import { Centroide } from './centroide.model';
+import { Movement } from './movement.model';
 import { MunicipalityMode } from "./municipalityMode.model";
 
 export class Municipality {
@@ -12,4 +13,6 @@ export class Municipality {
   centroide: Centroide;  
   posX: Number = 0;
   posY: Number = 0;
+  owner: string;
+  movements: Array<Movement>;
 }

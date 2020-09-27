@@ -1,0 +1,89 @@
+[{
+    "id": 1601065942735,
+    "map": {
+        "maxHeight": 753.0,
+        "minHeight": 154.0,
+        "distMax": 344.1484482663398,
+        "distMin": 23.31574253419232,
+        "latMax": -29.5752928863074,
+        "latMin": -34.8429525115099,
+        "lonMax": -61.8111079222229,
+        "lonMin": -65.5309219740349
+    },
+    "date": "2020-09-25T20:32:22.735+00:00",
+    "players": ["admin", "hernan"],
+    "state": "CREATED",
+    "municipalities": [{
+        "centroide": {
+            "lat": -32.546237695526,
+            "lon": -62.9807310033667
+        },
+        "nombre": "Ballesteros",
+        "gauchos": 10,
+        "height": 160.0,
+        "mode": {
+            "multDef": 1.25,
+            "coefProdGauchos": 10.0
+        },
+        "owner": "admin",
+        "movements": []
+    }, {
+        "centroide": {
+            "lat": -34.0601407054622,
+            "lon": -63.7340063162336
+        },
+        "nombre": "Río Bamba",
+        "gauchos": 10,
+        "height": 154.0,
+        "mode": {
+            "multDef": 1.25,
+            "coefProdGauchos": 10.0
+        },
+        "owner": "admin",
+        "movements": []
+    }, {
+        "centroide": {
+            "lat": -31.1729826637303,
+            "lon": -64.3191044525332
+        },
+        "nombre": "Río Ceballos",
+        "gauchos": 10,
+        "height": 710.0,
+        "mode": {
+            "multDef": 1.25,
+            "coefProdGauchos": 10.0
+        },
+        "owner": "admin",
+        "movements": []
+    }, {
+        "centroide": {
+            "lat": -31.3121237322311,
+            "lon": -64.5025780020643
+        },
+        "nombre": "Bialet Massé",
+        "gauchos": 10,
+        "height": 753.0,
+        "mode": {
+            "multDef": 1.25,
+            "coefProdGauchos": 10.0
+        },
+        "owner": "hernan",
+        "movements": []
+    }, {
+        "centroide": {
+            "lat": -30.9830362325549,
+            "lon": -64.1282788962145
+        },
+        "nombre": "Jesús María",
+        "gauchos": 10,
+        "height": 553.0,
+        "mode": {
+            "multDef": 1.25,
+            "coefProdGauchos": 10.0
+        },
+        "owner": "hernan",
+        "movements": []
+    }],
+    "municipalityLimit": 5,
+    "province": "Cordoba"
+}]

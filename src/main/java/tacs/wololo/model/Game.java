@@ -55,9 +55,19 @@ public class Game
 
     }
 
-    public void setPlayers(Queue<String> players)
+    public List<ElementScoreBoard> getScoreBoard()
     {
-        this.players = players;
+        List<ElementScoreBoard> elementScoreBoards = new ArrayList<>();
+        this.players.forEach(p ->
+        {
+            List<Municipality> municipalitiesOwner = this.municipalities.stream().filter(m -> m.getOwner().equals(p)).collect(Collectors.toList());
+            System.out.print("Element:"); // TODO: SACAR
+            System.out.print(p);
+            System.out.print(municipalitiesOwner.size());
+            elementScoreBoards.add(new ElementScoreBoard(p, municipalitiesOwner.size()));
+        });
+
+        return elementScoreBoards;
     }
 
     private void setMapLatAndLon(){
@@ -156,7 +166,10 @@ public class Game
         return players;
     }
 
-
+    public void setPlayers(Queue<String> players)
+    {
+        this.players = players;
+    }
 
     public int getMunicipalityLimit() {
         return municipalityLimit;
@@ -189,6 +202,10 @@ public class Game
 
     public List<Municipality> getMunicipalities() {
         return municipalities;
+    }
+
+    public void setMunicipalities(List<Municipality> municipalities) {
+        this.municipalities = municipalities;
     }
 
     public String getProvince()
