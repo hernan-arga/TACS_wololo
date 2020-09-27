@@ -41,8 +41,9 @@ public class GameService implements IGameService {
 
         Map map = new Map(gameInfoDto.getProvinceName());
 
-        Game game = new Game(map, new Date(),
-                playerQueue, GameState.CREATED, gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
+        Game game = new Game(map, new Date(), playerQueue, GameState.CREATED,
+                gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
+
         //TODO hacer singleton las apis
         gameRepository.addGame(game.getId(), game);
 
@@ -64,7 +65,7 @@ public class GameService implements IGameService {
         throw new RuntimeException();
     }
 
-    public void moveGauchos(String username, Long id, String sourceS, String targetS, int ammount)
+    public Game moveGauchos(String username, Long id, String sourceS, String targetS, int ammount)
     {
         Game game = getGame(username, id);
 
@@ -79,6 +80,8 @@ public class GameService implements IGameService {
             throw new RuntimeException("Municipio no valido");
 
         game.moveGauchos(ammount, source, target);
+
+        return game;
     }
 
     public List<Municipality> getMunicipalities(Long id, String username)
@@ -91,7 +94,7 @@ public class GameService implements IGameService {
         return game.getMunicipalities();
     }
 
-    public void attackMunicipality(String username, Long id, String sourceS, String targetS)
+    public Game attackMunicipality(String username, Long id, String sourceS, String targetS)
     {
         Game game = getGame(username, id);
 
@@ -106,6 +109,25 @@ public class GameService implements IGameService {
             throw new RuntimeException("Municipio no valido");
 
         source.attackMunicipality(target, game.getMap());
+
+        return game;
+    }
+
+    public Game changeMode(String username, Long id, String sourceS)
+    {
+        Game game = getGame(username, id);
+
+        Municipality source = game.getMunicipality(sourceS);
+
+        if(source == null)
+            throw new RuntimeException("Municipio no existente");
+
+        if(!source.getOwner().contentEquals(username))
+            throw new RuntimeException("Municipio no valido");
+
+        source.changeMode();
+
+        return game;
     }
 
     public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)

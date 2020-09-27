@@ -8,4 +8,9 @@ public class ProducerMunicipality extends MunicipalityMode {
         this.coefProdGauchos = 15;
     }
 
+    public MunicipalityMode changeMode()
+    {
+        return new DefendingMunicipality();
+    }
+
 }

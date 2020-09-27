@@ -161,7 +161,10 @@ public class Municipality {
         return test;
     }
 
-
+    public void changeMode()
+    {
+       mode = mode.changeMode();
+    }
 
 
     // --------------- Getters y Setters --------------

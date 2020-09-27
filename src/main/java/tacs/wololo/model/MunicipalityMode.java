@@ -25,6 +25,7 @@ public abstract class MunicipalityMode
         this.coefProdGauchos = coefProdGauchos;
     }
 
+    public abstract MunicipalityMode changeMode();
 }
 
 

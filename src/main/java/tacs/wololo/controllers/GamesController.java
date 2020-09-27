@@ -78,10 +78,10 @@ public class GamesController
     {
         try
         {
-            gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
+            Game game = gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
                     actionDto.getDefenceMun(), actionDto.getAmmount());
 
-            return ResponseEntity.ok(gameService.getMunicipalities(gameID, getUsername()));
+            return ResponseEntity.ok(game);
 
         }catch (Exception e)
         {
@@ -96,12 +96,28 @@ public class GamesController
     {
         try
         {
-            gameService.attackMunicipality(getUsername(), gameID, actionDto.getAttackMun()
+            Game game = gameService.attackMunicipality(getUsername(), gameID, actionDto.getAttackMun()
                     , actionDto.getDefenceMun());
-            return ResponseEntity.ok(gameService.getMunicipalities(gameID, getUsername()));
+
+            return ResponseEntity.ok(game);
 
         }catch (Exception e)
         {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @PostMapping(path = "/{id}/municipalities/mode")
+    public ResponseEntity<?> changeMode(@PathVariable(value = "id") Long gameID,
+                                        @RequestBody @Validated ActionDto actionDto)
+    {
+        try {
+            Game game = gameService.changeMode(getUsername(), gameID, actionDto.getAttackMun());
+
+            return ResponseEntity.ok(game);
+
+        }catch(Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new MessageResponse(e.getMessage()));
         }

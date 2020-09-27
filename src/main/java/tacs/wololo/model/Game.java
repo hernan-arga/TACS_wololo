@@ -1,5 +1,6 @@
 package tacs.wololo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
@@ -19,6 +20,7 @@ public class Game
     List<Municipality> municipalities;
 
     int municipalityLimit;
+
     GeoRef geoRef;
 
     public Game() {
@@ -55,6 +57,7 @@ public class Game
 
     }
 
+    @JsonIgnore
     public List<ElementScoreBoard> getScoreBoard()
     {
         List<ElementScoreBoard> elementScoreBoards = new ArrayList<>();
