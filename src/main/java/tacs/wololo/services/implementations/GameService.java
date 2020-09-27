@@ -2,6 +2,8 @@ package tacs.wololo.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tacs.wololo.model.APIs.AsterAPI;
+import tacs.wololo.model.APIs.GeoRef;
 import tacs.wololo.model.DTOs.GameInfoDto;
 import tacs.wololo.model.Map;
 import tacs.wololo.model.*;
@@ -40,8 +42,8 @@ public class GameService implements IGameService {
         Map map = new Map(gameInfoDto.getProvinceName());
 
         Game game = new Game(map, new Date(),
-                playerQueue, GameState.CREATED, gameInfoDto.getMunicipalitiesCant());
-
+                playerQueue, GameState.CREATED, gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
+        //TODO hacer singleton las apis
         gameRepository.addGame(game.getId(), game);
 
         return game;

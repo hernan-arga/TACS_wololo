@@ -19,24 +19,26 @@ public class Game
     List<Municipality> municipalities;
 
     int municipalityLimit;
+    GeoRef geoRef;
 
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit)
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI )
+
     {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
-        GeoRef geoRef = new GeoRef();       //TODO hacerlo singleton que no instancie
+        this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
         this.map = map;
         this.date = date;
         this.players = players;
         this.state = state;
-        this.municipalities = geoRef.municipioPorProvincia(map.getProvince());
+        this.municipalities = this.geoRef.municipioPorProvincia(map.getProvince());
         this.setMapLatAndLon();
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
-        this.setHeights();
+        this.setHeights(asterAPI);
         this.sortMunicipalities();
 
         Random random = new Random();
@@ -53,9 +55,24 @@ public class Game
 
     }
 
+    public List<ElementScoreBoard> getScoreBoard()
+    {
+        List<ElementScoreBoard> elementScoreBoards = new ArrayList<>();
+        this.players.forEach(p ->
+        {
+            List<Municipality> municipalitiesOwner = this.municipalities.stream().filter(m -> m.getOwner().equals(p)).collect(Collectors.toList());
+            System.out.print("Element:"); // TODO: SACAR
+            System.out.print(p);
+            System.out.print(municipalitiesOwner.size());
+            elementScoreBoards.add(new ElementScoreBoard(p, municipalitiesOwner.size()));
+        });
+
+        return elementScoreBoards;
+    }
+
     private void setMapLatAndLon(){
-        List<Double> latitudes = this.municipalities.stream().map(m -> m.centroide.lat).collect(Collectors.toList());
-        List<Double> longitudes = this.municipalities.stream().map(m -> m.centroide.lon).collect(Collectors.toList());
+        List<Double> latitudes = this.municipalities.stream().map(m -> m.getCentroide().getLat()).collect(Collectors.toList());
+        List<Double> longitudes = this.municipalities.stream().map(m -> m.getCentroide().getLon()).collect(Collectors.toList());
         this.map.setLatMax(Collections.max(latitudes));
         this.map.setLonMax(Collections.max(longitudes));
         this.map.setLatMin(Collections.min(latitudes));
@@ -72,13 +89,15 @@ public class Game
         return municipalities.stream().map(x -> x.distanceToMunicipality(municipality)).collect(Collectors.toList());
     }
 
-    private void setHeights(){
-        AsterAPI asterAPI = new AsterAPI();     //TODO hacerlo singleton
-        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.centroide).collect(Collectors.toList()));
+    private void setHeights(AsterAPI asterAPI){
+            //TODO hacerlo singleton
+        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.getCentroide()).collect(Collectors.toList()));
         this.map.setMaxHeight(Collections.max(heights));
         this.map.setMinHeight(Collections.min(heights));
         this.municipalities.stream().forEach(z->this.setHeight(z,heights));
     }
+
+
 
     private void setHeight(Municipality municipality,List<Double> heights){
         municipality.setHeight(heights.get(0));
@@ -98,6 +117,10 @@ public class Game
         players.stream().forEach(z->assignMunicipalities(z,municipalitiesYetToBeAdded) );
     }
 
+
+/*
+* Asign a list of municipalities to a player
+* */
     private void assignMunicipalities(String player, List<List<Municipality>> municipalities){
         municipalities.get(0).stream().forEach(z->z.setOwner(player));
         municipalities.remove(0);
@@ -143,6 +166,11 @@ public class Game
         return players;
     }
 
+    public void setPlayers(Queue<String> players)
+    {
+        this.players = players;
+    }
+
     public int getMunicipalityLimit() {
         return municipalityLimit;
     }
@@ -159,12 +187,25 @@ public class Game
         return date;
     }
 
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
     public GameState getState() {
         return state;
     }
 
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
     public List<Municipality> getMunicipalities() {
         return municipalities;
+    }
+
+    public void setMunicipalities(List<Municipality> municipalities) {
+        this.municipalities = municipalities;
     }
 
     public String getProvince()

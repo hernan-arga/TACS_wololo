@@ -52,12 +52,12 @@ public class Municipality {
     public double distanceToMunicipality(Municipality other)
     {
         // distance between latitudes and longitudes
-        double dLat = Math.toRadians(other.centroide.lat - this.centroide.lat);
-        double dLon = Math.toRadians(other.centroide.lon - this.centroide.lon);
+        double dLat = Math.toRadians(other.getCentroide().getLat() - this.getCentroide().getLat());
+        double dLon = Math.toRadians(other.getCentroide().getLon() - this.getCentroide().getLon());
 
         // convert to radians
-        double lat1 = Math.toRadians(this.centroide.lat);
-        double lat2 = Math.toRadians(other.centroide.lat);
+        double lat1 = Math.toRadians(this.getCentroide().getLat());
+        double lat2 = Math.toRadians(other.getCentroide().getLat());
 
         // apply formulae
         double a = Math.pow(Math.sin(dLat / 2), 2) +
