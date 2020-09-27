@@ -4,27 +4,33 @@
     <div *ngFor="let municipalitiesUser of municipalitiesByUser | keyvalue;">
         <div *ngFor="let municipality of municipalitiesUser.value">
             <div class="municipality-elements" [formGroup]="selectForm">
-                <select [attr.disabled]="isSelectDisabled(municipality)? '' : null" id="actions" class="cen"
+                <select id="actions" class="cen"
                     formControlName="{{municipality.nombre}}" [ngStyle]="calculatePositionAndColor(municipality)"
                     (change)="realizeAction($event, municipality); ">
 
                     <option selected value> -- Elije Acción -- </option>
-                    <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareAttack">
+                    <option *ngIf="!isSelectActionsDisabled(municipality) && 
+                    isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareAttack">
                         Preparar
                         ataque
                     </option>
-                    <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareMove">
+                    <option *ngIf="!isSelectActionsDisabled(municipality) && 
+                    isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareMove">
                         Mover
                         Gauchos
                     </option>
-                    <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="modify">Modificar
+                    <option *ngIf="!isSelectActionsDisabled(municipality) && 
+                    isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="modify">Modificar
                         Especialización
                     </option>
-                    <option *ngIf="isCurrentPlayerOption(municipality.owner) && this.moveMode" value="move">Asentar
+                    <option *ngIf="!isSelectActionsDisabled(municipality) && 
+                    isCurrentPlayerOption(municipality.owner) && this.moveMode" value="move">Asentar
                         Gauchos
                         Aqui!
                     </option>
-                    <option *ngIf="!isCurrentPlayerOption(municipality.owner)" value="attack">Atacar!</option>
+                    <option *ngIf="!isSelectActionsDisabled(municipality) && 
+                    !isCurrentPlayerOption(municipality.owner)" value="attack">Atacar!</option>
+                    <option value="statistics">Mostrar Estadisticas</option>
                 </select>
             </div>            
         </div>

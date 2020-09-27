@@ -24,6 +24,7 @@ import { GamePlayComponent } from './game-play/game-play.component';
 import { GameMoveGauchosComponent } from './game-move-gauchos/game-move-gauchos.component';
 import { GameNotTurnToPlayComponent } from './game-not-turn-to-play/game-not-turn-to-play.component';
 import { GameMovementSuccessfulComponent } from './game-movement-successful/game-movement-successful.component';
+import { GameShowMunicipalityStatisticsComponent } from './game-show-municipality-statistics/game-show-municipality-statistics.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { GameMovementSuccessfulComponent } from './game-movement-successful/game
     GamePlayComponent,
     GameMoveGauchosComponent,
     GameNotTurnToPlayComponent,
-    GameMovementSuccessfulComponent
+    GameMovementSuccessfulComponent,
+    GameShowMunicipalityStatisticsComponent
   ],
   imports: [
     BrowserModule,
