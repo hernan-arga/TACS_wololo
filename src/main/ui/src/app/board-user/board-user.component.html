@@ -23,6 +23,7 @@
               <th scope="col">Provincia</th>
               <th mat-sort-header="date">Fecha</th>
               <th mat-sort-header="state">Estado</th>
+              <th scope="col">Jugar</th>
             </tr>
           </thead>
           <tbody>
@@ -33,8 +34,12 @@
                 </span>
               </td>
               <td>{{game.province}}</td>
-              <td>{{game.date}}</td>
+              <td>{{game.date | date: 'short'}}</td>
               <td>{{game.state}}</td>
+              <td><button [disabled]="isGameFinished(game)" mat-mini-fab color="primary" 
+                aria-label="Example icon button with a filter list icon" (click)="goToGame(game.id)">
+                <mat-icon>play_arrow</mat-icon>
+              </button></td>
             </tr>
           </tbody>
         </table>

@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos.component';
 import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-turn-to-play.component';
 import { delay } from 'rxjs/operators';
+import { Action } from '../shared/models/action.model';
 
 @Component({
   selector: 'app-game-play',
@@ -187,13 +188,33 @@ export class GamePlayComponent implements OnInit {
     }
   }
 
-  public attack(municipality: Municipality) {
-    console.log("Atacar desde: " + this.municipalityInAction.nombre + " a " + municipality.nombre);
+  public attack(municipalityTarget: Municipality) {
+    console.log("Atacar desde: " + this.municipalityInAction.nombre + " a " + municipalityTarget.nombre);
+
+    let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, 0);
+    this.gamesService.attackGauchos(action, this.gameId).subscribe(
+      data => {
+        console.log(data);
+      },
+      err => {
+        console.log("Hubo un error al atacar");
+      }
+    );
+    
   }
 
-  public moveGauchos(municipality: Municipality) {
+  public moveGauchos(municipalityTarget: Municipality) {
     console.log("Mover " + this.cantGauchosToMove + " desde: " + this.municipalityInAction.nombre
-      + " a " + municipality.nombre);
+      + " a " + municipalityTarget.nombre);
+    let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, this.cantGauchosToMove);
+    this.gamesService.moveGauchos(action, this.gameId).subscribe(
+      data => {
+        console.log(data);
+      },
+      err => {
+        console.log("Hubo un error al mover los gauchos");
+      }
+    );
   }
 
   public modifySpecialization(municipality: Municipality) {

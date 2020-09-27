@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { UserInfo } from '../shared/models/userInfo.model';
 import { GameInfo } from '../shared/models/gameInfo.model';
 import { Game } from '../shared/models/Game.model';
+import { Municipality } from '../shared/models/municipality.model';
+import { Action } from '../shared/models/action.model';
 
 const API_URL = 'http://localhost:8080/api/';
 const httpOptions = {
@@ -20,7 +22,6 @@ export class GamesService {
   }
 
   createGame(gameInfo: GameInfo): Observable<any> {
-    console.log(gameInfo);
     return this.http.post(API_URL + 'games', {
       playersUsernames: gameInfo.playersUsernames,
       provinceName: gameInfo.provinceName,
@@ -29,11 +30,23 @@ export class GamesService {
   }
 
   getGame(id: Number): Observable<Game> {
-    return this.http.get<Game>(API_URL + 'games/'+id.toString(), { responseType: 'json' });
+    return this.http.get<Game>(API_URL + 'games/' + id.toString(), { responseType: 'json' });
   }
 
   getGames(): Observable<Array<Game>> {
     return this.http.get<Array<Game>>(API_URL + 'games', { responseType: 'json' });
+  }
+
+  moveGauchos(action: Action, id: Number): Observable<any> {
+    return this.http.post(API_URL + 'games/' + id.toString() + "/moves", {
+      actionDto: action
+    }, httpOptions);
+  }
+
+  attackGauchos(action: Action, id: Number): Observable<any> {
+    return this.http.post(API_URL + 'games/' + id.toString() + "/attack", {
+      actionDto: action
+    }, httpOptions);
   }
 
 }

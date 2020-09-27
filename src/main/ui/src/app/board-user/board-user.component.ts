@@ -4,6 +4,7 @@ import { Game } from "../shared/models/Game.model";
 import { Sort } from '@angular/material/sort';
 import { GameState } from "../shared/models/GameState.model";
 import { GamesService } from '../_services/games.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,17 +17,8 @@ export class BoardUserComponent implements OnInit {
   games: Array<Game>;
   sortedData: Game[];
 
-  municipalitiesTest = [{
-    nombre: 'Municipalidad 1',
-    posX: 0,
-    posY: 0,
-    centroide: { lat: -32.546237695526, lon: -62.9807310033667 },
-    gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-    mode: { multDef: 4, coefProdGauchos: 6 }
-  }]
 
-
-  constructor(private userService: UserService, private gamesService: GamesService) { 
+  constructor(private userService: UserService, private gamesService: GamesService, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -35,15 +27,6 @@ export class BoardUserComponent implements OnInit {
       {
         this.games = data;
         this.sortedData = this.games.slice();
-      }
-    ) 
-
-    this.userService.getAdminBoard().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
       }
     );
 
@@ -66,8 +49,12 @@ export class BoardUserComponent implements OnInit {
     });
   }
 
-  createGame() {
+  isGameFinished(game: Game): boolean{
+    return game.state === GameState.FINISHED;
+  }
 
+  goToGame(id: number){
+    this.router.navigate(['/game', id]);
   }
 
 }
