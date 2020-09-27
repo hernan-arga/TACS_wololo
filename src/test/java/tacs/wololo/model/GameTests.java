@@ -7,15 +7,13 @@ import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoRef;
 
-import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class GameTest {
+public class GameTests {
 
     private Game aGame;
     private Game easyGame;
@@ -33,7 +31,6 @@ public class GameTest {
     private Centroide centroide2;
 
 
-
     @Before
     public void init() {
 
@@ -42,7 +39,6 @@ public class GameTest {
         List<Centroide> centroides = new ArrayList<>();
         centroides.add(centroide1);
         centroides.add(centroide2);
-
 
 
         municipality1 = mock(Municipality.class);
@@ -71,7 +67,6 @@ public class GameTest {
         players.add("fulano");
         players.add("mengano");
         //players.add("fran");
-
 
 
         aMap = new Map(PROVINCIA);
@@ -127,3 +122,7 @@ public class GameTest {
         Assert.assertEquals(aGame.getMap().getMinHeight(), 100.0, 0);
     }
 }
+/**
+ * Testear
+ * moveGauchos con municipalidades de verdad
+ * */

@@ -1,12 +1,13 @@
-package tacs.wololo;
+package tacs.wololo.model;
 
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tacs.wololo.model.APIs.GeoData.Centroide;
-import tacs.wololo.model.DefendingMunicipality;
-import tacs.wololo.model.Map;
-import tacs.wololo.model.Municipality;
-import tacs.wololo.model.ProducerMunicipality;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -25,6 +26,10 @@ public class MunicipalityTests {
         municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
         municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
 
+        /* 10*
+        (this.gauchos*this.multDist(defenderMunicipality, map)
+               - defenderMunicipality.gauchos*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());
+        * */
         map = mock(Map.class);
         when(map.getMaxHeight()).thenReturn((double) 20);
         when(map.getMinHeight()).thenReturn((double) 5);
@@ -82,6 +87,39 @@ public class MunicipalityTests {
         DefendingMunicipality modoDefensaModif = new DefendingMunicipality();
         modoDefensaModif.setMultDef(1.5f);
         assertEquals(1.5, modoDefensaModif.getMultDef(),0);
+    }
+
+
+    @Test
+    public void endingAttackingGauchos() {
+
+    }
+
+    @Test
+    public void distanceToMunicipality() {
+        Assert.assertEquals(11830, municipality.distanceToMunicipality(municipalityStrong), 4.0);
+    }
+
+    @Test
+    public void heightMultiplier() {
+
+        Method method = null;
+        Double output = null;
+        try {
+            method = Municipality.class.getDeclaredMethod("heightMultiplier", Double.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        method.setAccessible(true);
+        
+        try {
+            output = (Double) method.invoke(municipality, map);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(2,output, 0);
     }
 
 }
