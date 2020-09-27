@@ -28,10 +28,12 @@ export class GamesService {
     }, httpOptions);
   }
 
-  //TODO: Observable<Game>
   getGame(id: Number): Observable<Game> {
-    //let searchParam = new HttpParams().set('gameID', id.toString());
-    return this.http.get<Game>(API_URL + 'game/'+id.toString(), { responseType: 'json' });  //{ params: searchParam }
+    return this.http.get<Game>(API_URL + 'games/'+id.toString(), { responseType: 'json' });
+  }
+
+  getGames(): Observable<Array<Game>> {
+    return this.http.get<Array<Game>>(API_URL + 'games', { responseType: 'json' });
   }
 
 }

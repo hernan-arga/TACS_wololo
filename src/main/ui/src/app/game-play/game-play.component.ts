@@ -6,7 +6,6 @@ import { Game } from '../shared/models/Game.model';
 import { GameInfo } from '../shared/models/gameInfo.model';
 import { GamesService } from '../_services/games.service';
 
-import { Map } from "../shared/models/Map.model";
 import { Player } from '../shared/models/Player.model';
 import { GameState } from "../shared/models/GameState.model";
 import { CoordinatesService } from '../_services/coordinates.service';
@@ -18,6 +17,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos.component';
 import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-turn-to-play.component';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-play',
@@ -26,7 +26,9 @@ import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-tu
 })
 export class GamePlayComponent implements OnInit {
   private routeSub: Subscription;
-  
+
+  isLoading = true;
+
   selectForm: FormGroup;
   currentUserUsername: String;
 
@@ -37,6 +39,8 @@ export class GamePlayComponent implements OnInit {
   isCurrentlyUserTurn: boolean;
   cantGauchosToMove: number = 0;
 
+  colorsOfMunicipalities: Array<string> = ['Green', 'Red', 'Purple', 'Black'];
+
   game: Game; //TODO: cambiar a Game
   gameId: Number;
   imgSizeX: number = 366;
@@ -44,139 +48,67 @@ export class GamePlayComponent implements OnInit {
 
   matrizPositions: MapPosition[][] = new Array<Array<MapPosition>>();
 
-
-  municipalitiesMock: Municipality[] = [
-    {
-      nombre: 'Municipalidad 2',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    },
-    {
-      nombre: 'Municipalidad 3',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-      gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    },
-    {
-      nombre: 'Municipalidad 4',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    },
-    {
-      nombre: 'Municipalidad 5',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    }
-  ]
-
-  mapMock: Map = {
-    latMax: -30.9830362325549, lonMax: -63.7340063162336, latMin: -34.0601407054622, lonMin: -64.5025780020643,
-    maxHeight: 9, minHeight: 2, distMax: 4,
-    province: {
-      name: 'Córdoba',
-      municipalities: this.municipalitiesMock
-    }
-  }
-
-  playersMock: Array<Player> = [{
-    username: "testUser", municipalities: [{
-      nombre: 'Municipalidad 2',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -34.0601407054622, lon: -63.7340063162336 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    },
-    {
-      nombre: 'Municipalidad 3',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -31.1729826637303, lon: -64.3191044525332 },
-      gauchos: 30, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    }
-    ]
-  },
-  {
-    username: "testUser2", municipalities: [{
-      nombre: 'Municipalidad 4',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -31.3121237322311, lon: -64.5025780020643 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    },
-    {
-      nombre: 'Municipalidad 5',
-      posX: 0,
-      posY: 0,
-      centroide: { lat: -30.9830362325549, lon: -64.1282788962145 },
-      gauchos: 3, height: 4, coefDist: 5, coefAlt: 2,
-      mode: { multDef: 4, coefProdGauchos: 6 }
-    }
-    ]
-  }
-
-  ];
-
-  gameMock: Game = {
-    province: "Río Negro", date: new Date("2018-03-16"), map: this.mapMock,
-    municipalityLimit: 3, municipalities: this.municipalitiesMock,
-    state: GameState.FINISHED, players: this.playersMock
-  };
-
+  municipalitiesByUser: any;
+  
   constructor(private gamesService: GamesService, private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
     private coordinateService: CoordinatesService,
-    private cdRef:ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    let group={}    
-      this.gameMock.map.province.municipalities.forEach(m=>{
-        group[m.nombre]=new FormControl('');  
-      })
-    this.selectForm = new FormGroup(group);
-
-    const user = this.tokenStorageService.getUser();
-    this.currentUserUsername = user.username;    
 
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
     });
     this.gamesService.getGame(this.gameId).subscribe(
-      data => {this.game = data; console.log(data);});
+      data => {
+        this.game = data;
+        this.municipalitiesByUser = this.groupByKey(this.game.municipalities, 'owner');
 
-      
+        this.initializeVariables();
 
-      this.isCurrentlyUserTurn = this.gameMock.players[0].username === user.username;
+        this.game.municipalities.forEach(m => 
+          { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
+        );
 
-    this.gameMock.players.forEach(p => p.municipalities
-      .forEach(m => { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
-      ));
+        if (!this.isCurrentlyUserTurn) {
+          this.openNotYourTurnDialog();
+        }
 
-      if(!this.isCurrentlyUserTurn){
-        this.openNotYourTurnDialog();
+        this.isLoading = false;
       }
+    );
+  }
+
+  private groupByKey(array, key) {
+    return array
+      .reduce((hash, obj) => {
+        if(obj[key] === undefined) return hash; 
+        return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
+      }, {})
+ }
+ 
+
+  private initializeVariables() {
+    const user = this.tokenStorageService.getUser();
+    this.currentUserUsername = user.username;
+    this.isCurrentlyUserTurn = this.game.players[0] === user.username;    
+
+    let group = {}
     
+    this.game.municipalities.forEach(m => {
+      group[m.nombre] = new FormControl('');
+    });
+        
+    this.selectForm = new FormGroup(group);    
   }
 
   //Ecuaciones de interpolacion
   private assignPositionToMunicipality(municipality: Municipality) {
     let lonMun = municipality.centroide.lon, latMun = municipality.centroide.lat,
-      latMin = this.gameMock.map.latMin, lonMin = this.gameMock.map.lonMin,
-      latMax = this.gameMock.map.latMax, lonMax = this.gameMock.map.lonMax;
+      latMin = this.game.map.latMin, lonMin = this.game.map.lonMin,
+      latMax = this.game.map.latMax, lonMax = this.game.map.lonMax;
 
     municipality.posX = this.imgSizeX * 0.15 + (lonMun - lonMin) * (this.imgSizeX * 0.70 - this.imgSizeX * 0.15) / (lonMax - lonMin);
     municipality.posY = this.imgSizeY * 0.15 + (latMun - latMax) * (this.imgSizeY * 0.80 - this.imgSizeY * 0.15) / (latMin - latMax);
@@ -186,17 +118,20 @@ export class GamePlayComponent implements OnInit {
     this.coordinateService.convertCoordinates(municipalitiy, this.imgSizeX, this.imgSizeY);
   }
 
-  public calculatePositionAndColor(i: number, municipality: Municipality) {
+  public calculatePositionAndColor(municipality: Municipality) {
 
-    let colors = ['Green', 'Red', 'Purple', 'Black'];
-
-    let color = colors[i - 1];
+    let hashAssigned = this.hashNumberFromOwner(municipality.owner);
+    let color = this.colorsOfMunicipalities[hashAssigned];
 
     return {
       "top": municipality.posY.toString() + 'px',
       "left": municipality.posX.toString() + 'px',
       "background": color
     }
+  }
+
+  private hashNumberFromOwner(owner: string): number{
+    return this.game.players.indexOf(owner);
   }
 
   openNotYourTurnDialog(): void {
@@ -206,7 +141,7 @@ export class GamePlayComponent implements OnInit {
     });
   }
 
-  openMoveGauchosDialog(municipalitiy:Municipality): void {
+  openMoveGauchosDialog(municipalitiy: Municipality): void {
     const dialogRef = this.dialog.open(GameMoveGauchosComponent, {
       width: '250px',
       data: municipalitiy,
@@ -214,17 +149,14 @@ export class GamePlayComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Gauchos a mover: '+result);
+      console.log('Gauchos a mover: ' + result);
       this.cantGauchosToMove = result;
     });
   }
 
-  public realizeAction(event:any, municipalitiy: Municipality) {
-    //this.selectForm.value
-    //let action = event.target.value
-    //console.log(this.selectForm.value[municipalitiy.nombre]);
+  public realizeAction(event: any, municipalitiy: Municipality) {
     switch (this.selectForm.value[municipalitiy.nombre]) {
-      case 'prepareAttack': 
+      case 'prepareAttack':
         this.attackMode = true;
         this.municipalityInAction = municipalitiy;
         this.cdRef.detectChanges(); // Esto es porque tira Expression has changed after it was checked        
@@ -235,7 +167,7 @@ export class GamePlayComponent implements OnInit {
         this.openMoveGauchosDialog(municipalitiy);
         this.cdRef.detectChanges();
         break;
-      case 'modify': 
+      case 'modify':
         this.modifySpecialization(municipalitiy);
         this.alreadyPlayed = true;
         this.cdRef.detectChanges();
@@ -250,38 +182,38 @@ export class GamePlayComponent implements OnInit {
         this.alreadyPlayed = true;
         this.cdRef.detectChanges();
         break;
-      default: 
-        throw("Se pidio una accion invalida");
+      default:
+        throw ("Se pidio una accion invalida");
     }
   }
 
   public attack(municipality: Municipality) {
-    console.log("Atacar desde: "+this.municipalityInAction.nombre+" a "+municipality.nombre);
+    console.log("Atacar desde: " + this.municipalityInAction.nombre + " a " + municipality.nombre);
   }
 
   public moveGauchos(municipality: Municipality) {
-    console.log("Mover "+this.cantGauchosToMove+" desde: "+this.municipalityInAction.nombre
-                +" a "+municipality.nombre);
+    console.log("Mover " + this.cantGauchosToMove + " desde: " + this.municipalityInAction.nombre
+      + " a " + municipality.nombre);
   }
 
   public modifySpecialization(municipality: Municipality) {
     console.log(municipality.mode);
   }
 
-  public playerIsCurrentUser(player: Player): boolean {
-    return player.username == this.currentUserUsername;
+  public playerIsCurrentUser(player: string): boolean {
+    return player == this.currentUserUsername;
   }
 
-  public isCurrentPlayerOption(player: Player): boolean{
+  public isCurrentPlayerOption(player: string): boolean {
     return this.playerIsCurrentUser(player);
   }
 
-  public isSelectDisabled(player: Player, municipalitiy: Municipality): boolean{
+  public isSelectDisabled(municipalitiy: Municipality): boolean {
     let municipalityWantsToMove = this.selectForm.value[municipalitiy.nombre] === 'prepareMove';
-    return (!this.playerIsCurrentUser(player) && !this.attackMode) ||
-          (this.playerIsCurrentUser(player) && this.attackMode) ||
-          (this.playerIsCurrentUser(player) && this.moveMode && municipalityWantsToMove) ||
-          this.alreadyPlayed || !this.isCurrentlyUserTurn;
+    return (!this.playerIsCurrentUser(municipalitiy.owner) && !this.attackMode) ||
+      (this.playerIsCurrentUser(municipalitiy.owner) && this.attackMode) ||
+      (this.playerIsCurrentUser(municipalitiy.owner) && this.moveMode && municipalityWantsToMove) ||
+      this.alreadyPlayed || !this.isCurrentlyUserTurn;
   }
 
 }

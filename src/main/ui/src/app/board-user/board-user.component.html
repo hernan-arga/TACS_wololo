@@ -29,7 +29,7 @@
             <tr *ngFor="let game of sortedData ; let i = index;">
               <th scope="row">{{i}}</th>
               <td><span *ngFor="let player of game.players; let isLast=last">
-                  {{player.username}}{{isLast ? '' : ', '}}
+                  {{player}}{{isLast ? '' : ', '}}
                 </span>
               </td>
               <td>{{game.province}}</td>

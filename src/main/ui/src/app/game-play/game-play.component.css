@@ -1,11 +1,3 @@
-/** {
-    margin: 0;
-    padding: 0
-}
-
-body {
-    text-align: center
-}*/
 
 .imdesc {
     display: inline-block;
@@ -43,4 +35,13 @@ body {
 
 .municipality-elements:hover .tcen {
     display: inline;
+}
+
+::ng-deep .mat-spinner{
+    margin-top: 20%;
+    margin-left: 45%;    
+}
+
+::ng-deep .mat-progress-spinner circle, ::ng-deep .mat-spinner circle {
+    stroke: #3fb53f;
 }

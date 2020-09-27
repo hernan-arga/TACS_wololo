@@ -1,25 +1,31 @@
-<div class="imdesc">
-    <img src="../assets/provinces/{{gameMock.province}}.png" />
+<div class="imdesc" *ngIf="!isLoading">
+    <img src="../assets/provinces/{{game.province}}.png" />
 
-    <div *ngFor="let player of gameMock.players; let i = index">
-        <div *ngFor="let municipality of player.municipalities">
-            <div class="municipality-elements" [formGroup] = "selectForm">
-                <select [attr.disabled]="isSelectDisabled(player, municipality)? '' : null" id="actions"
-                    class="cen" formControlName="{{municipality.nombre}}" [ngStyle]="calculatePositionAndColor(i, municipality)"
-                    (change)="realizeAction($event, municipality); ">
+    <div *ngFor="let municipalitiesUser of municipalitiesByUser | keyvalue;">
+        <div *ngFor="let municipality of municipalitiesUser.value">
+            <div class="municipality-elements" [formGroup]="selectForm">
+            <select [attr.disabled]="isSelectDisabled(municipality)? '' : null" id="actions"
+                class="cen" formControlName="{{municipality.nombre}}"
+                [ngStyle]="calculatePositionAndColor(municipality)"
+                (change)="realizeAction($event, municipality); ">
 
-                    <option selected value> -- Elije Acción -- </option>
-                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="prepareAttack">Preparar ataque</option>
-                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="prepareMove">Mover Gauchos</option>
-                    <option *ngIf="isCurrentPlayerOption(player) && !this.moveMode" value="modify">Modificar Especialización</option>
-                    <option *ngIf="isCurrentPlayerOption(player) && this.moveMode" value="move">Asentar Gauchos Aqui!</option>
-                    <option *ngIf="!isCurrentPlayerOption(player)" value="attack">Atacar!</option>
-                </select>
-            </div>
+                <option selected value> -- Elije Acción -- </option>
+                <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareAttack">Preparar
+                    ataque
+                </option>
+                <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareMove">Mover
+                    Gauchos
+                </option>
+                <option *ngIf="isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="modify">Modificar
+                    Especialización
+                </option>
+                <option *ngIf="isCurrentPlayerOption(municipality.owner) && this.moveMode" value="move">Asentar Gauchos
+                    Aqui!
+                </option>
+                <option *ngIf="!isCurrentPlayerOption(municipality.owner)" value="attack">Atacar!</option>
+            </select>
         </div>
     </div>
 </div>
 
-
-<!-- {{ (municipality.nombre.length>6)? 
-                    (municipality.nombre | slice:0:6)+'..':(municipality.nombre) }} -->
+<mat-spinner *ngIf="isLoading"></mat-spinner>

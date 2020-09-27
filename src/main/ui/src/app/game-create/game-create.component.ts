@@ -102,13 +102,10 @@ export class GameCreateComponent implements OnInit {
 
     var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName);
     this.gamesService.createGame(gameInfo).subscribe(
-      data => {console.log(data.id); this.router.navigate(['/game', data.id]);}
+      data => {console.log(data); this.router.navigate(['/game', data.id]);}
     );
     
 
   }
 
-  /*public municipalitiesQuantity(province: ProvinceInfo): number{
-    return province.municipalitiesCant
-  }*/
 }

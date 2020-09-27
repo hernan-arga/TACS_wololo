@@ -1,5 +1,4 @@
 export class GameInfo {
-  //id: number;
   playersUsernames: Array<String>;
   provinceName: String;
   municipalitiesCant: number;
