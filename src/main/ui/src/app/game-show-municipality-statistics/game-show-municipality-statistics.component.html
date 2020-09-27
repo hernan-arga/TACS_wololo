@@ -1,0 +1,22 @@
+<h1 mat-dialog-title><u>{{municipality.nombre}}</u></h1>
+<mat-list>
+    <mat-list-item>
+        <mat-icon matListIcon>account_balance</mat-icon>
+        <h3 matLine>Perteneciente a: {{municipality.owner}}</h3>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListIcon>construction</mat-icon>
+        <h3 matLine>Coeficiente Produccion: {{municipality.mode.coefProdGauchos}}</h3>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListIcon>local_police</mat-icon>
+        <h3 matLine>Coeficiente Defensa: {{municipality.mode.multDef}}</h3>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon matListIcon>face</mat-icon>
+        <h3 matLine>Cantidad de Gauchos: {{municipality.gauchos}}</h3>
+    </mat-list-item>
+</mat-list>
+<div mat-dialog-actions>
+    <button mat-button cdkFocusInitial (click)="onAccept()">Ok</button>
+</div>

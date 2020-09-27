@@ -20,6 +20,7 @@ import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-tu
 import { delay } from 'rxjs/operators';
 import { Action } from '../shared/models/action.model';
 import { GameMovementSuccessfulComponent } from '../game-movement-successful/game-movement-successful.component';
+import { GameShowMunicipalityStatisticsComponent } from '../game-show-municipality-statistics/game-show-municipality-statistics.component';
 
 @Component({
   selector: 'app-game-play',
@@ -95,7 +96,7 @@ export class GamePlayComponent implements OnInit {
   private initializeVariables() {
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
-    this.isCurrentlyUserTurn = this.game.players[0] === user.username;    
+    this.isCurrentlyUserTurn = this.game.players[0] === this.currentUserUsername;    
 
     let group = {}
     
@@ -155,34 +156,49 @@ export class GamePlayComponent implements OnInit {
     });
   }
 
-  public realizeAction(event: any, municipalitiy: Municipality) {
-    switch (this.selectForm.value[municipalitiy.nombre]) {
+  openShowStatisticsDialog(municipalitiy: Municipality): void {
+    const dialogRef = this.dialog.open(GameShowMunicipalityStatisticsComponent, {
+      width: '400px',
+      data: municipalitiy,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cantGauchosToMove = result;
+    });
+  }
+
+  public realizeAction(event: any, municipality: Municipality) {
+    switch (this.selectForm.value[municipality.nombre]) {
       case 'prepareAttack':
         this.attackMode = true;
-        this.municipalityInAction = municipalitiy;
+        this.municipalityInAction = municipality;
         this.cdRef.detectChanges(); // Esto es porque tira Expression has changed after it was checked        
         break;
       case 'prepareMove':
         this.moveMode = true;
-        this.municipalityInAction = municipalitiy;
-        this.openMoveGauchosDialog(municipalitiy);
+        this.municipalityInAction = municipality;
+        this.openMoveGauchosDialog(municipality);
         this.cdRef.detectChanges();
         break;
       case 'modify':
-        this.municipalityInAction = municipalitiy;
-        this.modifySpecialization(municipalitiy);
+        this.municipalityInAction = municipality;
+        this.modifySpecialization(municipality);
         this.alreadyPlayed = true;
         this.cdRef.detectChanges();
         break;
       case 'attack':
-        this.attack(municipalitiy);
+        this.attack(municipality);
         this.alreadyPlayed = true;
         this.cdRef.detectChanges();
         break;
       case 'move':
-        this.moveGauchos(municipalitiy);
-        //this.alreadyPlayed = true;
+        this.moveGauchos(municipality);
+        this.alreadyPlayed = true;
         this.cdRef.detectChanges();
+        break;
+      case 'statistics':
+        this.openShowStatisticsDialog(municipality);
         break;
       default:
         throw ("Se pidio una accion invalida");
@@ -196,7 +212,7 @@ export class GamePlayComponent implements OnInit {
       data => {
         this.game = data;
         this.openDialogMovementSuccessful(
-          "Has atacado desde " + action.attackMun+ " a "+ action.defenceMun);
+          "Has atacado desde " + action.attackMun+ " a "+ action.defenceMun);        
       },
       err => {
         console.log("Hubo un error al atacar");
@@ -251,7 +267,7 @@ export class GamePlayComponent implements OnInit {
     return this.playerIsCurrentUser(player);
   }
 
-  public isSelectDisabled(municipalitiy: Municipality): boolean {
+  public isSelectActionsDisabled(municipalitiy: Municipality): boolean {
     let municipalityWantsToMove = this.selectForm.value[municipalitiy.nombre] === 'prepareMove';
     return (!this.playerIsCurrentUser(municipalitiy.owner) && !this.attackMode) ||
       (this.playerIsCurrentUser(municipalitiy.owner) && this.attackMode) ||
