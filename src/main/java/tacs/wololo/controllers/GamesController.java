@@ -123,15 +123,23 @@ public class GamesController
         }
     }
 
-    @GetMapping(path = "/{id}/municipality/{idMun}")
-    public List<Movement> getMovements(
-            @PathVariable(value = "id") Long gameID, @PathVariable(value = "idMun") Long munID)
+    @GetMapping(path = "/{id}/municipality/{nameMun}")
+    public ResponseEntity<?> getMovements(
+            @PathVariable(value = "id") Long gameID, @PathVariable(value = "nameMun") String nameMun)
     {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
-                getAuthentication().getPrincipal();
+        try
+        {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().
+                    getAuthentication().getPrincipal();
 
-        List<Movement> movements = gameService.getMovementsBy(gameID, userDetails.getUsername(), munID.toString());
+            List<Movement> movements = gameService.getMovementsBy(gameID, userDetails.getUsername(), nameMun);
 
-        return movements;
+            return ResponseEntity.ok(movements);
+        }catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
+
     }
 }
