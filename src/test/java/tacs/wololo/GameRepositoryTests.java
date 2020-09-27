@@ -52,15 +52,6 @@ public class GameRepositoryTests {
         Date boringGameDate = objSDF.parse("12-09-2020");
         Date mehGameDate = objSDF.parse("15-09-2020");
 
-        funnyGame.setDate(funnyGameDate);
-        boringGame.setDate(boringGameDate);
-        finishedGame.setDate(boringGameDate);
-        mehGame.setDate(mehGameDate);
-
-        funnyGame.setState(GameState.IN_PROGRESS);
-        boringGame.setState(GameState.IN_PROGRESS);
-        mehGame.setState(GameState.IN_PROGRESS);
-        finishedGame.setState(GameState.FINISHED);
 
         gameRepository = new GameRepository();
         gameRepository.addGame((long) 1, funnyGame);
@@ -93,7 +84,7 @@ public class GameRepositoryTests {
         Date maxDate = objSDF.parse("20-09-2020");
 
         Assert.assertEquals(gamesBelongsToDates,
-                gameRepository.getGamesByState(GameState.IN_PROGRESS, minDate, maxDate));
+                gameRepository.getGamesByDates(minDate, maxDate));
 
     }
 

@@ -30,13 +30,10 @@ public class GameRepository {
                 .collect(Collectors.toList());
     }
 
-    // proveer estadísticas de cantidad de partidas creadas, en curso, terminadas y canceladas
-    // permitiendo seleccionar el rango de fechas
-
-    public List<Game> getGamesByState(GameState state, Date dateMin, Date datemax)
+    public List<Game> getGamesByDates(Date dateMin, Date datemax)
     {
         return games.values().stream().filter(
-                g -> g.getState().equals(state) && g.getDate().after(dateMin) && g.getDate().before(datemax))
+                g -> g.getDate().after(dateMin) && g.getDate().before(datemax))
                 .collect(Collectors.toList());
     }
 
