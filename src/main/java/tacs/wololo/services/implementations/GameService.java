@@ -62,7 +62,7 @@ public class GameService implements IGameService {
         if(game.isPresent())
             return game.get();
 
-        throw new RuntimeException();
+        throw new RuntimeException("El juego no existe");
     }
 
     public Game moveGauchos(String username, Long id, String sourceS, String targetS, int ammount)
@@ -130,17 +130,14 @@ public class GameService implements IGameService {
         return game;
     }
 
-    public List<Movement> getMovementsBy(Long idGame, String username, String idMunicipality)
+    public List<Movement> getMovementsBy(Long idGame, String username, String nameMunicipality)
     {
         Game game = getGame(username, idGame);
 
-        if(game == null)
-            return null; // FIXME, puse esto pero no se si es una buena idea
-
-        Municipality municipality = game.getMunicipality(idMunicipality);
+        Municipality municipality = game.getMunicipality(nameMunicipality);
 
         if(municipality == null)
-            return null; // FIXME, puse esto pero no se si es una buena idea
+            throw new RuntimeException("Municipio no existente");
 
 
         // TODO: SACAR. Dejo el comentario igual para testear, pero sacar para la entrega.
