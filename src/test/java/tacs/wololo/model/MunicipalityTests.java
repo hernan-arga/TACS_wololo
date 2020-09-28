@@ -29,6 +29,7 @@ public class MunicipalityTests {
         municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
         municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
 
+        //Mismo ejemplo de cálculo que en el enunciado del TP
         attacker = new Municipality("player 1", 100, 0, new ProducerMunicipality(), new Centroide(0.0, 0.0));
         defender = new Municipality("player 2", 100, 1500, new ProducerMunicipality(), new Centroide(0.0, -0.1349));
         aMap = mock(Map.class);
@@ -102,9 +103,9 @@ public class MunicipalityTests {
         Double output = null;
         method = Municipality.class.getDeclaredMethod("heightMultiplier", Map.class);
         method.setAccessible(true);
-        output = (Double) method.invoke(attacker, aMap);
+        output = (Double) method.invoke(defender, aMap);
 
-        Assert.assertEquals(1.25,output, 2);
+        Assert.assertEquals(1.25,output, 0);
     }
 
 }

@@ -113,7 +113,7 @@ public class Municipality {
     * Returns the necessary multiplication factor to calculate the remaining gauchos
     * */
     private double heightMultiplier(Map map){
-       return  (this.height - map.getMinHeight())/
+       return 1 + (this.height - map.getMinHeight())/
                (coefAlt*Math.max(map.getMaxHeight()- map.getMinHeight(),1)); //
     }
 
