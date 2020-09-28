@@ -26,8 +26,17 @@ export class GameShowMunicipalityStatisticsComponent implements OnInit {
     this.imageService.getImages(this.municipality.nombre).subscribe(
       data => {
         console.log(data);
-        /*this.municipalityImgUrl = data.hits[0].webformatURL; 
-      this.isLoading = false;*/},
+        if (data.hits.length > 0) {          
+          this.municipalityImgUrl = data.hits[0].webformatURL;
+          console.log(this.municipalityImgUrl);
+        }
+
+        else {
+          this.municipalityImgUrl = "../assets/provinces/Catamarca.png";
+        }
+
+        this.isLoading = false;
+      },
       err => {
         console.log(err);
       }
