@@ -7,6 +7,7 @@ import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoRef;
 
+import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,7 @@ public class GameTests {
 
 
     @Before
-    public void init() {
+    public void init() throws IOException {
 
         centroide1 = new Centroide(120.1, -60.0);
         centroide2 = new Centroide(126.1, -67.0);

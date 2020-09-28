@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tacs.wololo.model.APIs.GeoData.Centroide;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -20,8 +21,7 @@ public class MunicipalityTests {
     private Map map;
 
     @Before
-    public void init()
-    {
+    public void init() throws IOException {
         municipality = new Municipality("strong",10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
         municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
         municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
@@ -58,8 +58,7 @@ public class MunicipalityTests {
 
     // Cada turno es posible cambiar el estado de un municipio entre producción o defensa
     @Test
-    public void fromProducerToDefending()
-    {
+    public void fromProducerToDefending() throws IOException {
         DefendingMunicipality modoDefensa = new DefendingMunicipality();
         municipality.setMode(modoDefensa);
         assertEquals(municipality.getMode(),modoDefensa);
@@ -70,23 +69,6 @@ public class MunicipalityTests {
     {
         municipality.produceGauchos(map);
         assertEquals(12, municipality.getGauchos());
-    }
-
-    // Todas los números con * deben ser configurables en el sistema internamente
-    @Test
-    public void configureCoefGauchos()
-    {
-        DefendingMunicipality modoDefensaModif = new DefendingMunicipality();
-        modoDefensaModif.setCoefProdGauchos(15f);
-        assertEquals(15, modoDefensaModif.getCoefProdGauchos(), 0);
-    }
-
-    @Test
-    public void configureMulDef()
-    {
-        DefendingMunicipality modoDefensaModif = new DefendingMunicipality();
-        modoDefensaModif.setMultDef(1.5f);
-        assertEquals(1.5, modoDefensaModif.getMultDef(),0);
     }
 
 
