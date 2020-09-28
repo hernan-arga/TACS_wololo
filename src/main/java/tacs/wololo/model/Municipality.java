@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoData.Provincia;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class Municipality {
     private double height;
 
     @JsonIgnore
-    private final double coefDist = 2;
+    private double coefDist;
 
     @JsonIgnore
-    private final double coefAlt = 2;
+    private double coefAlt;
 
     private MunicipalityMode mode;
 
@@ -161,8 +162,7 @@ public class Municipality {
         return test;
     }
 
-    public void changeMode()
-    {
+    public void changeMode() throws IOException {
        mode = mode.changeMode();
     }
 
@@ -226,11 +226,21 @@ public class Municipality {
         return coefDist;
     }
 
+    public void setCoefDist(double coefDist) {
+        this.coefDist = coefDist;
+    }
+
     public double getCoefAlt() {
         return coefAlt;
+    }
+
+    public void setCoefAlt(double coefAlt) {
+        this.coefAlt = coefAlt;
     }
 
     public void setMovements(List<Movement> movements) {
         this.movements = movements;
     }
+
+
 }

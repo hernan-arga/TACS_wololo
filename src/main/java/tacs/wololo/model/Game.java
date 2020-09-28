@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,9 +29,7 @@ public class Game
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI )
-
-    {
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI ) throws IOException {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
         this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
@@ -41,6 +42,7 @@ public class Game
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
         this.setDists(this.municipalities);
         this.setHeights(asterAPI);
+        this.setCoefs();
         this.sortMunicipalities();
 
         Random random = new Random();
@@ -64,9 +66,6 @@ public class Game
         this.players.forEach(p ->
         {
             List<Municipality> municipalitiesOwner = this.municipalities.stream().filter(m -> m.getOwner().equals(p)).collect(Collectors.toList());
-            System.out.print("Element:"); // TODO: SACAR
-            System.out.print(p);
-            System.out.print(municipalitiesOwner.size());
             elementScoreBoards.add(new ElementScoreBoard(p, municipalitiesOwner.size()));
         });
 
@@ -87,6 +86,32 @@ public class Game
         List<Double> flattenDistances = distances.stream().flatMap(List::stream).filter(z->z>0).collect(Collectors.toList());
         map.setDistMax(Collections.max(flattenDistances));
         map.setDistMin(Collections.min(flattenDistances));
+    }
+
+    private void setCoefs() throws IOException {
+
+        // Se lee las properties del municipality.properties
+        Properties prop = new Properties();
+        String propFileName = "municipality.properties";
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+        if (inputStream != null) {
+            prop.load(inputStream);
+        } else {
+            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+        }
+
+        double coefDist = Double.parseDouble(prop.getProperty("coefDist"));
+        double coefAlt = Double.parseDouble(prop.getProperty("coefAlt"));
+
+        inputStream.close();
+
+        // Asigno los coeficientes a todos los municipios
+        this.municipalities.forEach(m -> {
+            m.setCoefDist(coefDist);
+            m.setCoefAlt(coefAlt);
+        });
     }
     private List<Double> allDistsTo (Municipality municipality, List<Municipality> municipalities){
         return municipalities.stream().map(x -> x.distanceToMunicipality(municipality)).collect(Collectors.toList());

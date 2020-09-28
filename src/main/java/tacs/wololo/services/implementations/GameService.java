@@ -11,6 +11,7 @@ import tacs.wololo.repositories.GameRepository;
 import tacs.wololo.repositories.UserRepository;
 import tacs.wololo.services.IGameService;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -32,8 +33,7 @@ public class GameService implements IGameService {
                 game.getMunicipalityLimit(), game.getId());
     }
 
-    public Game createGame(GameInfoDto gameInfoDto)
-    {
+    public Game createGame(GameInfoDto gameInfoDto) throws IOException {
         List<String> playersUsernames = gameInfoDto.getPlayersUsernames();
         Collections.shuffle(playersUsernames);
 
@@ -41,8 +41,11 @@ public class GameService implements IGameService {
 
         Map map = new Map(gameInfoDto.getProvinceName());
 
-        Game game = new Game(map, new Date(), playerQueue, GameState.CREATED,
+        Game game = null;
+
+        game = new Game(map, new Date(), playerQueue, GameState.CREATED,
                 gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
+
 
         //TODO hacer singleton las apis
         gameRepository.addGame(game.getId(), game);
@@ -113,8 +116,7 @@ public class GameService implements IGameService {
         return game;
     }
 
-    public Game changeMode(String username, Long id, String sourceS)
-    {
+    public Game changeMode(String username, Long id, String sourceS) throws IOException {
         Game game = getGame(username, id);
 
         Municipality source = game.getMunicipality(sourceS);

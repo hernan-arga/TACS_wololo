@@ -1,5 +1,10 @@
 package tacs.wololo.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public abstract class MunicipalityMode
 {
     public float multDef;
@@ -25,7 +30,29 @@ public abstract class MunicipalityMode
         this.coefProdGauchos = coefProdGauchos;
     }
 
-    public abstract MunicipalityMode changeMode();
+    public abstract MunicipalityMode changeMode() throws IOException;
+
+    public void setCoefs(String propFileName) throws IOException {
+        // Se lee las properties del municipality.properties
+        Properties prop = new Properties();
+
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+        if (inputStream != null) {
+            prop.load(inputStream);
+        } else {
+            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+        }
+
+        float multDef = Float.parseFloat(prop.getProperty("multDef"));
+        float coefProdGauchos = Float.parseFloat(prop.getProperty("coefProdGauchos"));
+
+        inputStream.close();
+
+        // Asigno los coeficientes
+        this.multDef = multDef;
+        this.coefProdGauchos = coefProdGauchos;
+    }
 }
 
 

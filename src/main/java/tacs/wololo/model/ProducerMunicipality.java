@@ -1,15 +1,14 @@
 package tacs.wololo.model;
 
+import java.io.IOException;
+
 public class ProducerMunicipality extends MunicipalityMode {
 
-    public ProducerMunicipality()
-    {
-        this.multDef = 1;
-        this.coefProdGauchos = 15;
+    public ProducerMunicipality() throws IOException {
+        this.setCoefs("producerMunicipality.properties");
     }
 
-    public MunicipalityMode changeMode()
-    {
+    public MunicipalityMode changeMode() throws IOException {
         return new DefendingMunicipality();
     }
 
