@@ -3,4 +3,5 @@ import { Municipality } from "./municipality.model";
 
 export class Player {
   username: String;
+  color: string;
 }

@@ -15,7 +15,8 @@
                         ataque
                     </option>
                     <option *ngIf="!isSelectActionsDisabled(municipality) && 
-                    isCurrentPlayerOption(municipality.owner) && !this.moveMode" value="prepareMove">
+                    isCurrentPlayerOption(municipality.owner) && !this.moveMode
+                    && hasGauchosToAttack(municipality)" value="prepareMove">
                         Mover
                         Gauchos
                     </option>

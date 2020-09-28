@@ -95,8 +95,8 @@ public class Municipality {
             setGauchos(endingAttackingGauchos(defender,map));
         }
         else{
-            setGauchos(0);
             defender.setGauchos(defender.endingDefendersGauchos(this,map));
+            setGauchos(0);
         }
 
         defender.addMovement(new MovementDefend(defender.getGauchos(), this.nombre, !winTheBattleAttacker));

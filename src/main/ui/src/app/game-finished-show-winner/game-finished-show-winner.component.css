@@ -1,0 +1,22 @@
+::ng-deep .mat-dialog-actions{
+    margin-left: 35%;
+}
+
+::ng-deep .mat-dialog-container{
+    background: #827979;
+    color: rgba(255, 255, 255, 0.829);
+    
+}
+
+::ng-deep .mat-dialog-title{
+    text-align: center;
+}
+
+::ng-deep .mat-button{
+    background: darkslategray;
+}
+
+#subtitle{
+    text-align: center;
+    color: #820202;
+}

@@ -21,6 +21,7 @@ import { delay } from 'rxjs/operators';
 import { Action } from '../shared/models/action.model';
 import { GameMovementSuccessfulComponent } from '../game-movement-successful/game-movement-successful.component';
 import { GameShowMunicipalityStatisticsComponent } from '../game-show-municipality-statistics/game-show-municipality-statistics.component';
+import { GameFinishedShowWinnerComponent } from '../game-finished-show-winner/game-finished-show-winner.component';
 
 @Component({
   selector: 'app-game-play',
@@ -42,7 +43,8 @@ export class GamePlayComponent implements OnInit {
   isCurrentlyUserTurn: boolean;
   cantGauchosToMove: number = 0;
 
-  colorsOfMunicipalities: Array<string> = ['Green', 'Red', 'Purple', 'Black'];
+  colorsOfMunicipalities: Array<string> = ['Green', 'Red', 'Purple', 'White', 'Cyan', 'Magenta', 'Aquamarine', 
+  'Beige', 'Chocolate', 'Orange', 'darkgoldenrod', 'Violet', 'Olive'];
 
   game: Game; //TODO: cambiar a Game
   gameId: Number;
@@ -75,8 +77,14 @@ export class GamePlayComponent implements OnInit {
           { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
         );
 
-        if (!this.isCurrentlyUserTurn) {
-          this.openNotYourTurnDialog();
+        if(!this.gameFinished()){
+          if (!this.isCurrentlyUserTurn) {
+            this.openNotYourTurnDialog();
+          }
+        }
+        
+        else{
+          this.openGameFinishedDialog(this.game.players[0]);
         }
 
         this.isLoading = false;
@@ -134,7 +142,20 @@ export class GamePlayComponent implements OnInit {
   }
 
   private hashNumberFromOwner(owner: string): number{
-    return this.game.players.indexOf(owner);
+    var hash = 7;
+    for (var i = 0; i < owner.length; i++) {
+        hash = hash*31 + owner.charCodeAt(i);
+    }
+    hash %= this.colorsOfMunicipalities.length;  //Cantidad de colores
+    return hash;
+  }
+
+  openGameFinishedDialog(winner: string): void {
+    const dialogRef = this.dialog.open(GameFinishedShowWinnerComponent, {
+      width: '400px',
+      data: winner,
+      disableClose: true
+    });
   }
 
   openNotYourTurnDialog(): void {
@@ -205,14 +226,21 @@ export class GamePlayComponent implements OnInit {
     }
   }
 
+  private gameFinished(): boolean{
+    return this.game.players.length<2;
+  }
+
   public attack(municipalityTarget: Municipality) {
 
     let action = new Action(this.municipalityInAction.nombre, municipalityTarget.nombre, 0);
     this.gamesService.attackGauchos(action, this.gameId).subscribe(
       data => {
         this.game = data;
+        if(this.gameFinished()){
+          this.openGameFinishedDialog(this.game.players[0]);
+        }
         this.openDialogMovementSuccessful(
-          "Has atacado desde " + action.attackMun+ " a "+ action.defenceMun);        
+          "Has atacado desde " + action.attackMun+ " a "+ action.defenceMun);
       },
       err => {
         console.log("Hubo un error al atacar");
@@ -273,6 +301,10 @@ export class GamePlayComponent implements OnInit {
       (this.playerIsCurrentUser(municipalitiy.owner) && this.attackMode) ||
       (this.playerIsCurrentUser(municipalitiy.owner) && this.moveMode && municipalityWantsToMove) ||
       this.alreadyPlayed || !this.isCurrentlyUserTurn;
+  }
+
+  public hasGauchosToAttack(municipality: Municipality): boolean{
+    return municipality.gauchos>0;
   }
 
 }

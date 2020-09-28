@@ -10,8 +10,7 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game
-{
+public class Game {
     Long id;
     Map map;
     Date date;
@@ -29,7 +28,7 @@ public class Game
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI ) throws IOException {
+    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI) throws IOException {
         this.id = System.currentTimeMillis();
         this.municipalityLimit = municipalityLimit;
         this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
@@ -51,7 +50,7 @@ public class Game
         {
             municipality.setGauchos(random.nextInt(15));
 
-            if(random.nextInt(100) < 25)
+            if (random.nextInt(100) < 25)
                 municipality.setMode(new ProducerMunicipality());
             else
                 municipality.setMode(new DefendingMunicipality());
@@ -60,8 +59,7 @@ public class Game
     }
 
     @JsonIgnore
-    public List<ElementScoreBoard> getScoreBoard()
-    {
+    public List<ElementScoreBoard> getScoreBoard() {
         List<ElementScoreBoard> elementScoreBoards = new ArrayList<>();
         this.players.forEach(p ->
         {
@@ -72,7 +70,7 @@ public class Game
         return elementScoreBoards;
     }
 
-    private void setMapLatAndLon(){
+    private void setMapLatAndLon() {
         List<Double> latitudes = this.municipalities.stream().map(m -> m.getCentroide().getLat()).collect(Collectors.toList());
         List<Double> longitudes = this.municipalities.stream().map(m -> m.getCentroide().getLon()).collect(Collectors.toList());
         this.map.setLatMax(Collections.max(latitudes));
@@ -81,9 +79,9 @@ public class Game
         this.map.setLonMin(Collections.min(longitudes));
     }
 
-    private void setDists(List<Municipality> municipalities){
-        List<List<Double>> distances = municipalities.stream().map(z->this.allDistsTo(z,municipalities)).collect(Collectors.toList());
-        List<Double> flattenDistances = distances.stream().flatMap(List::stream).filter(z->z>0).collect(Collectors.toList());
+    private void setDists(List<Municipality> municipalities) {
+        List<List<Double>> distances = municipalities.stream().map(z -> this.allDistsTo(z, municipalities)).collect(Collectors.toList());
+        List<Double> flattenDistances = distances.stream().flatMap(List::stream).filter(z -> z > 0).collect(Collectors.toList());
         map.setDistMax(Collections.max(flattenDistances));
         map.setDistMin(Collections.min(flattenDistances));
     }
@@ -113,44 +111,42 @@ public class Game
             m.setCoefAlt(coefAlt);
         });
     }
-    private List<Double> allDistsTo (Municipality municipality, List<Municipality> municipalities){
+
+    private List<Double> allDistsTo(Municipality municipality, List<Municipality> municipalities) {
         return municipalities.stream().map(x -> x.distanceToMunicipality(municipality)).collect(Collectors.toList());
     }
 
-    private void setHeights(AsterAPI asterAPI){
-            //TODO hacerlo singleton
-        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z->z.getCentroide()).collect(Collectors.toList()));
+    private void setHeights(AsterAPI asterAPI) {
+        //TODO hacerlo singleton
+        List<Double> heights = asterAPI.multipleHeights(this.municipalities.stream().map(z -> z.getCentroide()).collect(Collectors.toList()));
         this.map.setMaxHeight(Collections.max(heights));
         this.map.setMinHeight(Collections.min(heights));
-        this.municipalities.stream().forEach(z->this.setHeight(z,heights));
+        this.municipalities.stream().forEach(z -> this.setHeight(z, heights));
     }
 
 
-
-    private void setHeight(Municipality municipality,List<Double> heights){
+    private void setHeight(Municipality municipality, List<Double> heights) {
         municipality.setHeight(heights.get(0));
         heights.remove(0);
     }
 
-    private void sortMunicipalities()
-    {
+    private void sortMunicipalities() {
         int municipalitiesPerPlayer = 0;
-        if(municipalities.size()/players.size()*players.size()==municipalities.size()){
-            municipalitiesPerPlayer = municipalities.size()/players.size();
+        if (municipalities.size() / players.size() * players.size() == municipalities.size()) {
+            municipalitiesPerPlayer = municipalities.size() / players.size();
+        } else {
+            municipalitiesPerPlayer = municipalities.size() / players.size() + 1;
         }
-        else{
-            municipalitiesPerPlayer = municipalities.size()/players.size()+1;
-        }
-        List<List<Municipality>> municipalitiesYetToBeAdded = this.chopped(municipalities,municipalitiesPerPlayer);
-        players.stream().forEach(z->assignMunicipalities(z,municipalitiesYetToBeAdded) );
+        List<List<Municipality>> municipalitiesYetToBeAdded = this.chopped(municipalities, municipalitiesPerPlayer);
+        players.stream().forEach(z -> assignMunicipalities(z, municipalitiesYetToBeAdded));
     }
 
 
-/*
-* Asign a list of municipalities to a player
-* */
-    private void assignMunicipalities(String player, List<List<Municipality>> municipalities){
-        municipalities.get(0).stream().forEach(z->z.setOwner(player));
+    /*
+     * Asign a list of municipalities to a player
+     * */
+    private void assignMunicipalities(String player, List<List<Municipality>> municipalities) {
+        municipalities.get(0).stream().forEach(z -> z.setOwner(player));
         municipalities.remove(0);
     }
 
@@ -165,26 +161,38 @@ public class Game
         return parts;
     }
 
-    private void changeTurn() {
-        players.add(players.peek());
-        players.remove();
+    private boolean hasMunicipalities(String player) {
+        return municipalities.stream().anyMatch(
+                m -> m.getOwner() == player);
     }
 
-    public Municipality getMunicipality(String name)
-    {
+    private void removePlayerIfHasNotMunicipalities(String player){
+        if (!hasMunicipalities(player)){
+            players.remove(player);
+        }
+    }
+
+    public void changeTurn() {
+        players.add(players.peek());
+        players.remove();
+        players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
+
+        municipalities.stream().filter(z ->z.getOwner().equals(players.peek())).
+                        forEach(m ->m.produceGauchos(this.map));
+    }
+
+    public Municipality getMunicipality(String name) {
         return municipalities.stream().filter(m -> m.getNombre().equals(name)).findFirst().orElse(null);
     }
 
-    public void moveGauchos(int amount, Municipality origin, Municipality destination)
-    {
+    public void moveGauchos(int amount, Municipality origin, Municipality destination) {
         this.validateEnoughGauchos(amount, origin);
         origin.removeGauchos(amount);
         destination.addGauchos(amount);
     }
 
-    private void validateEnoughGauchos(int amount, Municipality origin)
-    {
-        if((origin.getGauchos() - amount) < 0)
+    private void validateEnoughGauchos(int amount, Municipality origin) {
+        if ((origin.getGauchos() - amount) < 0)
             throw new RuntimeException("El municipio no posee suficientes gauchos");
     }
 
@@ -194,8 +202,7 @@ public class Game
         return players;
     }
 
-    public void setPlayers(Queue<String> players)
-    {
+    public void setPlayers(Queue<String> players) {
         this.players = players;
     }
 
@@ -215,8 +222,7 @@ public class Game
         return date;
     }
 
-    public void setDate(Date date)
-    {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -236,8 +242,8 @@ public class Game
         this.municipalities = municipalities;
     }
 
-    public String getProvince()
-    {
+    public String getProvince() {
         return this.map.getProvince();
     }
+
 }

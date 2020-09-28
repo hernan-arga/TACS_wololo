@@ -80,7 +80,7 @@ public class GamesController
         {
             Game game = gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
                     actionDto.getDefenceMun(), actionDto.getAmmount());
-
+            game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -98,7 +98,7 @@ public class GamesController
         {
             Game game = gameService.attackMunicipality(getUsername(), gameID, actionDto.getAttackMun()
                     , actionDto.getDefenceMun());
-
+            game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -114,7 +114,7 @@ public class GamesController
     {
         try {
             Game game = gameService.changeMode(getUsername(), gameID, actionDto.getAttackMun());
-
+            game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch(Exception e){
