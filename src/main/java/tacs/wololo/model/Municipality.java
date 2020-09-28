@@ -28,10 +28,10 @@ public class Municipality {
     private double height;
 
     @JsonIgnore
-    private double coefDist;
+    private double coefDist = 2;
 
     @JsonIgnore
-    private double coefAlt;
+    private double coefAlt = 2;
 
     private MunicipalityMode mode;
 

@@ -18,13 +18,24 @@ public class MunicipalityTests {
     private Municipality municipality;
     private Municipality municipalityStrong;
     private Municipality municipalityWeak;
+    private Municipality attacker;
+    private Municipality defender;
     private Map map;
+    private Map aMap;
 
     @Before
     public void init() throws IOException {
         municipality = new Municipality("strong",10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
         municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
         municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
+
+        attacker = new Municipality("player 1", 100, 0, new ProducerMunicipality(), new Centroide(0.0, 0.0));
+        defender = new Municipality("player 2", 100, 1500, new ProducerMunicipality(), new Centroide(0.0, -0.1349));
+        aMap = mock(Map.class);
+        when(aMap.getMaxHeight()).thenReturn((double) 2000);
+        when(aMap.getMinHeight()).thenReturn((double) 1000);
+        when(aMap.getDistMin()).thenReturn((double) 10);
+        when(aMap.getDistMax()).thenReturn((double) 20);
 
         /* 10*
         (this.gauchos*this.multDist(defenderMunicipality, map)
@@ -79,29 +90,21 @@ public class MunicipalityTests {
 
     @Test
     public void distanceToMunicipality() {
-        Assert.assertEquals(11830, municipality.distanceToMunicipality(municipalityStrong), 4.0);
+        Assert.assertEquals(157.2, municipalityWeak.distanceToMunicipality(municipalityStrong), 1.0);
     }
 
     @Test
-    public void heightMultiplier() {
+    @SuppressWarnings("unchecked")
+    public void heightMultiplier() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
 
         Method method = null;
         Double output = null;
-        try {
-            method = Municipality.class.getDeclaredMethod("heightMultiplier", Double.class);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+        method = Municipality.class.getDeclaredMethod("heightMultiplier", Map.class);
         method.setAccessible(true);
-        
-        try {
-            output = (Double) method.invoke(municipality, map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(2,output, 0);
+        output = (Double) method.invoke(attacker, aMap);
+
+        Assert.assertEquals(1.25,output, 2);
     }
 
 }
