@@ -76,7 +76,7 @@ public class Municipality {
         return rad * c;
     }
 
-    double multDist (Municipality anotherMunicipality, Map map){
+    double multDist(Municipality anotherMunicipality, Map map){
         return 1 - (distanceToMunicipality(anotherMunicipality)- map.getDistMin())/
                 (coefDist*(map.getDistMax()- map.getDistMin()));
     }
@@ -113,14 +113,17 @@ public class Municipality {
     * Returns the necessary multiplication factor to calculate the remaining gauchos
     * */
     private double heightMultiplier(Map map){
-       return 1 + (this.height - map.getMinHeight())/
+       return (this.height - map.getMinHeight())/
                (coefAlt*Math.max(map.getMaxHeight()- map.getMinHeight(),1)); //
     }
 
+    private int gauchosToAdd(Map map){
+        return  (int) (mode.getCoefProdGauchos()*(1 - this.heightMultiplier(map)));
+    }
+
     public void produceGauchos(Map map){
-        int gauchosToAdd = (int) (mode.getCoefProdGauchos()*(this.heightMultiplier(map)));
-        this.addMovement(new MovementProduce(this.gauchos, gauchosToAdd));
-        this.addGauchos(gauchosToAdd);
+        this.addMovement(new MovementProduce(this.gauchos, gauchosToAdd(map)));
+        this.addGauchos(gauchosToAdd(map));
     }
 
     public void addGauchos(int gauchos)
@@ -141,25 +144,21 @@ public class Municipality {
 
 
     public int endingAttackingGauchos(Municipality defenderMunicipality, Map map){
+
+        System.out.println();
+        System.out.println(String.format("minuendo %s",
+                this.gauchos*this.multDist(defenderMunicipality, map)));
+        System.out.println(String.format("sustraendo %s", defenderMunicipality.getGauchos()*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef()));
+
        return (int) (this.gauchos*this.multDist(defenderMunicipality, map)
-               - defenderMunicipality.gauchos*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());
+               - defenderMunicipality.getGauchos()*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());
     }
 
     int endingDefendersGauchos(Municipality attackingMunicipality, Map map){
 
-        System.out.println(gauchos);
-        System.out.println(multAlt(map));
-        System.out.println(mode.getMultDef());
-        System.out.println(attackingMunicipality.gauchos);
-        System.out.println(multDist(attackingMunicipality, map));
-        System.out.println(multAlt(map));
-
-        int test = (int) (Math.ceil(gauchos*multAlt(map)* mode.getMultDef()             //TODO: redondear para arriba
-                - attackingMunicipality.gauchos*multDist(attackingMunicipality, map))/
-                (multAlt(map)* mode.getMultDef()));
-
-        System.out.println(test);
-        return test;
+        return (int) (Math.ceil(gauchos*multAlt(map)* this.getMode().getMultDef()             //TODO: redondear para arriba
+                - attackingMunicipality.gauchos* multDist(attackingMunicipality, map))/
+                (multAlt(map)* getMode().getMultDef()));
     }
 
     public void changeMode() throws IOException {

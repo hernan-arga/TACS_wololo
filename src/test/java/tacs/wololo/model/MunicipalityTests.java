@@ -23,6 +23,14 @@ public class MunicipalityTests {
     private Map map;
     private Map aMap;
 
+    private static double EXPECTED_HM = 1.25;
+    private static double EXPECTED_DISTM = 0.75;
+    private static double EXPECTED_AG_PROD = -50.0;
+    private static double EXPECTED_DG_PROD = 40.0;
+    private static double EXPECTED_AG_DEFN = -81;//Está mal en el enunciado. Dice 31.0 con 250 gauchos en attacker, pero tiene 100
+    private static double EXPECTED_DG_DEFN = 52.0; //Está mal el resultado en el enunciado. Dice -20
+    private static double G_TO_ADD_PROD = 11.0;
+    private static double G_TO_ADD_DEFN = 7;
     @Before
     public void init() throws IOException {
         municipality = new Municipality("strong",10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
@@ -85,27 +93,90 @@ public class MunicipalityTests {
 
 
     @Test
-    public void endingAttackingGauchos() {
-
-    }
-
-    @Test
     public void distanceToMunicipality() {
         Assert.assertEquals(157.2, municipalityWeak.distanceToMunicipality(municipalityStrong), 1.0);
     }
 
     @Test
+    public void gauchosDefenderProduceG_TO_ADD_PRODIfProducer() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+        Method method = null;
+        method = Municipality.class.getDeclaredMethod("gauchosToAdd", Map.class);
+        method.setAccessible(true);
+        int output = (int) method.invoke(defender, aMap);
+
+        Assert.assertEquals(G_TO_ADD_PROD, output, 0.0);
+    }
+
+
+    @Test
+    public void gauchosDefenderProduceG_TO_ADD_DEFNIfProducer() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException, IOException {
+
+        defender.changeMode();
+
+        Method method = null;
+        method = Municipality.class.getDeclaredMethod("gauchosToAdd", Map.class);
+        method.setAccessible(true);
+        int output = (int) method.invoke(defender, aMap);
+
+        Assert.assertEquals(G_TO_ADD_DEFN, output, 0.0);
+    }
+
+
+
+    @Test
     @SuppressWarnings("unchecked")
-    public void heightMultiplier() throws NoSuchMethodException,
+    public void heightMultiplierOfDefenderIsEXPECTED_HM() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
 
         Method method = null;
         Double output = null;
-        method = Municipality.class.getDeclaredMethod("heightMultiplier", Map.class);
+        method = Municipality.class.getDeclaredMethod("multAlt", Map.class);
         method.setAccessible(true);
         output = (Double) method.invoke(defender, aMap);
 
-        Assert.assertEquals(1.25,output, 0);
+        Assert.assertEquals(EXPECTED_HM,output, 0);
     }
+    @Test
+    @SuppressWarnings("unchecked")
+    public void distanceMultiplierOfDefenderIsEXPECTED_DISTM() throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException {
+
+        Method method = null;
+        Double output = null;
+        method = Municipality.class.getDeclaredMethod("multDist", Municipality.class, Map.class);
+        method.setAccessible(true);
+        output = (Double) method.invoke(defender, attacker, aMap);
+
+        Assert.assertEquals(EXPECTED_DISTM,output, 0.01);
+    }
+
+
+    @Test
+    public void endingAttackingGauchosIsEXPECTED_AGIfProducer() {
+        Assert.assertEquals(EXPECTED_AG_PROD, attacker.endingAttackingGauchos(defender, aMap), 0.0);
+    }
+
+    @Test
+    public void endingDefenderGauchosIsEXPECTED_DGIfProducer() {
+        Assert.assertEquals(EXPECTED_DG_PROD, defender.endingDefendersGauchos(attacker, aMap), 0.0);
+    }
+
+
+    @Test
+    public void endingAttackingGauchosIsEXPECTED_AGIfDefending() throws IOException {
+        defender.changeMode();
+        Assert.assertEquals(EXPECTED_AG_DEFN, attacker.endingAttackingGauchos(defender, aMap), 0.0);
+    }
+
+    @Test
+    public void endingDefenderGauchosIsEXPECTED_DGIfDefending() throws IOException {
+        defender.changeMode();
+        //attacker.changeMode();
+        Assert.assertEquals(EXPECTED_DG_DEFN, defender.endingDefendersGauchos(attacker, aMap), 0.0);
+    }
+
 
 }

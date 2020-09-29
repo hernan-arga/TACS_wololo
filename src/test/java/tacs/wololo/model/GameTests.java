@@ -8,7 +8,10 @@ import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoRef;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -30,7 +33,9 @@ public class GameTests {
     private static String PROVINCIA = "Salta";
     private Centroide centroide1;
     private Centroide centroide2;
-
+    private Municipality attacker;
+    private Municipality defender;
+    List<Municipality> realMunicipalities;
 
     @Before
     public void init() throws IOException {
@@ -65,8 +70,8 @@ public class GameTests {
         heights.add((double) 150);
 
         players = new LinkedList<>();
-        players.add("fulano");
-        players.add("mengano");
+        players.add("player 1");
+        players.add("player 2");
         //players.add("fran");
 
 
@@ -81,7 +86,6 @@ public class GameTests {
         //TODO El constructor no debería recibir estado de juego
 
         easyGame = new Game();
-
         municipalities.add(municipality3);
 
         when(municipality1.getOwner()).thenReturn("fulano");
@@ -92,6 +96,15 @@ public class GameTests {
 
         easyGame.setPlayers(players);
         easyGame.setMunicipalities(municipalities);
+
+        //----------- Municipalidades de verdad
+
+        attacker = new Municipality("player 1", 100, 0, new ProducerMunicipality(), new Centroide(0.0, 0.0));
+        defender = new Municipality("player 2", 100, 1500, new ProducerMunicipality(), new Centroide(0.0, -0.1349));
+        realMunicipalities = new ArrayList<>();
+        realMunicipalities.add(attacker);
+        realMunicipalities.add(defender);
+        aGame.setMunicipalities(realMunicipalities);
     }
 
     @Test
@@ -122,8 +135,31 @@ public class GameTests {
 //(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
         Assert.assertEquals(aGame.getMap().getMinHeight(), 100.0, 0);
     }
+
+    @Test
+    public void whenMove50GauchosFromAttackerToDefender() {
+        aGame.moveGauchos(50, attacker, defender);
+        Assert.assertEquals(50, attacker.getGauchos(), 0.0);
+        Assert.assertEquals(150, defender.getGauchos(), 0.0);
+    }
+
+
+    @Test
+    public void changeTurn() {
+        Assert.assertEquals("player 1",aGame.getPlayers().peek());
+        aGame.changeTurn();
+        Assert.assertEquals("player 2", aGame.getPlayers().peek());
+
+    }
+
+
+    @Test
+    public void WhenTurnChangesAllPlayersWithoutMunicipalitiesAreRemoved() {
+        Assert.assertEquals(2, aGame.getPlayers().size());
+        aGame.setMunicipalities(realMunicipalities.stream().limit(1).collect(Collectors.toList()));
+        //When turn changes, all players without municipalities are removed
+        aGame.changeTurn();
+        Assert.assertEquals(1,aGame.getPlayers().size());
+    }
 }
-/**
- * Testear
- * moveGauchos con municipalidades de verdad
- * */
+
