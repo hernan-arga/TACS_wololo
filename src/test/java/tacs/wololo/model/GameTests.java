@@ -88,13 +88,18 @@ public class GameTests {
         easyGame = new Game();
         municipalities.add(municipality3);
 
+        Queue<String> playersEasyGame = new LinkedList<>();
+        playersEasyGame.add("fulano");
+        playersEasyGame.add("mengano");
+        playersEasyGame.add("marciano");
+
         when(municipality1.getOwner()).thenReturn("fulano");
         when(municipality2.getOwner()).thenReturn("mengano");
         when(municipality3.getOwner()).thenReturn("mengano");
 
         when(municipality1.getGauchos()).thenReturn(5);
 
-        easyGame.setPlayers(players);
+        easyGame.setPlayers(playersEasyGame);
         easyGame.setMunicipalities(municipalities);
 
         //----------- Municipalidades de verdad
@@ -115,6 +120,8 @@ public class GameTests {
         Assert.assertEquals(1, elementScoreBoards.get(0).getCantMunicipalitiesHavePlayer());
         Assert.assertEquals("mengano", elementScoreBoards.get(1).getPlayer());
         Assert.assertEquals(2, elementScoreBoards.get(1).getCantMunicipalitiesHavePlayer());
+        Assert.assertEquals("marciano", elementScoreBoards.get(2).getPlayer());
+        Assert.assertEquals(0, elementScoreBoards.get(2).getCantMunicipalitiesHavePlayer());
     }
 
 

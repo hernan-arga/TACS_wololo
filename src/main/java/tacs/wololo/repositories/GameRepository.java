@@ -2,12 +2,8 @@ package tacs.wololo.repositories;
 
 import org.springframework.stereotype.Repository;
 import tacs.wololo.model.Game;
-import tacs.wololo.model.GameState;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -22,6 +18,11 @@ public class GameRepository {
     public Game getGamebyKey(Long key)
     {
         return games.get(key);
+    }
+
+    public Optional<Game> getGame(Long gameId)
+    {
+        return games.values().stream().filter(g -> g.getId().equals(gameId)).findFirst();
     }
 
     public List<Game> getGames(String username)
