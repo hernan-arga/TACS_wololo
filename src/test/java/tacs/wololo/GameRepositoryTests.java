@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tacs.wololo.model.Game;
-import tacs.wololo.model.GameState;
 import tacs.wololo.repositories.GameRepository;
 
 import java.text.ParseException;
@@ -67,7 +66,7 @@ public class GameRepositoryTests {
         gamesBelongsToSebastian.add(funnyGame);
         gamesBelongsToSebastian.add(mehGame);
 
-        Assert.assertEquals(gamesBelongsToSebastian, gameRepository.getGames("Sebastian"));
+        Assert.assertEquals(gamesBelongsToSebastian, gameRepository.getGamesFor("Sebastian"));
     }
 
     // Proveer estadísticas de cantidad de partidas creadas, en curso, terminadas y canceladas

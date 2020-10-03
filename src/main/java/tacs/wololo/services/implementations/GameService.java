@@ -55,12 +55,12 @@ public class GameService implements IGameService {
 
     public List<Game> getGames(String username)
     {
-        return gameRepository.getGames(username);
+        return gameRepository.getGamesFor(username);
     }
 
     public Game getGame(String username, Long id)
     {
-        Optional<Game> game = gameRepository.getGames(username).stream().filter(g -> g.getId().equals(id)).findFirst();
+        Optional<Game> game = gameRepository.getGamesFor(username).stream().filter(g -> g.getId().equals(id)).findFirst();
 
         if(game.isPresent())
             return game.get();

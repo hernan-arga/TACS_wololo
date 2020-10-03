@@ -20,15 +20,19 @@ public class GameRepository {
         return games.get(key);
     }
 
+    public List<Game> getGames()
+    {
+        return new ArrayList<>(this.games.values());
+    }
+
     public Optional<Game> getGame(Long gameId)
     {
         return games.values().stream().filter(g -> g.getId().equals(gameId)).findFirst();
     }
 
-    public List<Game> getGames(String username)
+    public List<Game> getGamesFor(String username)
     {
-        return games.values().stream().filter(g -> g.getPlayers().contains(username))
-                .collect(Collectors.toList());
+        return games.values().stream().filter(g -> g.getPlayers().contains(username)).collect(Collectors.toList());
     }
 
     public List<Game> getGamesByDates(Date dateMin, Date datemax)

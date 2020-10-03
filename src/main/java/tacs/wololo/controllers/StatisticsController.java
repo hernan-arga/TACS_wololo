@@ -34,19 +34,34 @@ public class StatisticsController
              return ResponseEntity.notFound().build();
          }
      }
+
     @GetMapping(path = "/statistics/games")
     public ResponseEntity<?> games(){
+        try
+        {
+            return ResponseEntity.ok(statisticsService.getStatistics());
+
+        }catch (Exception e)
+        {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(path = "/statistics/gamesitos")
+    public ResponseEntity<?> gamesByDate(){
         return ResponseEntity.ok(4);
     }
 
-    @GetMapping(path = "/statistics/users")
-    public ResponseEntity<?> users(){
-        return ResponseEntity.ok(4);
-    }
 
-    // GET   estadisticas/usuarios?id=1
-    @GetMapping(path = "/statistics/users/{userId}")
-    public ResponseEntity<?> user(@PathVariable String userId){
-        return ResponseEntity.ok(4);
+    @GetMapping(path = "/statistics/users/{userPlayer}")
+    public ResponseEntity<?> user(@PathVariable String userPlayer){
+        try
+        {
+            return ResponseEntity.ok(statisticsService.getIndividualStatistics(userPlayer));
+
+        }catch (Exception e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

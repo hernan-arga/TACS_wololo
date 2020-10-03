@@ -60,15 +60,28 @@ public class StadisticsTests {
 
     @Test
     public void getStatisticsByDates() throws ParseException {
-        List<Integer> cantGamesPerState = new ArrayList<Integer>() {{ add(0); add(2); add(1); add(0); }};
+        HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
+        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 2);
+        statistics.put("FINISHED", 1); statistics.put("CREATED", 0);
 
-        Assert.assertEquals(cantGamesPerState, statisticsCreator.getStatisticsByDates(minDate, maxDate));
+        Assert.assertEquals(statistics, statisticsCreator.getStatisticsByDates(minDate, maxDate));
     }
 
     @Test
     public void getIndividualStatistics() throws ParseException {
-        List<Integer> cantGamesPerState = new ArrayList<Integer>() {{ add(0); add(1); add(1); add(0); }};
+        HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
+        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 1);
+        statistics.put("FINISHED", 1); statistics.put("CREATED", 0);
 
-        Assert.assertEquals(cantGamesPerState, statisticsCreator.getIndividualStatistics("Carlos"));
+        Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Carlos"));
+    }
+
+    @Test
+    public void getIndividualStatisticsWhenPlayerDontHaveGames() throws ParseException {
+        HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
+        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 0);
+        statistics.put("FINISHED", 0); statistics.put("CREATED", 0);
+
+        Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Adrian"));
     }
 }
