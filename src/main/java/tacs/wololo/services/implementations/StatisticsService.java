@@ -8,10 +8,7 @@ import tacs.wololo.model.StatisticsCreator;
 import tacs.wololo.repositories.GameRepository;
 import tacs.wololo.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StatisticsService {
@@ -39,6 +36,13 @@ public class StatisticsService {
     public HashMap<String, Integer> getStatistics()
     {
         HashMap<String, Integer> statistics = statisticsCreator.getGeneralStatistics();
+
+        return statistics;
+    }
+
+    public HashMap<String, Integer> getStatisticsByDates(Date from, Date to)
+    {
+        HashMap<String, Integer> statistics = statisticsCreator.getStatisticsByDates(from, to);
 
         return statistics;
     }
