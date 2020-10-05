@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ScoreBoardComponent } from '../score-board/score-board.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-board-admin',
@@ -8,8 +11,9 @@ import { UserService } from '../_services/user.service';
 })
 export class BoardAdminComponent implements OnInit {
   content = '';
+  firstFormGroup: FormGroup;
 
-  constructor(private userService: UserService) { }
+  constructor(private _formBuilder: FormBuilder, private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit() {
     //TODO: Arreglar cuando se haga lo de admin
@@ -22,5 +26,19 @@ export class BoardAdminComponent implements OnInit {
         this.content = JSON.parse(err.error).message;
       }
     );*/
+    this.firstFormGroup = this._formBuilder.group(
+      {
+        firstCtrl: ['']
+      }
+    );
+  }
+
+  openShowStatisticsDialog(): void {
+    var jeje = this.firstFormGroup.controls.firstCtrl.value;
+    const dialogRef = this.dialog.open(ScoreBoardComponent, {
+      width: '400px',
+      data: jeje, // TODO: CAMBIAR A ScoreBoard
+      disableClose: true
+    });
   }
 }

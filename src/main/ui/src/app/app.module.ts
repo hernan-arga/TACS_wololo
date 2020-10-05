@@ -26,10 +26,11 @@ import { GameNotTurnToPlayComponent } from './game-not-turn-to-play/game-not-tur
 import { GameMovementSuccessfulComponent } from './game-movement-successful/game-movement-successful.component';
 import { GameShowMunicipalityStatisticsComponent } from './game-show-municipality-statistics/game-show-municipality-statistics.component';
 import { GameFinishedShowWinnerComponent } from './game-finished-show-winner/game-finished-show-winner.component';
+import { ScoreBoardComponent } from './score-board/score-board.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -44,8 +45,9 @@ import { GameFinishedShowWinnerComponent } from './game-finished-show-winner/gam
     GameNotTurnToPlayComponent,
     GameMovementSuccessfulComponent,
     GameShowMunicipalityStatisticsComponent,
-    GameFinishedShowWinnerComponent
-  ],
+    GameFinishedShowWinnerComponent,
+      ScoreBoardComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

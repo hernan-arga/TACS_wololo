@@ -1,5 +1,35 @@
 <div class="container">
     <header class="jumbotron">
+      <p>¿Qué desea hacer?</p>
       <p>{{ content }}</p>
+      
+      <form [formGroup]="firstFormGroup">
+          <div class="example-button-row">
+            <button mat-button>Obtener el score board de </button>
+            <mat-form-field class="example-form-field">
+              <mat-label>Id del juego</mat-label>
+              <input matInput type="text" formControlName="firstCtrl">
+            </mat-form-field>
+            <button mat-button color="primary" (click)="openShowStatisticsDialog()">Obtener</button>
+          </div>
+      </form>
+      <form [formGroup]="secondFormGroup">
+        <div class="example-button-row">
+          <button mat-button>Obtener las estadisticas entre las fechas </button>
+          <p>|Dos datetimes|</p>
+          <button mat-button color="primary" (click)="openShowStatisticsDialog()">Obtener</button>
+        </div>
+      </form>
+      <form [formGroup]="thirdFormGroup">
+        <div class="example-button-row">
+          <button mat-button>Obtener estadisticas del </button>
+          <mat-form-field class="example-form-field">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput type="text" formControlName="firstCtrl">
+            
+          </mat-form-field>
+          <button mat-button color="primary" (click)="openShowStatisticsDialog()">Obtener</button>
+        </div>
+      </form>
     </header>
   </div>
