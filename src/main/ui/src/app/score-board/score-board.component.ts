@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ScoreBoardShowComponent } from '../score-board-show/score-board-show.component';
 
 @Component({
   selector: 'app-score-board',
@@ -8,18 +10,36 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ScoreBoardComponent implements OnInit {
 
-  valor: string;
-
-  constructor(public dialogRef: MatDialogRef<ScoreBoardComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
-      this.valor = data;
-     }
+  content = '';
+  firstFormGroup: FormGroup;
+  
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
+    //TODO: Arreglar cuando se haga lo de admin
+    
+    /*this.userService.getAdminBoard().subscribe(
+      data => {
+        this.content = data;
+      },
+      err => {
+        this.content = JSON.parse(err.error).message;
+      }
+    );*/
+    this.firstFormGroup = this._formBuilder.group(
+      {
+        firstCtrl: ['']
+      }
+    );
   }
 
-  onAccept(): void {
-    this.dialogRef.close();
+  openShowScoreBoardDialog(): void {
+    var gameId = this.firstFormGroup.controls.firstCtrl.value;
+    const dialogRef = this.dialog.open(ScoreBoardShowComponent, {
+      width: '600px',
+      data: gameId, 
+      disableClose: true
+    });
   }
 
 }

@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,15 +26,16 @@ import { GameMovementSuccessfulComponent } from './game-movement-successful/game
 import { GameShowMunicipalityStatisticsComponent } from './game-show-municipality-statistics/game-show-municipality-statistics.component';
 import { GameFinishedShowWinnerComponent } from './game-finished-show-winner/game-finished-show-winner.component';
 import { ScoreBoardComponent } from './score-board/score-board.component';
+import { ScoreBoardShowComponent } from './score-board-show/score-board-show.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [					
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    BoardAdminComponent,
     BoardUserComponent,
     BoardModeratorComponent,
     ProfileComponent,
@@ -46,7 +46,9 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
     GameMovementSuccessfulComponent,
     GameShowMunicipalityStatisticsComponent,
     GameFinishedShowWinnerComponent,
-      ScoreBoardComponent
+    ScoreBoardComponent,
+    ScoreBoardShowComponent,
+    StatisticsComponent,
    ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Scoreboard del juego {{gameId}} </h1>
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="card card text-white bg-dark">
+            <div class="card-body ">
+              <table class="table table-striped table-dark" matSort >
+                <thead>
+                  <tr>
+                    <th scope="col">Jugador</th>
+                    <th scope="col">Municipalidades obtenidas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let elementScoreboard of scoreBoard ; let i = index;">
+                    <td>{{elementScoreboard.player}}</td>
+                    <td>{{elementScoreboard.cantMunicipalitiesHavePlayer}}</td>
+                  </tr>
+                </tbody>
+              </table>
+      
+              <canvas id=chartHours width="300" height="180"></canvas>
+      
+            </div>
+      
+            <div class="card-footer ">
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-button cdkFocusInitial (click)="onAccept()">Ok</button>
+</div>
