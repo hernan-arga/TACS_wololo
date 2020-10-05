@@ -1,3 +1,20 @@
-<p>
-  statistics works!
-</p>
+<div class="container">
+  <header class="jumbotron">
+    <p>¿Qué desea hacer?</p>
+    <p>{{ content }}</p>
+    
+    <p>Obtener el estadísticas entre las fechas: </p>
+    <p>| Dos datetimepicker | Boton obtener</p>
+
+    <form [formGroup]="firstFormGroup">
+        <div class="example-button-row">
+          <button mat-button>Obtener el estadísticas de </button>
+          <mat-form-field class="example-form-field">
+            <mat-label>Nombre del usuario</mat-label>
+            <input matInput type="text" formControlName="firstCtrl">
+          </mat-form-field>
+          <button mat-button color="primary" (click)="openShowIndividualStatisticsDialog()">Obtener</button>
+        </div>
+    </form>
+  </header>
+</div>

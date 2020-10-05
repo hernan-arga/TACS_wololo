@@ -28,10 +28,11 @@ import { GameFinishedShowWinnerComponent } from './game-finished-show-winner/gam
 import { ScoreBoardComponent } from './score-board/score-board.component';
 import { ScoreBoardShowComponent } from './score-board-show/score-board-show.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsShowComponent } from './statistics-show/statistics-show.component';
 
 
 @NgModule({
-  declarations: [					
+  declarations: [						
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -49,6 +50,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     ScoreBoardComponent,
     ScoreBoardShowComponent,
     StatisticsComponent,
+      StatisticsShowComponent
    ],
   imports: [
     BrowserModule,
