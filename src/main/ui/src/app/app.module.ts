@@ -50,7 +50,7 @@ import { StatisticsShowComponent } from './statistics-show/statistics-show.compo
     ScoreBoardComponent,
     ScoreBoardShowComponent,
     StatisticsComponent,
-      StatisticsShowComponent
+    StatisticsShowComponent
    ],
   imports: [
     BrowserModule,

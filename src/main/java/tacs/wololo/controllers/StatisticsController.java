@@ -15,33 +15,19 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 public class StatisticsController
 {
     @Autowired
     StatisticsService statisticsService;
 
-    // TODO: ver si realmente el path queda así y esta función en este controller
-    // porque podría ser /games/id/socoreboard o el Controller se podría llamar AdminController
-     @GetMapping(path = "/scoreboard/{id}")
-     public ResponseEntity<?> scoreboard(@PathVariable(value = "id") Long gameID)
-     {
-         try
-         {
-             List<ElementScoreBoard> scoreBoard = statisticsService.getScoreBoard(gameID);
-             return ResponseEntity.ok(scoreBoard);
-
-         }catch (Exception e)
-         {
-             return ResponseEntity.notFound().build();
-         }
-     }
-
-    @GetMapping(path = "/statistics/games")
-    public ResponseEntity<?> games(){
+    @GetMapping(path = "/scoreboard/{id}")
+    public ResponseEntity<?> scoreboard(@PathVariable(value = "id") Long gameID)
+    {
         try
         {
-            return ResponseEntity.ok(statisticsService.getStatistics());
+            List<ElementScoreBoard> scoreBoard = statisticsService.getScoreBoard(gameID);
+            return ResponseEntity.ok(scoreBoard);
 
         }catch (Exception e)
         {
@@ -49,7 +35,7 @@ public class StatisticsController
         }
     }
 
-    @GetMapping(path = "/statistics/gamesitos")
+    @GetMapping(path = "/statistics/games")
     public ResponseEntity<?> gamesByDate
             (@RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date from,
              @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date to)

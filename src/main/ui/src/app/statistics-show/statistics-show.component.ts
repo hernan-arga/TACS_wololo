@@ -8,12 +8,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class StatisticsShowComponent implements OnInit {
 
-  username: string;
   statistics: Array<any> = [];
+  elementsStatistics: Map<string, number>;
 
   constructor(public dialogRef: MatDialogRef<StatisticsShowComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
-      this.username = data;
+    @Inject(MAT_DIALOG_DATA) public data: Map<string, number>) {
+      this.elementsStatistics = data;
      }
 
   ngOnInit() {
@@ -22,9 +22,11 @@ export class StatisticsShowComponent implements OnInit {
     prueba.set("FINISHED", 10);
     prueba.set("IN_PROGRESS", 15);
     prueba.set("CANCELLED", 2);
-    // TODO: HACER QUE LO LEA DESDE EL SERVICE
 
     prueba.forEach((value, k) => this.statistics.push({key: k, val: value}));
+    
+    // TODO: HACER QUE LO LEA DESDE EL SERVICE
+    //this.elementsStatistics.forEach((value, k) => this.statistics.push({key: k, val: value}));
   }
 
   onAccept(): void {

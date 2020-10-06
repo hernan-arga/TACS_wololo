@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { StatisticsShowComponent } from '../statistics-show/statistics-show.component';
+import { StatisticsService } from '../_services/statistics.service';
 
 @Component({
   selector: 'app-statistics',
@@ -11,8 +12,13 @@ import { StatisticsShowComponent } from '../statistics-show/statistics-show.comp
 export class StatisticsComponent implements OnInit {
 
   firstFormGroup: FormGroup;
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
 
-  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) { }
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog,
+    private statisticsService: StatisticsService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group(
@@ -23,14 +29,35 @@ export class StatisticsComponent implements OnInit {
   }
 
   openShowStatisticsByDate(): void {
-    // TODO
+    let statistics = new Map<string, number>();
+    let from = this.range.value.start;
+    let to = this.range.value.end;
+
+    this.statisticsService.getStatisticsByDate(from, to).subscribe(
+      data => {
+        statistics = data;
+      });
+      
+    const dialogRef = this.dialog.open(StatisticsShowComponent, {
+      width: '600px',
+      data: statistics, 
+      disableClose: true
+    });
+    
   }
 
   openShowIndividualStatisticsDialog(): void{
+    let statistics = new Map<string, number>();
     let userName = this.firstFormGroup.controls.firstCtrl.value;
+
+    this.statisticsService.getIndividualStatistics(userName).subscribe(
+      data => {
+        statistics = data;
+      });
+      
     const dialogRef = this.dialog.open(StatisticsShowComponent, {
       width: '600px',
-      data: userName, 
+      data: statistics, 
       disableClose: true
     });
   }
