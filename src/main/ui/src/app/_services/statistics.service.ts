@@ -18,7 +18,6 @@ export class StatisticsService {
   
   getStatisticsByDate(from: Date, to: Date): Observable<Map<string, number>>
   { 
-    let minDate = from.getFullYear().toString + from.getDay().toString()
     return this.http.get<Map<string, number>>(API_URL + "games?" +
       "from=" + this.convertDateToISOString(from) + "&to="
       + this.convertDateToISOString(to), { responseType: 'json' });

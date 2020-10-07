@@ -19,17 +19,11 @@ export class ScoreBoardShowComponent implements OnInit {
      }
 
   ngOnInit() {
-    let prueba = new Array<ElementScoreBoard>(); // TODO SACAR HARCODEO
-    prueba.push(new ElementScoreBoard("Melisa", 15));
-    prueba.push(new ElementScoreBoard("Carlos", 10));
-    this.scoreBoard = prueba;
-    
-    // TODO: Hacer que lo de abajo me funciona. No me funciona porque no tengo los permisos
-    /*this.scoreBoardShowService.getScoreBoard(this.gameId).subscribe(data =>
+      this.scoreBoardShowService.getScoreBoard(this.gameId).subscribe(data =>
       {
         this.scoreBoard = data;
       }
-    );*/
+    );
   }
 
   onAccept(): void {

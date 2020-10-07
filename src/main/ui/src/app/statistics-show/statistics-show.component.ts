@@ -17,16 +17,7 @@ export class StatisticsShowComponent implements OnInit {
      }
 
   ngOnInit() {
-    let prueba = new Map<string, number>(); // TODO: SACAR HARDCODEO
-    prueba.set("CREATE", 5);
-    prueba.set("FINISHED", 10);
-    prueba.set("IN_PROGRESS", 15);
-    prueba.set("CANCELLED", 2);
-
-    prueba.forEach((value, k) => this.statistics.push({key: k, val: value}));
-    
-    // TODO: HACER QUE LO LEA DESDE EL SERVICE
-    //this.elementsStatistics.forEach((value, k) => this.statistics.push({key: k, val: value}));
+    Object.entries(this.elementsStatistics).forEach((v) => this.statistics.push({key: v[0], val: v[1]}));
   }
 
   onAccept(): void {
