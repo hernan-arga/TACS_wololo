@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,10 +20,11 @@ export class ScoreBoardComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'province', 'date', 'players', 'actions'];
   dataSource: MatTableDataSource<any>;
+  showMessageNoData: boolean;
 
   range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
+    start: new FormControl('', Validators.required),
+    end: new FormControl('', Validators.required)
   });
 
   @ViewChild(MatSort) sort: MatSort;
@@ -35,19 +36,24 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showMessageNoData = false;
     this.dataSource = new MatTableDataSource<Game>();
   }
 
   clearData()
   {
+    this.showMessageNoData = false;
     this.dataSource = null;
   }
 
   getDateRange() {
+    this.showMessageNoData = false;
     let fromDate = this.range.value.start;
     let toDate = this.range.value.end;
     this.gamesService.getGamesByDate(fromDate, toDate).subscribe(data =>
       {
+        if(data.length == 0)
+          this.showMessageNoData = true;
         this.dataSource = new MatTableDataSource<Game>(data);
       }
     );

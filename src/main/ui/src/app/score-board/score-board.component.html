@@ -2,7 +2,7 @@
   <br>
   <mat-form-field appearance="legacy">
     
-    <mat-label>Enter a date range</mat-label>
+    <mat-label>Ingrese un rango de fechas</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date">
       <input matEndDate formControlName="end" placeholder="End date">
@@ -12,13 +12,21 @@
     
   </mat-form-field>
     <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-    <button mat-button-toggle matSuffix mat-icon-button aria-label="Search" (click)="getDateRange()">
+    <button mat-button-toggle matSuffix mat-icon-button aria-label="Search"
+    [disabled]="range.controls.start.errors?.required
+          || range.controls.end.errors?.required"
+    (click)="getDateRange()">
       <mat-icon>search</mat-icon>
     </button>
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearData()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"
+    [disabled]="range.controls.start.errors?.required
+          || range.controls.end.errors?.required"
+    (click)="clearData()">
       <mat-icon>close</mat-icon>
     </button>
-  
+
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')
+      || range.controls.end.hasError('matEndDateInvalid')">Rango de fechas inválida</mat-error>
 </div>
 <div class="mat-elevation-z8 table-dark">
   <mat-table [dataSource]="dataSource"  matSort>
@@ -36,17 +44,23 @@
     </ng-container>
     <ng-container matColumnDef="players">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Jugadores</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.players}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.players.join(', ')}}</mat-cell>
     </ng-container>
-    
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Scoreboard</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-icon-button color="primary" (click)="openShowScoreBoardDialog(element.id)"><mat-icon>assignment</mat-icon></button>
       </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="noData"  >
+      <mat-footer-cell *matFooterCellDef>
+        No hay partidas en ese rango de fechas.
+      </mat-footer-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> <!-- [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"-->
+    <mat-footer-row [hidden]="!showMessageNoData" *matFooterRowDef="['noData']" ></mat-footer-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>

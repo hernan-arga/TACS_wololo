@@ -7,7 +7,7 @@
         <h5 class="card-title">¿Qué desea hacer?</h5>
       </div>
       <div class="card-body ">
-        <form>
+        <form >
           <p>Obtener el estadísticas entre las fechas: </p>
           <mat-form-field appearance="legacy">
             <mat-label>Ingrese el rango de fechas</mat-label>
@@ -18,23 +18,40 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
         
-            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
           </mat-form-field>
-          <button mat-button-toggle matSuffix mat-icon-button aria-label="Search" (click)="openShowStatisticsByDate()">
+          <button mat-button-toggle matSuffix mat-icon-button aria-label="Search"
+          [disabled]="range.controls.start.errors?.required
+          || range.controls.end.errors?.required"
+          (click)="openShowStatisticsByDate()">
             <mat-icon>search</mat-icon>
           </button>
+          <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')
+            || range.controls.end.hasError('matEndDateInvalid')">Rango de fechas inválida</mat-error>
+      
         </form>
+        <br>
         <form [formGroup]="firstFormGroup">
             <div class="example-button-row">
               <p>Obtener el estadísticas de: </p>
               <mat-form-field appearance="legacy" class="example-form-field">
                 <mat-label>Nombre del usuario</mat-label>
                 <input matInput type="text" formControlName="firstCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
+                    {{user.username}}
+                  </mat-option>
+                </mat-autocomplete>
               </mat-form-field>
-              <button mat-button-toggle matSuffix mat-icon-button aria-label="Search" (click)="openShowIndividualStatisticsDialog()">
+              <button mat-icon-button aria-label="Search"
+              [disabled]="firstFormGroup.controls.firstCtrl.hasError('required') || !userExists()"
+               (click)="openShowIndividualStatisticsDialog()">
                 <mat-icon>search</mat-icon>
               </button>
+              <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && !userExists()">
+                Debe insertar un usuario valido
+              </mat-error>
+                
+              
             </div>
         </form>
       </div>

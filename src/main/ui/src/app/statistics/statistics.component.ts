@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { UserInfo } from '../shared/models/userInfo.model';
 import { StatisticsShowComponent } from '../statistics-show/statistics-show.component';
 import { StatisticsService } from '../_services/statistics.service';
+import { UsersService } from '../_services/users.service';
 
 
 @Component({
@@ -12,22 +16,46 @@ import { StatisticsService } from '../_services/statistics.service';
 })
 export class StatisticsComponent implements OnInit {
 
+  filteredUsers: Observable<UserInfo[]>;
+  users: UserInfo[] = new Array();
+
   firstFormGroup: FormGroup;
   range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
+    start: new FormControl('', Validators.required),
+    end: new FormControl('', Validators.required)
   });
 
   constructor(private _formBuilder: FormBuilder, public dialog: MatDialog,
-    private statisticsService: StatisticsService) { }
+    private statisticsService: StatisticsService, private usersService: UsersService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group(
       {
-        firstCtrl: ['']
+        firstCtrl: ['', [Validators.required]]
       }
     );
+
+    this.filteredUsers = this.firstFormGroup.controls.firstCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    
+    this.usersService.getUsersList().subscribe(
+      result => { result.forEach(p => this.users.push(p) ) }
+    );
   }
+
+  private _filter(value: String): UserInfo[] {
+    const filterValue = value.toLowerCase();
+
+    return this.users.filter(user => user.username.toLowerCase().includes(filterValue));
+  }
+
+  public userExists(): Boolean {
+    return this.users.some(user => 
+       this.firstFormGroup.controls.firstCtrl.value == user.username); 
+  };
 
   openShowStatisticsByDate(): void {
     let statistics = new Map<string, number>();
@@ -46,7 +74,7 @@ export class StatisticsComponent implements OnInit {
       });
   }
 
-  async openShowIndividualStatisticsDialog(): Promise<void>{
+  openShowIndividualStatisticsDialog(): void{
     let statistics = new Map<string, number>();
     let userName = this.firstFormGroup.controls.firstCtrl.value;
 
@@ -56,6 +84,7 @@ export class StatisticsComponent implements OnInit {
 
         this.dialog.open(StatisticsShowComponent, {
           width: '600px',
+          height: '600px',
           data: statistics, 
           disableClose: true
         });
