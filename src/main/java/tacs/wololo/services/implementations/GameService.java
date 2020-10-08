@@ -58,6 +58,11 @@ public class GameService implements IGameService {
         return gameRepository.getGamesFor(username);
     }
 
+    public List<Game> getGamesByDate(Date from, Date to)
+    {
+        return gameRepository.getGamesByDates(from, to);
+    }
+
     public Game getGame(String username, Long id)
     {
         Optional<Game> game = gameRepository.getGamesFor(username).stream().filter(g -> g.getId().equals(id)).findFirst();

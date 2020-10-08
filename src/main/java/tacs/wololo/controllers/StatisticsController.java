@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
-//@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN')")
 public class StatisticsController
 {
     @Autowired

@@ -37,6 +37,18 @@ export class GamesService {
     return this.http.get<Array<Game>>(API_URL + 'games', { responseType: 'json' });
   }
 
+  getGamesByDate(from: Date, to: Date):Observable<Array<Game>>
+  {
+    return this.http.get<Array<Game>>(API_URL + "games/by?" +
+      "from=" + this.convertDateToISOString(from) + "&to="
+      + this.convertDateToISOString(to), { responseType: 'json' });
+  }
+
+  convertDateToISOString(date: Date): string
+  {
+    return date.getFullYear().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getDate().toString();
+  }
+
   moveGauchos(action: Action, id: Number): Observable<any> {
     return this.http.post(API_URL + 'games/' + id.toString() + "/moves", {
       attackMun: action.attackMun,

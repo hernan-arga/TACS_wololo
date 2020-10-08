@@ -1,31 +1,46 @@
 <div class="search-div">
-  <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
+  <br>
+  <mat-form-field appearance="legacy">
+    
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    
+  </mat-form-field>
+    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+    <button mat-button-toggle matSuffix mat-icon-button aria-label="Search" (click)="getDateRange()">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearData()">
       <mat-icon>close</mat-icon>
     </button>
-  </mat-form-field>
+  
 </div>
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 table-dark">
   <mat-table [dataSource]="dataSource"  matSort>
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>No. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Nro</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="province">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Province</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Provincia</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.province}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Date </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.date}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.date | date: 'short'}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="players">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Players</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Jugadores</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.players}}</mat-cell>
     </ng-container>
+    
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Scoreboard</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-icon-button color="primary" (click)="openShowScoreBoardDialog(element.id)"><mat-icon>assignment</mat-icon></button>
       </mat-cell>

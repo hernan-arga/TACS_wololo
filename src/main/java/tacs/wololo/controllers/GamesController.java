@@ -2,6 +2,7 @@ package tacs.wololo.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import tacs.wololo.security.payload.MessageResponse;
 import tacs.wololo.services.implementations.GameService;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -56,6 +58,14 @@ public class GamesController
     public ResponseEntity<?> getGames()
     {
         return ResponseEntity.ok(gameService.getGames(getUsername()));
+    }
+
+    @GetMapping(path = "/by")
+    public ResponseEntity<?> getGamesByDate(
+            @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date from,
+            @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date to)
+    {
+        return ResponseEntity.ok(gameService.getGamesByDate(from, to));
     }
 
     @GetMapping(path = "/{id}")
