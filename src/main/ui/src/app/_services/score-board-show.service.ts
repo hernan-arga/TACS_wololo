@@ -12,8 +12,8 @@ export class ScoreBoardShowService {
 
 constructor(private http: HttpClient) { }
 
-getScoreBoard(id: Number): Observable<Array<ElementScoreBoard>> {
-  return this.http.get<Array<ElementScoreBoard>>(API_URL + id.toString(), { responseType: 'json' });
+getScoreBoard(id: Number): Observable<Map<string, number>> {
+  return this.http.get<Map<string, number>>(API_URL + id.toString(), { responseType: 'json' });
 }
 
 }

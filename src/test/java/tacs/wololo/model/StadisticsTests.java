@@ -41,9 +41,9 @@ public class StadisticsTests {
         when(boringGame.getDate()).thenReturn(dateGame);
         when(mehGame.getDate()).thenReturn(dateGame);
 
-        when(funnyGame.getState()).thenReturn(GameState.FINISHED);
-        when(boringGame.getState()).thenReturn(GameState.IN_PROGRESS);
-        when(mehGame.getState()).thenReturn(GameState.IN_PROGRESS);
+        when(funnyGame.getState()).thenReturn(GameState.FINALIZADO);
+        when(boringGame.getState()).thenReturn(GameState.EN_PROGRESO);
+        when(mehGame.getState()).thenReturn(GameState.EN_PROGRESO);
 
         Queue<String> playersWithCarlos =  new LinkedList<>(Arrays.asList("Carlos", "Juan", "Marcos"));
         Queue<String> playersWithoutCarlos = new LinkedList<>(Arrays.asList("Juan", "Marcos"));
@@ -61,8 +61,8 @@ public class StadisticsTests {
     @Test
     public void getStatisticsByDates() throws ParseException {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
-        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 2);
-        statistics.put("FINISHED", 1); statistics.put("CREATED", 0);
+        statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 2);
+        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 0);
 
         Assert.assertEquals(statistics, statisticsCreator.getStatisticsByDates(minDate, maxDate));
     }
@@ -70,8 +70,8 @@ public class StadisticsTests {
     @Test
     public void getIndividualStatistics() throws ParseException {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
-        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 1);
-        statistics.put("FINISHED", 1); statistics.put("CREATED", 0);
+        statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 1);
+        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 0);
 
         Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Carlos"));
     }
@@ -79,8 +79,8 @@ public class StadisticsTests {
     @Test
     public void getIndividualStatisticsWhenPlayerDontHaveGames() throws ParseException {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
-        statistics.put("CANCELLED", 0); statistics.put("IN_PROGRESS", 0);
-        statistics.put("FINISHED", 0); statistics.put("CREATED", 0);
+        statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 0);
+        statistics.put("FINALIZADO", 0); statistics.put("CREADO", 0);
 
         Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Adrian"));
     }

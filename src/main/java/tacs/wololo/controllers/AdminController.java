@@ -6,28 +6,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tacs.wololo.model.ElementScoreBoard;
-import tacs.wololo.services.implementations.StatisticsService;
+import tacs.wololo.services.implementations.AdminService;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 @PreAuthorize("hasRole('ADMIN')")
-public class StatisticsController
+public class AdminController
 {
     @Autowired
-    StatisticsService statisticsService;
+    AdminService adminService;
 
     @GetMapping(path = "/scoreboard/{id}")
     public ResponseEntity<?> scoreboard(@PathVariable(value = "id") Long gameID)
     {
         try
         {
-            List<ElementScoreBoard> scoreBoard = statisticsService.getScoreBoard(gameID);
+            HashMap<String, Integer> scoreBoard = adminService.getScoreBoard(gameID);
             return ResponseEntity.ok(scoreBoard);
 
         }catch (Exception e)
@@ -43,7 +42,7 @@ public class StatisticsController
     {
         try
         {
-            return ResponseEntity.ok(statisticsService.getStatisticsByDates(from, to));
+            return ResponseEntity.ok(adminService.getStatisticsByDates(from, to));
 
         }catch (Exception e)
         {
@@ -56,7 +55,7 @@ public class StatisticsController
     public ResponseEntity<?> user(@PathVariable String userPlayer){
         try
         {
-            return ResponseEntity.ok(statisticsService.getIndividualStatistics(userPlayer));
+            return ResponseEntity.ok(adminService.getIndividualStatistics(userPlayer));
 
         }catch (Exception e)
         {

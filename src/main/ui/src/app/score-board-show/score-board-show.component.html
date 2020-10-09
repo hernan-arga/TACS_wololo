@@ -12,9 +12,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let elementScoreboard of scoreBoard ; let i = index;">
-                    <td>{{elementScoreboard.player}}</td>
-                    <td>{{elementScoreboard.cantMunicipalitiesHavePlayer}}</td>
+                  <tr *ngFor="let element of scoreBoard ; let i = index;">
+                    <td>{{element.key}}</td>
+                    <td>{{element.val}}</td>
                   </tr>
                 </tbody>
               </table>

@@ -15,17 +15,12 @@ public class StatisticsCreator {
         this.gameRepository = gameRepository;
     }
 
-    public HashMap<String, Integer> getGeneralStatistics()
-    {
-        return this.getStatistics(gameRepository.getGames());
-    }
-
     public HashMap<String, Integer> getStatistics(List<Game> games)
     {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
 
-        Arrays.asList(GameState.values()).forEach(s ->
-                statistics.put(s.name(), this.cantGamesHaveTheState(games, s))
+        Arrays.asList(GameState.values()).forEach(s ->{
+                statistics.put(s.name(), this.cantGamesHaveTheState(games, s));}
         );
 
         return statistics;
@@ -34,6 +29,7 @@ public class StatisticsCreator {
     public HashMap<String, Integer> getStatisticsByDates(Date dateMin, Date dateMax)
     {
         List<Game> games = gameRepository.getGamesByDates(dateMin, dateMax);
+
         return this.getStatistics(games);
     }
 

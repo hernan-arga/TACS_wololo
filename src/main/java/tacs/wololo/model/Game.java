@@ -59,15 +59,17 @@ public class Game {
     }
 
     @JsonIgnore
-    public List<ElementScoreBoard> getScoreBoard() {
-        List<ElementScoreBoard> elementScoreBoards = new ArrayList<>();
+    // HashMap<player, cantMunicipalitiesHavePlayer>
+    public HashMap<String, Integer> getScoreBoard() {
+        HashMap<String, Integer> scoreBoard = new HashMap <String, Integer> ();
+
         this.players.forEach(p ->
         {
             List<Municipality> municipalitiesOwner = this.municipalities.stream().filter(m -> m.getOwner().equals(p)).collect(Collectors.toList());
-            elementScoreBoards.add(new ElementScoreBoard(p, municipalitiesOwner.size()));
+            scoreBoard.put(p, municipalitiesOwner.size());
         });
 
-        return elementScoreBoards;
+        return scoreBoard;
     }
 
     private void setMapLatAndLon() {

@@ -43,7 +43,7 @@ public class GameService implements IGameService {
 
         Game game = null;
 
-        game = new Game(map, new Date(), playerQueue, GameState.CREATED,
+        game = new Game(map, new Date(), playerQueue, GameState.CREADO,
                 gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
 
 

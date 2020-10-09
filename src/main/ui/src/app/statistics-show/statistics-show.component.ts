@@ -16,7 +16,7 @@ export class StatisticsShowComponent implements OnInit {
       this.elementsStatistics = data;
      }
 
-  ngOnInit() {
+  ngOnInit() { 
     Object.entries(this.elementsStatistics).forEach((v) =>
       this.statistics.push({key: v[0].toString().replace('_', ' '), val: v[1]}));
   }

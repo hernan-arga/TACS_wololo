@@ -11,7 +11,8 @@ import { ScoreBoardShowService } from '../_services/score-board-show.service';
 export class ScoreBoardShowComponent implements OnInit {
 
   gameId: number; 
-  scoreBoard: Array<ElementScoreBoard>; 
+ // elementsScoreBoard: Map<string, number>; 
+  scoreBoard: Array<any> = [];
 
   constructor(private scoreBoardShowService: ScoreBoardShowService, public dialogRef: MatDialogRef<ScoreBoardShowComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number) {
@@ -21,7 +22,11 @@ export class ScoreBoardShowComponent implements OnInit {
   ngOnInit() {
       this.scoreBoardShowService.getScoreBoard(this.gameId).subscribe(data =>
       {
-        this.scoreBoard = data;
+       // this.elementsScoreBoard = data;
+        /*Object.entries(this.elementsStatistics).forEach((v) =>
+      this.statistics.push({key: v[0].toString().replace('_', ' '), val: v[1]})); */
+      Object.entries(data).forEach((v) =>
+      this.scoreBoard.push({key: v[0], val: v[1]}));
       }
     );
   }

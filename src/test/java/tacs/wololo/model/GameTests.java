@@ -8,8 +8,6 @@ import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoRef;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,7 +80,7 @@ public class GameTests {
         asterAPImock = mock(AsterAPI.class);
         when(asterAPImock.multipleHeights(centroides)).thenReturn(heights);
         //(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
-        aGame = new Game(aMap, new Date(), players, GameState.CREATED, MUNICIPALITY_LIMIT, geoRefMock, asterAPImock);
+        aGame = new Game(aMap, new Date(), players, GameState.CREADO, MUNICIPALITY_LIMIT, geoRefMock, asterAPImock);
         //TODO El constructor no debería recibir estado de juego
 
         easyGame = new Game();
@@ -114,14 +112,14 @@ public class GameTests {
 
     @Test
     public void getScoreBoard() {
-        List<ElementScoreBoard> elementScoreBoards = easyGame.getScoreBoard();
+        HashMap<String, Integer> scoreBoard = easyGame.getScoreBoard();
 
-        Assert.assertEquals("fulano", elementScoreBoards.get(0).getPlayer());
-        Assert.assertEquals(1, elementScoreBoards.get(0).getCantMunicipalitiesHavePlayer());
-        Assert.assertEquals("mengano", elementScoreBoards.get(1).getPlayer());
-        Assert.assertEquals(2, elementScoreBoards.get(1).getCantMunicipalitiesHavePlayer());
-        Assert.assertEquals("marciano", elementScoreBoards.get(2).getPlayer());
-        Assert.assertEquals(0, elementScoreBoards.get(2).getCantMunicipalitiesHavePlayer());
+        HashMap<String, Integer> scoreBoardExpected = new HashMap <String, Integer> ();
+        scoreBoardExpected.put("fulano", 1);
+        scoreBoardExpected.put("mengano", 2);
+        scoreBoardExpected.put("marciano", 0);
+
+        Assert.assertEquals(scoreBoardExpected, scoreBoard);
     }
 
 
