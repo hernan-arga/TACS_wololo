@@ -8,27 +8,24 @@
                 <input matInput formControlName="firstCtrl" required>
             </mat-form-field>-->
             <mat-form-field class="example-full-width">
-                <input type="text"
-                       placeholder="Elige oponente"
-                       aria-label="Number"
-                       matInput
-                       formControlName="firstCtrl"
-                       [matAutocomplete]="auto">
+                <input type="text" placeholder="Elige oponente" aria-label="Number" matInput formControlName="firstCtrl"
+                    [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
-                    {{user.username}}
-                  </mat-option>
+                    <mat-option *ngFor="let user of filteredUsers | async" [value]="user.username">
+                        {{user.username}}
+                    </mat-option>
                 </mat-autocomplete>
-              </mat-form-field>
+            </mat-form-field>
 
-              <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && isNotAUsernameValid()">
+            <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && isNotAUsernameValid()">
                 Debe insertar un usuario valido
-                </mat-error>
-              
+            </mat-error>
+
             <div>
-                <button id="next-button" class="btn btn-info" [disabled]="isNotAUsernameValid()" mat-button matStepperNext>Next</button>
+                <button id="next-button" class="btn btn-info" [disabled]="isNotAUsernameValid()" mat-button
+                    matStepperNext>Next</button>
             </div>
-            
+
         </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Elige modo de juego">
@@ -36,9 +33,7 @@
             <p>¿En donde tendra lugar vuestro combate?</p>
             <mat-form-field appearance="fill">
                 <mat-label style="color: white">Provincia de combate</mat-label>
-                <mat-select 
-                            formControlName="secondCtrlFirstCondition" required 
-                            [(value)]="provinceSelected">
+                <mat-select formControlName="secondCtrlFirstCondition" required [(value)]="provinceSelected">
                     <mat-option *ngFor="let province of provinces" [value]="province">
                         {{province.name}}
                     </mat-option>
@@ -48,12 +43,13 @@
             <p>¿Cuantas municipalidades?</p>
             <br>
             <br>
-                <mat-slider
-                    formControlName="secondCtrlSecondCondition"
-                    thumbLabel
-                    tickInterval="1000"
-                    min="2"
-                    max="{{provinceSelected.municipalitiesCant}}"></mat-slider>
+            <mat-slider *ngIf="municipalitiesCantUnder100(provinceSelected.municipalitiesCant); 
+                    else municipalitiesCantOver100" formControlName="secondCtrlSecondCondition" thumbLabel
+                tickInterval="1000" min="2" max="{{provinceSelected.municipalitiesCant}}"></mat-slider>
+            <ng-template #municipalitiesCantOver100>
+                <mat-slider formControlName="secondCtrlSecondCondition" thumbLabel tickInterval="1000" min="2"
+                    max="100"></mat-slider>
+            </ng-template>
             <div>
                 <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
                 <button mat-button class="btn btn-info" matStepperNext>Next</button>

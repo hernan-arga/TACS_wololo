@@ -107,4 +107,8 @@ export class GameCreateComponent implements OnInit {
 
   }
 
+  public municipalitiesCantUnder100(municipalitiesCant: number): boolean {
+    return municipalitiesCant < 100;
+  }
+
 }
