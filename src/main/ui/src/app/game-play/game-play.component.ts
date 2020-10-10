@@ -22,6 +22,9 @@ import { Action } from '../shared/models/action.model';
 import { GameMovementSuccessfulComponent } from '../game-movement-successful/game-movement-successful.component';
 import { GameShowMunicipalityStatisticsComponent } from '../game-show-municipality-statistics/game-show-municipality-statistics.component';
 import { GameFinishedShowWinnerComponent } from '../game-finished-show-winner/game-finished-show-winner.component';
+import { Observable } from 'rxjs';
+import { ProvinceLimits } from '../shared/models/ProvinceLimits.model';
+import { ProvincesService } from '../_services/provinces.service';
 
 @Component({
   selector: 'app-game-play',
@@ -48,8 +51,10 @@ export class GamePlayComponent implements OnInit {
 
   game: Game; //TODO: cambiar a Game
   gameId: Number;
-  imgSizeX: number = 366;
-  imgSizeY: number = 557;
+  imgSizeX: number = 0;
+  imgSizeY: number = 0;
+
+  provinceLimits: ProvinceLimits;
 
   matrizPositions: MapPosition[][] = new Array<Array<MapPosition>>();
 
@@ -59,38 +64,40 @@ export class GamePlayComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private coordinateService: CoordinatesService,
     private cdRef: ChangeDetectorRef,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private provinceService: ProvincesService) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
     });
     this.gamesService.getGame(this.gameId).subscribe(
       data => {
         this.game = data;
-        this.municipalitiesByUser = this.groupByKey(this.game.municipalities, 'owner');
-
-        this.initializeVariables();
-
-        this.game.municipalities.forEach(m => 
-          { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
-        );
-
-        if(!this.gameFinished()){
-          if (!this.isCurrentlyUserTurn) {
-            this.openNotYourTurnDialog();
-          }
-        }
+        this.provinceService.getLimits().subscribe(data => {
+          this.provinceLimits = data.find(pl =>pl.name == this.game.province);          
+          this.municipalitiesByUser = this.groupByKey(this.game.municipalities, 'owner');
+          this.initializeVariables();
+        });     
         
-        else{
-          this.openGameFinishedDialog(this.game.players[0]);
-        }
-
-        this.isLoading = false;
       }
     );
   }
+
+
+  private getImageDimension(image): Observable<any> {
+    return new Observable(observer => {
+        const img = new Image();
+        img.onload = function (event) {
+            const loadedImage: any = event.currentTarget;
+            image.width = loadedImage.width;
+            image.height = loadedImage.height;
+            observer.next(image);
+            observer.complete();
+        }
+        img.src = image.url;
+    });
+}
 
   private groupByKey(array, key) {
     return array
@@ -112,17 +119,56 @@ export class GamePlayComponent implements OnInit {
       group[m.nombre] = new FormControl('');
     });
         
-    this.selectForm = new FormGroup(group);    
+    this.selectForm = new FormGroup(group);
+
+    this.assignImgSize();
+  }
+
+  private assignImgSize(){
+    const image = {
+      url: "../assets/provinces/"+this.game.province+".png"
+    }
+
+    this.getImageDimension(image).subscribe(
+      response => { 
+        this.imgSizeX = response.width;
+        this.imgSizeY = response.height;
+        this.assignMunicipalities();
+        this.checkVariables();
+      }
+   );
+  }
+
+  private checkVariables(){
+    if(!this.gameFinished()){
+      if (!this.isCurrentlyUserTurn) {
+        this.openNotYourTurnDialog();
+      }
+    }
+    
+    else{
+      this.openGameFinishedDialog(this.game.players[0]);
+    }
+
+    this.isLoading = false;
+  }
+
+  private assignMunicipalities(){
+    this.game.municipalities.forEach(m => 
+      { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
+    );  
   }
 
   //Ecuaciones de interpolacion
   private assignPositionToMunicipality(municipality: Municipality) {
     let lonMun = municipality.centroide.lon, latMun = municipality.centroide.lat,
       latMin = this.game.map.latMin, lonMin = this.game.map.lonMin,
-      latMax = this.game.map.latMax, lonMax = this.game.map.lonMax;
+      latMax = this.game.map.latMax, lonMax = this.game.map.lonMax,
+      limitX = this.provinceLimits.limitX, limitY = this.provinceLimits.limitY,
+      limitMinusX = this.provinceLimits.limitMinusX, limitMinusY = this.provinceLimits.limitMinusY;
 
-    municipality.posX = this.imgSizeX * 0.15 + (lonMun - lonMin) * (this.imgSizeX * 0.70 - this.imgSizeX * 0.15) / (lonMax - lonMin);
-    municipality.posY = this.imgSizeY * 0.15 + (latMun - latMax) * (this.imgSizeY * 0.80 - this.imgSizeY * 0.15) / (latMin - latMax);
+    municipality.posX = this.imgSizeX * limitMinusX + (lonMun - lonMin) * (this.imgSizeX * limitX - this.imgSizeX * limitMinusX) / (lonMax - lonMin);
+    municipality.posY = this.imgSizeY * limitMinusY + (latMun - latMax) * (this.imgSizeY * limitY - this.imgSizeY * limitMinusY) / (latMin - latMax);
   }
 
   private convertCoordinates(municipalitiy: Municipality) {
