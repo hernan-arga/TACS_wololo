@@ -46,7 +46,15 @@
     stroke: #3fb53f;
 }
 
-#warn-button{
-    position: absolute;
+#pass-button{
+    margin-left: 30px;
     color: red;
+}
+
+#surrender-button{
+    color: white;
+}
+
+.special-button{
+    position: absolute;
 }

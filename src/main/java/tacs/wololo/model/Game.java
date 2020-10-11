@@ -42,7 +42,7 @@ public class Game {
         this.setDists(this.municipalities);
         this.setHeights(asterAPI);
         this.setCoefs();
-        this.sortMunicipalities();
+        this.sortMunicipalities(this.municipalities);
 
         Random random = new Random();
 
@@ -132,7 +132,7 @@ public class Game {
         heights.remove(0);
     }
 
-    private void sortMunicipalities() {
+    private void sortMunicipalities(List<Municipality> municipalities) {
         int municipalitiesPerPlayer = 0;
         if (municipalities.size() / players.size() * players.size() == municipalities.size()) {
             municipalitiesPerPlayer = municipalities.size() / players.size();
@@ -141,6 +141,13 @@ public class Game {
         }
         List<List<Municipality>> municipalitiesYetToBeAdded = this.chopped(municipalities, municipalitiesPerPlayer);
         players.stream().forEach(z -> assignMunicipalities(z, municipalitiesYetToBeAdded));
+    }
+
+    public void surrender(String player){
+        this.players.remove(player);
+        List<Municipality> municipalitiesOwnerSurrendered = this.municipalities.stream()
+                .filter(m -> m.getOwner().equals(player)).collect(Collectors.toList());
+        sortMunicipalities(municipalitiesOwnerSurrendered);
     }
 
 

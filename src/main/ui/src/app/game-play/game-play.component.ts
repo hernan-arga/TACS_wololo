@@ -26,6 +26,9 @@ import { Observable } from 'rxjs';
 import { ProvinceLimits } from '../shared/models/ProvinceLimits.model';
 import { ProvincesService } from '../_services/provinces.service';
 import { GamePassTurnComponent } from '../game-pass-turn/game-pass-turn.component';
+import { GameTurnChangedComponent } from '../game-turn-changed/game-turn-changed.component';
+import { GameSurrenderComponent } from '../game-surrender/game-surrender.component';
+import { GameSurrenderedComponent } from '../game-surrendered/game-surrendered.component';
 
 @Component({
   selector: 'app-game-play',
@@ -347,7 +350,7 @@ export class GamePlayComponent implements OnInit {
     return (!this.playerIsCurrentUser(municipalitiy.owner) && !this.attackMode) ||
       (this.playerIsCurrentUser(municipalitiy.owner) && this.attackMode) ||
       (this.playerIsCurrentUser(municipalitiy.owner) && this.moveMode && municipalityWantsToMove) ||
-      this.alreadyPlayed || !this.isCurrentlyUserTurn;
+      this.alreadyPlayed || !this.isCurrentlyUserTurn || this.gameFinished();
   }
 
   public hasGauchosToAttack(municipality: Municipality): boolean{
@@ -356,7 +359,7 @@ export class GamePlayComponent implements OnInit {
 
   public changeTurn(){
     const dialogRef = this.dialog.open(GamePassTurnComponent, {
-      width: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(changeTurn => {
@@ -371,7 +374,35 @@ export class GamePlayComponent implements OnInit {
   }
 
   turnChanged(){
-    
+    const dialogRef = this.dialog.open(GameTurnChangedComponent, {
+      width: '400px',
+    });
+  }
+
+  public surrender() {
+    const dialogRef = this.dialog.open(GameSurrenderComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(changeTurn => {
+      if(changeTurn){
+        this.gamesService.surrender(this.gameId).subscribe(data => {
+          this.game = data;
+          this.alreadyPlayed = true;
+          this.surrendered();
+        });
+      }
+    });
+  }
+
+  surrendered(){
+    const dialogRef = this.dialog.open(GameSurrenderedComponent, {
+      width: '400px',
+    });
+  }
+
+  public isSpecialButtonsAvailable(): boolean{
+    return !this.gameFinished() && this.isCurrentlyUserTurn;
   }
 
 }

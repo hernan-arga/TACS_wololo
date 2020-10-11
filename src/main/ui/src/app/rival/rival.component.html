@@ -1,0 +1,9 @@
+<mat-form-field class="example-full-width">                
+    <input type="text" placeholder="Elige oponente" aria-label="Number" matInput formControlName="firstCtrl"
+        [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let user of possiblesRivals | async" [value]="user.username">
+            {{user.username}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

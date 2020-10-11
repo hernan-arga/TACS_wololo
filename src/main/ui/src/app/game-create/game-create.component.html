@@ -7,7 +7,18 @@
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput formControlName="firstCtrl" required>
             </mat-form-field>-->
-            <mat-form-field class="example-full-width">
+            <button class="add-button" mat-button (click)="addRival()"><span class="material-icons">
+                person_add
+                </span>
+            </button>
+            <button class="delete-button" mat-button (click)="deleteRival()"><span class="material-icons">
+                person_remove
+                </span>
+            </button>
+
+            <rival-component *ngFor="let rival of rivals" [possiblesRivals] = "filteredUsers"></rival-component>
+
+            <!--<mat-form-field class="example-full-width">                
                 <input type="text" placeholder="Elige oponente" aria-label="Number" matInput formControlName="firstCtrl"
                     [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
@@ -15,7 +26,7 @@
                         {{user.username}}
                     </mat-option>
                 </mat-autocomplete>
-            </mat-form-field>
+            </mat-form-field>-->
 
             <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && isNotAUsernameValid()">
                 Debe insertar un usuario valido

@@ -10,6 +10,8 @@ import { GamesService } from '../_services/games.service';
 import { GameInfo } from '../shared/models/gameInfo.model';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
+import { Rival } from '../shared/models/rival.model';
+import { timingSafeEqual } from 'crypto';
 
 /**
  * @title Stepper overview
@@ -33,6 +35,7 @@ export class GameCreateComponent implements OnInit {
   currentUserUsername: String
   myControl = new FormControl();
   filteredUsers: Observable<UserInfo[]>;
+  rivals: Array<Rival> = [];
 
   constructor(private _formBuilder: FormBuilder,
     private provincesService: ProvincesService,
@@ -109,6 +112,16 @@ export class GameCreateComponent implements OnInit {
 
   public municipalitiesCantUnder100(municipalitiesCant: number): boolean {
     return municipalitiesCant < 100;
+  }
+
+  addRival(){
+    if(this.rivals.length < 3){
+      this.rivals.push(new Rival());
+    }    
+  }
+
+  deleteRival(){
+    this.rivals.pop();
   }
 
 }

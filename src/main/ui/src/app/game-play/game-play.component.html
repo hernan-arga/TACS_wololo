@@ -1,14 +1,19 @@
 <div class="imdesc" *ngIf="!isLoading">
-    <button id="warn-button" *ngIf="isCurrentlyUserTurn" mat-icon-button color="primary" (click)="changeTurn()">
+    <button class="special-button" id="pass-button" *ngIf="isSpecialButtonsAvailable()" mat-icon-button
+            (click)="changeTurn()">
         <mat-icon>cancel</mat-icon>
+    </button>
+    <button class="special-button" id="surrender-button" *ngIf="isSpecialButtonsAvailable()" mat-icon-button 
+            (click)="surrender()">
+        <mat-icon>emoji_flags</mat-icon>
     </button>
     <img src="../assets/provinces/{{game.province}}.png" />
 
     <div *ngFor="let municipalitiesUser of municipalitiesByUser | keyvalue;">
         <div *ngFor="let municipality of municipalitiesUser.value">
             <div class="municipality-elements" [formGroup]="selectForm">
-                <select id="actions" class="cen"
-                    formControlName="{{municipality.nombre}}" [ngStyle]="calculatePositionAndColor(municipality)"
+                <select id="actions" class="cen" formControlName="{{municipality.nombre}}"
+                    [ngStyle]="calculatePositionAndColor(municipality)"
                     (change)="realizeAction($event, municipality); ">
 
                     <option selected value> -- Elije Acción -- </option>
@@ -36,8 +41,9 @@
                     !isCurrentPlayerOption(municipality.owner)" value="attack">Atacar!</option>
                     <option value="statistics">Mostrar Estadisticas</option>
                 </select>
-            </div>            
+            </div>
         </div>
-    </div>
+    </div>    
+</div>
 
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
