@@ -25,6 +25,7 @@ import { GameFinishedShowWinnerComponent } from '../game-finished-show-winner/ga
 import { Observable } from 'rxjs';
 import { ProvinceLimits } from '../shared/models/ProvinceLimits.model';
 import { ProvincesService } from '../_services/provinces.service';
+import { GamePassTurnComponent } from '../game-pass-turn/game-pass-turn.component';
 
 @Component({
   selector: 'app-game-play',
@@ -351,6 +352,26 @@ export class GamePlayComponent implements OnInit {
 
   public hasGauchosToAttack(municipality: Municipality): boolean{
     return municipality.gauchos>0;
+  }
+
+  public changeTurn(){
+    const dialogRef = this.dialog.open(GamePassTurnComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(changeTurn => {
+      if(changeTurn){
+        this.gamesService.passTurn(this.gameId).subscribe(data => {
+          this.game = data;
+          this.alreadyPlayed = true;
+          this.turnChanged();
+        });
+      }
+    });
+  }
+
+  turnChanged(){
+    
   }
 
 }

@@ -29,6 +29,8 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
 import { ScoreBoardShowComponent } from './score-board-show/score-board-show.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { StatisticsShowComponent } from './statistics-show/statistics-show.component';
+import { GamePassTurnComponent } from './game-pass-turn/game-pass-turn.component';
+import { GameTurnChangedComponent } from './game-turn-changed/game-turn-changed.component';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { StatisticsShowComponent } from './statistics-show/statistics-show.compo
     ScoreBoardComponent,
     ScoreBoardShowComponent,
     StatisticsComponent,
-    StatisticsShowComponent
+    StatisticsShowComponent,
+    GamePassTurnComponent,
+    GameTurnChangedComponent
    ],
   imports: [
     BrowserModule,

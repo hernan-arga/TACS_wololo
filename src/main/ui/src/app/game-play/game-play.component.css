@@ -45,3 +45,8 @@
 ::ng-deep .mat-progress-spinner circle, ::ng-deep .mat-spinner circle {
     stroke: #3fb53f;
 }
+
+#warn-button{
+    position: absolute;
+    color: red;
+}

@@ -1,4 +1,7 @@
 <div class="imdesc" *ngIf="!isLoading">
+    <button id="warn-button" *ngIf="isCurrentlyUserTurn" mat-icon-button color="primary" (click)="changeTurn()">
+        <mat-icon>cancel</mat-icon>
+    </button>
     <img src="../assets/provinces/{{game.province}}.png" />
 
     <div *ngFor="let municipalitiesUser of municipalitiesByUser | keyvalue;">
