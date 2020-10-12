@@ -3,8 +3,8 @@ export class Rival {
   username: String;
   id: number;
 
-  constructor(){
-    
+  constructor(id: number){
+    this.id = id;
   }
 
 }
