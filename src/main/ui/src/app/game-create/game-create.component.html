@@ -1,13 +1,29 @@
 <mat-horizontal-stepper class="bg-dark text-white" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
+    <mat-step [stepControl]="rivalsFormGroup">
+        <form [formGroup]="rivalsFormGroup">
             <ng-template matStepLabel>Busca rivales</ng-template>
             <p style="display: inline;">¿A quien enfrentaras el dia de hoy?</p>
             <!--<mat-form-field>
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput formControlName="firstCtrl" required>
             </mat-form-field>-->
-            <mat-form-field class="example-full-width">
+            <button class="add-button" mat-button (click)="addRival()" [disabled]="isAddRivalDisabled()">
+                <span class="material-icons">
+                    person_add
+                </span>
+            </button>
+            <button class="delete-button" mat-button (click)="deleteRival()" [disabled]="isDeleteRivalDisabled()">
+                <span class="material-icons">
+                    person_remove
+                </span>
+            </button>
+
+            <rival-component *ngFor="let rival of rivals;" 
+            [possiblesRivals] = "users" [parentFormGroup] = "rivalsFormGroup" [rival] = "rival">
+
+            </rival-component>
+
+            <!--<mat-form-field class="example-full-width">                
                 <input type="text" placeholder="Elige oponente" aria-label="Number" matInput formControlName="firstCtrl"
                     [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
@@ -15,14 +31,14 @@
                         {{user.username}}
                     </mat-option>
                 </mat-autocomplete>
-            </mat-form-field>
+            </mat-form-field>-->
 
-            <mat-error *ngIf="!firstFormGroup.controls.firstCtrl.hasError('required') && isNotAUsernameValid()">
-                Debe insertar un usuario valido
+            <mat-error *ngIf="notAllUsernameAreValid()">
+                Todos los usuarios que ingrese deben ser validos y no se debe elegir mas de 1 vez al mismo rival
             </mat-error>
 
             <div>
-                <button id="next-button" class="btn btn-info" [disabled]="isNotAUsernameValid()" mat-button
+                <button id="next-button" class="btn btn-info" [disabled]="notAllUsernameAreValid()" mat-button
                     matStepperNext>Next</button>
             </div>
 

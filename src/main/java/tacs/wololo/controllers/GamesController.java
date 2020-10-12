@@ -135,6 +135,38 @@ public class GamesController
         }
     }
 
+    @PostMapping(path = "/{id}/passTurn")
+    public ResponseEntity<?> passTurn(@PathVariable(value = "id") Long gameID)
+    {
+        try
+        {
+            Game game = gameService.getGame(getUsername(), gameID);
+            game.changeTurn();
+            return ResponseEntity.ok(game);
+
+        }catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @PostMapping(path = "/{id}/surrender")
+    public ResponseEntity<?> surrender(@PathVariable(value = "id") Long gameID)
+    {
+        try
+        {
+            Game game = gameService.getGame(getUsername(), gameID);
+            game.surrender(getUsername());
+            return ResponseEntity.ok(game);
+
+        }catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new MessageResponse(e.getMessage()));
+        }
+    }
+
     @GetMapping(path = "/{id}/municipality/{nameMun}")
     public ResponseEntity<?> getMovements(
             @PathVariable(value = "id") Long gameID, @PathVariable(value = "nameMun") String nameMun)

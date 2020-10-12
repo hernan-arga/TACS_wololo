@@ -10,6 +10,7 @@ import { GamesService } from '../_services/games.service';
 import { GameInfo } from '../shared/models/gameInfo.model';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
+import { Rival } from '../shared/models/rival.model';
 
 /**
  * @title Stepper overview
@@ -24,7 +25,7 @@ export class GameCreateComponent implements OnInit {
   provinceSelected: ProvinceInfo;
   municipalitiesAmount = 0;
   isLinear = true;
-  firstFormGroup: FormGroup;
+  rivalsFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isInputDisabled: boolean = true;
   provinces: ProvinceInfo[] = new Array();
@@ -33,6 +34,7 @@ export class GameCreateComponent implements OnInit {
   currentUserUsername: String
   myControl = new FormControl();
   filteredUsers: Observable<UserInfo[]>;
+  rivals: Array<Rival> = [];
 
   constructor(private _formBuilder: FormBuilder,
     private provincesService: ProvincesService,
@@ -42,7 +44,7 @@ export class GameCreateComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
+    
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
 
@@ -56,22 +58,26 @@ export class GameCreateComponent implements OnInit {
       result => { result.forEach(p => { if (p.username !== this.currentUserUsername) { this.users.push(p) } }) }
     );
 
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', [Validators.required]]
+    this.rivalsFormGroup = this._formBuilder.group({
     });
+
     this.secondFormGroup = this._formBuilder.group({
       secondCtrlFirstCondition: ['', Validators.required],
       secondCtrlSecondCondition: [{ value: '' }, [Validators.required]]
     });
 
-
-    this.filteredUsers = this.firstFormGroup.controls.firstCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.addRival();
 
 
+  }
+
+  isAddRivalDisabled(){
+    return this.rivals.length >= 3;
+  }
+  
+
+  isDeleteRivalDisabled(){
+    return this.rivals.length <= 1;
   }
 
   sortProvinces() {
@@ -82,21 +88,71 @@ export class GameCreateComponent implements OnInit {
     });
   }
 
-  private _filter(value: String): UserInfo[] {
-    const filterValue = value.toLowerCase();
 
-    return this.users.filter(user => user.username.toLowerCase().includes(filterValue));
+  public notAllUsernameAreValid(): Boolean {
+    return this.anyUsernameIsEmpty() || this.anyUsernameIsNotValid();
+  };
+
+  anyUsernameIsNotValid(): boolean{
+    let possibleRivalsUsernames = this.rivals.map(r => {       
+      var formControlChild = this.getFormControlRival(r);
+      return formControlChild.value;
+    });
+
+    return this.isThereRepeatedRivals(possibleRivalsUsernames) || !this.allRivalsExists(possibleRivalsUsernames);
   }
 
-  public isNotAUsernameValid(): Boolean {
-    return !this.users.some(user => this.firstFormGroup.controls.firstCtrl.value == user.username);
-  };
+  allRivalsExists(possibleRivalsUsernames: Array<string>): boolean{
+    return possibleRivalsUsernames.every(r => {
+      return this.users.some(user => r == user.username);
+    });
+    
+  }
+
+  isThereRepeatedRivals(possibleRivalsUsernames: Array<string>): boolean{
+    const status =  possibleRivalsUsernames.some(user => {
+      let counter  = 0;
+      for (const iterator of possibleRivalsUsernames) {
+        if (iterator === user) {
+          counter += 1;
+        }
+      }
+      return counter > 1;
+    });
+
+    return status;
+  }
+ 
+
+  anyUsernameIsEmpty(): boolean{
+
+    if(this.rivals.length > 0){
+      return this.rivals.some(r => {       
+        var formControlChild = this.getFormControlRival(r);
+        return formControlChild.hasError('required');
+      });
+    }
+
+    return true;
+
+  }
+
+  getFormControlRival(r: Rival): AbstractControl{
+    var formControlName = 'rival'+(r.id).toString();
+    return this.rivalsFormGroup.controls[formControlName];
+  }
 
   public createGame() {
     var userNames = new Array<String>();
     var municipalitiesCant = this.secondFormGroup.controls.secondCtrlSecondCondition.value;
     var provinceName = this.provinceSelected.name;
-    userNames.push(this.firstFormGroup.controls.firstCtrl.value);
+
+    this.rivals.forEach(r => {       
+      var formControlChild = this.getFormControlRival(r);
+      r.username = formControlChild.value;
+    });
+
+    this.rivals.forEach(r => userNames.push(r.username));
     userNames.push(this.currentUserUsername);
 
     var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName);
@@ -109,6 +165,18 @@ export class GameCreateComponent implements OnInit {
 
   public municipalitiesCantUnder100(municipalitiesCant: number): boolean {
     return municipalitiesCant < 100;
+  }
+
+  addRival(){
+    this.rivals.push(new Rival(this.rivals.length+1));     
+    let rivalControlName = 'rival'+ (this.rivals.length).toString(); 
+    this.rivalsFormGroup.addControl(rivalControlName, new FormControl('', Validators.required));
+  }
+
+  deleteRival(){
+    let rivalControlName = 'rival'+ (this.rivals.length).toString();
+    this.rivals.pop();
+    this.rivalsFormGroup.removeControl(rivalControlName);
   }
 
 }

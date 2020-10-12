@@ -73,4 +73,12 @@ export class GamesService {
     }, httpOptions);
   }
 
+  passTurn(id: Number):Observable<any>{
+    return this.http.post(API_URL + 'games/' + id.toString() + "/passTurn", httpOptions);
+  }
+
+  surrender(id: Number):Observable<any>{
+    return this.http.post(API_URL + 'games/' + id.toString() + "/surrender", httpOptions);
+  }
+
 }
