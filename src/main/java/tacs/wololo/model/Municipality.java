@@ -45,7 +45,8 @@ public class Municipality {
     private double coefAlt = 2;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn
+    //@PrimaryKeyJoinColumn
+    @JoinColumn(name = "mode_id")
     private MunicipalityMode mode;
 
     private String owner;
@@ -138,6 +139,7 @@ public class Municipality {
     public void produceGauchos(Map map){
         this.addMovement(new MovementProduce(this.gauchos, gauchosToAdd(map)));
         this.addGauchos(gauchosToAdd(map));
+
     }
 
     public void addGauchos(int gauchos)

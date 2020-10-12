@@ -7,6 +7,7 @@ public abstract class Movement {
     {
         this.finalGauchos = finalGauchos;
     }
+    public Movement(){}
 
     public int getFinalGauchos() {
         return finalGauchos;

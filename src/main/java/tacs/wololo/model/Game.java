@@ -25,7 +25,7 @@ public class Game
     @Column(name = "start_date")
     Date date;
 
-    @ElementCollection
+    @ElementCollection//(fetch = FetchType.EAGER)
     List<String> players;
 
     @Enumerated(value = EnumType.STRING)
@@ -187,7 +187,7 @@ public class Game
 
     private boolean hasMunicipalities(String player) {
         return municipalities.stream().anyMatch(
-                m -> m.getOwner() == player);
+                m -> m.getOwner().equals(player));
     }
 
     private void removePlayerIfHasNotMunicipalities(String player){
@@ -197,12 +197,15 @@ public class Game
     }
 
     public void changeTurn() {
+
         players.add(players.get(0));
         players.remove(0);
+
         players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
 
         municipalities.stream().filter(z ->z.getOwner().equals(players.get(0))).
                         forEach(m ->m.produceGauchos(this.map));
+
     }
 
     public Municipality getMunicipality(String name) {

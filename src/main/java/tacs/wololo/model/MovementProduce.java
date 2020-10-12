@@ -3,11 +3,16 @@ package tacs.wololo.model;
 public class MovementProduce extends Movement{
     private int gauchosProduced;
 
+    public MovementProduce(){
+        super();
+    }
+
     public MovementProduce(int finalGauchos, int gauchosProduced)
     {
         super(finalGauchos);
         this.gauchosProduced = gauchosProduced;
     }
+
 
     public int getGauchosProduced() {
         return gauchosProduced;

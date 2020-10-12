@@ -92,7 +92,7 @@ public class GamesController
             Game game = gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
                     actionDto.getDefenceMun(), actionDto.getAmmount());
 
-            //game.changeTurn();
+            game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
