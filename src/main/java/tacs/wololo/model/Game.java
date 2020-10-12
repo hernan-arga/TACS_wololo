@@ -4,32 +4,47 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
 
+import javax.persistence.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Game {
+@Entity
+@Table(name = "games")
+public class Game
+{
+    @Id
+    @GeneratedValue
     Long id;
+
+    @Embedded
     Map map;
+
+    @Column(name = "start_date")
     Date date;
 
-    Queue<String> players;
+    @ElementCollection
+    List<String> players;
 
+    @Enumerated(value = EnumType.STRING)
     GameState state;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "game_id")
     List<Municipality> municipalities;
 
     int municipalityLimit;
 
+    @Transient
     GeoRef geoRef;
 
     public Game() {
     }
 
-    public Game(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI) throws IOException {
-        this.id = System.currentTimeMillis();
+    public Game(Map map, Date date, List<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI) throws IOException
+    {
         this.municipalityLimit = municipalityLimit;
         this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
         this.map = map;
@@ -175,11 +190,11 @@ public class Game {
     }
 
     public void changeTurn() {
-        players.add(players.peek());
-        players.remove();
+        players.add(players.get(0));
+        players.remove(0);
         players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
 
-        municipalities.stream().filter(z ->z.getOwner().equals(players.peek())).
+        municipalities.stream().filter(z ->z.getOwner().equals(players.get(0))).
                         forEach(m ->m.produceGauchos(this.map));
     }
 
@@ -189,8 +204,16 @@ public class Game {
 
     public void moveGauchos(int amount, Municipality origin, Municipality destination) {
         this.validateEnoughGauchos(amount, origin);
+
+        System.out.println("2");
+
         origin.removeGauchos(amount);
+
+        System.out.println("3");
+
         destination.addGauchos(amount);
+
+        System.out.println("4");
     }
 
     private void validateEnoughGauchos(int amount, Municipality origin) {
@@ -200,11 +223,11 @@ public class Game {
 
     // --------------- Getters y Setters --------------
 
-    public Queue<String> getPlayers() {
+    public List<String> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Queue<String> players) {
+    public void setPlayers(List<String> players) {
         this.players = players;
     }
 

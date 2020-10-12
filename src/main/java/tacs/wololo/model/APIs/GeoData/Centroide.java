@@ -2,6 +2,9 @@
 package tacs.wololo.model.APIs.GeoData;
 
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Centroide {
 
     public Double lat;

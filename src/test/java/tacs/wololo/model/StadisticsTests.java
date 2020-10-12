@@ -1,19 +1,7 @@
 package tacs.wololo.model;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import tacs.wololo.repositories.GameRepository;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class StadisticsTests {
+    /*
     @Autowired
     GameRepository gameRepository;
 
@@ -84,4 +72,6 @@ public class StadisticsTests {
 
         Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Adrian"));
     }
+
+     */
 }

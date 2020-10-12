@@ -1,18 +1,8 @@
 package tacs.wololo;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import tacs.wololo.model.Game;
-import tacs.wololo.repositories.GameRepository;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 public class GameRepositoryTests {
 
+    /*
     @Autowired
     private GameRepository gameRepository;
     private Game funnyGame;
@@ -86,5 +76,5 @@ public class GameRepositoryTests {
                 gameRepository.getGamesByDates(minDate, maxDate));
 
     }
-
+    */
 }

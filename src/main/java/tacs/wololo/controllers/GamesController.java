@@ -60,6 +60,7 @@ public class GamesController
         return ResponseEntity.ok(gameService.getGames(getUsername()));
     }
 
+
     @GetMapping(path = "/by")
     public ResponseEntity<?> getGamesByDate(
             @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date from,
@@ -90,13 +91,14 @@ public class GamesController
         {
             Game game = gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
                     actionDto.getDefenceMun(), actionDto.getAmmount());
-            game.changeTurn();
+
+            //game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new MessageResponse(e.getMessage()));
+                    .body(new MessageResponse(e.getLocalizedMessage()));
         }
     }
 

@@ -1,12 +1,21 @@
 package tacs.wololo.model;
 
+import javax.persistence.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "municipality_mode")
 public abstract class MunicipalityMode
 {
+    @Id
+    @GeneratedValue
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
     public float multDef;
     public float coefProdGauchos;
 

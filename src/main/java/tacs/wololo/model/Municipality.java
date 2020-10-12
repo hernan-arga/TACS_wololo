@@ -4,21 +4,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.GeoData.Centroide;
 import tacs.wololo.model.APIs.GeoData.Provincia;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "municipalities")
 public class Municipality {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private Long table_id;
+
     //API DATA tiene que ser en español  ¯\_(ツ)_/¯.
+    @Embedded
     public Centroide centroide;
 
     @JsonIgnore
+    @Transient
     public String id;
 
     public String nombre;
 
     @JsonIgnore
+    @Transient
     public Provincia provincia;
 
     //--
@@ -33,10 +44,13 @@ public class Municipality {
     @JsonIgnore
     private double coefAlt = 2;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
     private MunicipalityMode mode;
 
     private String owner;
 
+    @Transient
     private List<Movement> movements = new ArrayList<>();
 
     public Municipality() { }
@@ -144,11 +158,6 @@ public class Municipality {
 
 
     public int endingAttackingGauchos(Municipality defenderMunicipality, Map map){
-
-        System.out.println();
-        System.out.println(String.format("minuendo %s",
-                this.gauchos*this.multDist(defenderMunicipality, map)));
-        System.out.println(String.format("sustraendo %s", defenderMunicipality.getGauchos()*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef()));
 
        return (int) (this.gauchos*this.multDist(defenderMunicipality, map)
                - defenderMunicipality.getGauchos()*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());

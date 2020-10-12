@@ -7,21 +7,18 @@ import tacs.wololo.model.APIs.GeoRef;
 import tacs.wololo.model.DTOs.GameInfoDto;
 import tacs.wololo.model.Map;
 import tacs.wololo.model.*;
-import tacs.wololo.repositories.GameRepository;
-import tacs.wololo.repositories.UserRepository;
+import tacs.wololo.repositories.GamesRepository;
 import tacs.wololo.services.IGameService;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService implements IGameService {
 
     @Autowired
-    GameRepository gameRepository;
-
-    @Autowired
-    UserRepository userRepository;
+    GamesRepository gameRepository;
 
     public GameService() {
 
@@ -29,43 +26,43 @@ public class GameService implements IGameService {
 
     public GameInfoDto createGameDto(Game game)
     {
-        return new GameInfoDto((LinkedList) game.getPlayers(), game.getProvince(),
+        return new GameInfoDto(game.getPlayers(), game.getProvince(),
                 game.getMunicipalityLimit(), game.getId());
     }
 
-    public Game createGame(GameInfoDto gameInfoDto) throws IOException {
+    public Game createGame(GameInfoDto gameInfoDto) throws IOException
+    {
         List<String> playersUsernames = gameInfoDto.getPlayersUsernames();
         Collections.shuffle(playersUsernames);
 
-        Queue<String> playerQueue = new LinkedList<String>(playersUsernames);
+        //Queue<String> playerQueue = new LinkedList<String>(playersUsernames);
 
         Map map = new Map(gameInfoDto.getProvinceName());
 
         Game game = null;
 
-        game = new Game(map, new Date(), playerQueue, GameState.CREADO,
+        game = new Game(map, new Date(), playersUsernames, GameState.CREADO,
                 gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
 
-
-        //TODO hacer singleton las apis
-        gameRepository.addGame(game.getId(), game);
+        gameRepository.save(game);
 
         return game;
     }
 
     public List<Game> getGames(String username)
     {
-        return gameRepository.getGamesFor(username);
+        List<Game> games = gameRepository.findAll();
+        return games.stream().filter(g -> g.getPlayers().contains(username)).collect(Collectors.toList());
     }
 
     public List<Game> getGamesByDate(Date from, Date to)
     {
-        return gameRepository.getGamesByDates(from, to);
+        return gameRepository.getAllByDateBetween(from, to);
     }
 
     public Game getGame(String username, Long id)
     {
-        Optional<Game> game = gameRepository.getGamesFor(username).stream().filter(g -> g.getId().equals(id)).findFirst();
+        Optional<Game> game = getGames(username).stream().filter(g -> g.getId().equals(id)).findFirst();
 
         if(game.isPresent())
             return game.get();
@@ -87,14 +84,18 @@ public class GameService implements IGameService {
         if(!(source.getOwner().contentEquals(username) && target.getOwner().contentEquals(username)))
             throw new RuntimeException("Municipio no valido");
 
+        System.out.println("1");
         game.moveGauchos(ammount, source, target);
 
+        System.out.println("5");
+
+        gameRepository.save(game);
         return game;
     }
 
     public List<Municipality> getMunicipalities(Long id, String username)
     {
-        Game game =  gameRepository.getGamebyKey(id);
+        Game game =  gameRepository.getOne(id);
 
         if(!game.getPlayers().contains(username))
             throw new RuntimeException("Juego no encontrado");

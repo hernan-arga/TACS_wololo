@@ -1,10 +1,11 @@
 package tacs.wololo.model;
 
-import java.io.FileNotFoundException;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
+@Entity
+@DiscriminatorValue("defending")
 public class DefendingMunicipality extends MunicipalityMode {
 
     public DefendingMunicipality() throws IOException {
