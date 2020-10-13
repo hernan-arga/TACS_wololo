@@ -92,7 +92,6 @@ public class GamesController
             Game game = gameService.moveGauchos(getUsername(), gameID, actionDto.getAttackMun(),
                     actionDto.getDefenceMun(), actionDto.getAmmount());
 
-            game.changeTurn();
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -110,7 +109,7 @@ public class GamesController
         {
             Game game = gameService.attackMunicipality(getUsername(), gameID, actionDto.getAttackMun()
                     , actionDto.getDefenceMun());
-            game.changeTurn();
+
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -126,7 +125,7 @@ public class GamesController
     {
         try {
             Game game = gameService.changeMode(getUsername(), gameID, actionDto.getAttackMun());
-            game.changeTurn();
+
             return ResponseEntity.ok(game);
 
         }catch(Exception e){
@@ -140,8 +139,8 @@ public class GamesController
     {
         try
         {
-            Game game = gameService.getGame(getUsername(), gameID);
-            game.changeTurn();
+            Game game = gameService.changeTurn(getUsername(), gameID);
+
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -156,8 +155,7 @@ public class GamesController
     {
         try
         {
-            Game game = gameService.getGame(getUsername(), gameID);
-            game.surrender(getUsername());
+            Game game = gameService.surrender(getUsername(), gameID);
             return ResponseEntity.ok(game);
 
         }catch (Exception e)
@@ -179,6 +177,7 @@ public class GamesController
             List<Movement> movements = gameService.getMovementsBy(gameID, userDetails.getUsername(), nameMun);
 
             return ResponseEntity.ok(movements);
+
         }catch (Exception e)
         {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

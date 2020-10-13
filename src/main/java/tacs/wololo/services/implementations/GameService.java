@@ -84,12 +84,12 @@ public class GameService implements IGameService {
         if(!(source.getOwner().contentEquals(username) && target.getOwner().contentEquals(username)))
             throw new RuntimeException("Municipio no valido");
 
-        System.out.println("1");
         game.moveGauchos(ammount, source, target);
 
-        System.out.println("5");
+        game.changeTurn();
 
         gameRepository.save(game);
+
         return game;
     }
 
@@ -119,6 +119,10 @@ public class GameService implements IGameService {
 
         source.attackMunicipality(target, game.getMap());
 
+        game.changeTurn();
+
+        gameRepository.save(game);
+
         return game;
     }
 
@@ -134,6 +138,32 @@ public class GameService implements IGameService {
             throw new RuntimeException("Municipio no valido");
 
         source.changeMode();
+
+        game.changeTurn();
+
+        gameRepository.save(game);
+
+        return game;
+    }
+
+    public Game changeTurn(String username, Long id)
+    {
+        Game game = getGame(username, id);
+
+        game.changeTurn();
+
+        gameRepository.save(game);
+
+        return game;
+    }
+
+    public Game surrender(String username, Long id)
+    {
+        Game game = getGame(username, id);
+
+        game.surrender(username);
+
+        gameRepository.save(game);
 
         return game;
     }
@@ -159,4 +189,5 @@ public class GameService implements IGameService {
 
         return municipality.getMovements();
     }
+
 }
