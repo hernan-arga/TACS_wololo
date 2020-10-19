@@ -74,7 +74,17 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>¡A Pelear!</ng-template>
-        <p>¿Estas Listo?</p>
+        <p>Modo de Juego</p>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-select  required [(value)]="gameStyle">
+                <mat-option *ngFor="let possibleGameStyle of possiblesGamesStyles" 
+                [value]="possibleGameStyle">
+                    {{convertEnumToString(possibleGameStyle)}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <div>
             <button mat-button class="btn btn-secondary" matStepperPrevious>Back</button>
             <button mat-button class="btn btn-success" (click)="createGame()">Confirmar

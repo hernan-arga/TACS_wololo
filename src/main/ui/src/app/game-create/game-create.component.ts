@@ -11,6 +11,8 @@ import { GameInfo } from '../shared/models/gameInfo.model';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
 import { Rival } from '../shared/models/rival.model';
+import { GameStyle } from '../shared/models/gameStyle.model';
+import { Game } from '../shared/models/Game.model';
 
 /**
  * @title Stepper overview
@@ -36,6 +38,12 @@ export class GameCreateComponent implements OnInit {
   filteredUsers: Observable<UserInfo[]>;
   rivals: Array<Rival> = [];
 
+  gameStyle: GameStyle = GameStyle.NORMAL;
+
+  possiblesGamesStyles: GameStyle[] = new Array(GameStyle.NORMAL, GameStyle.SUPERDEFENSA, GameStyle.SUPERPROD);
+
+  gameStyle2: string = 'a';
+
   constructor(private _formBuilder: FormBuilder,
     private provincesService: ProvincesService,
     private usersService: UsersService,
@@ -43,7 +51,7 @@ export class GameCreateComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
@@ -155,7 +163,8 @@ export class GameCreateComponent implements OnInit {
     this.rivals.forEach(r => userNames.push(r.username));
     userNames.push(this.currentUserUsername);
 
-    var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName);
+    var gameInfo = new GameInfo(userNames, municipalitiesCant, provinceName, this.gameStyle);
+    //console.log(this.gameStyle);
     this.gamesService.createGame(gameInfo).subscribe(
       data => { this.router.navigate(['/game', data.id]); }
     );
@@ -177,6 +186,10 @@ export class GameCreateComponent implements OnInit {
     let rivalControlName = 'rival'+ (this.rivals.length).toString();
     this.rivals.pop();
     this.rivalsFormGroup.removeControl(rivalControlName);
+  }
+
+  convertEnumToString(gameStyle: GameStyle): string{ 
+    return GameStyle[gameStyle];
   }
 
 }

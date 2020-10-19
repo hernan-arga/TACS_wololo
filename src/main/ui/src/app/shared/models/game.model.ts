@@ -2,6 +2,7 @@ import { Map } from "./Map.model";
 import { GameState } from "./GameState.model";
 import { Player } from "./Player.model";
 import { Municipality } from './municipality.model';
+import { GameStyle } from './gameStyle.model';
 
 export class Game {
   id: number;
@@ -12,4 +13,6 @@ export class Game {
   players: Array<string>;
   municipalityLimit: Number;
   municipalities: Array<Municipality>;
+  style: GameStyle;
+
 }

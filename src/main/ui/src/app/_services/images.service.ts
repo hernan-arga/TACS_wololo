@@ -17,7 +17,7 @@ export class ImagesService {
   CORS_HEROKU = "https://cors-anywhere.herokuapp.com/"
 
   // No subirlo en prod
-  API_KEY = '';
+  API_KEY = '18376709-a188ab6baf8fe12654f8c3700';
 
   API_URL = 'https://pixabay.com/api/?key=';
   API_NAME_PARAMETER = '&q=';

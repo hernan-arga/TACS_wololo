@@ -25,7 +25,8 @@ export class GamesService {
     return this.http.post(API_URL + 'games', {
       playersUsernames: gameInfo.playersUsernames,
       provinceName: gameInfo.provinceName,
-      municipalitiesCant: gameInfo.municipalitiesCant
+      municipalitiesCant: gameInfo.municipalitiesCant,
+      styleIndex: gameInfo.styleIndex
     }, httpOptions);
   }
 

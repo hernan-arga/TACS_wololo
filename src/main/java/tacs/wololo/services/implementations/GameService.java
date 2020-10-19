@@ -27,7 +27,7 @@ public class GameService implements IGameService {
     public GameInfoDto createGameDto(Game game)
     {
         return new GameInfoDto(game.getPlayers(), game.getProvince(),
-                game.getMunicipalityLimit(), game.getId());
+                game.getMunicipalityLimit(), game.getStyle().ordinal(), game.getId());
     }
 
     public Game createGame(GameInfoDto gameInfoDto) throws IOException
@@ -42,8 +42,9 @@ public class GameService implements IGameService {
         Game game = null;
 
         game = new Game(map, new Date(), playersUsernames, GameState.CREADO,
-                gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI());
+                gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI(), gameInfoDto.getGameStyle());
 
+        System.out.println("Llega aca");
         gameRepository.save(game);
 
         return game;

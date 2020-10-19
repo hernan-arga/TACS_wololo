@@ -40,10 +40,14 @@ public class Game
     @Transient
     GeoRef geoRef;
 
+    @Enumerated(value = EnumType.STRING)
+    GameStyle style;
+
     public Game() {
     }
 
-    public Game(Map map, Date date, List<String> players, GameState state, int municipalityLimit, GeoRef geoRef, AsterAPI asterAPI) throws IOException
+    public Game(Map map, Date date, List<String> players, GameState state, int municipalityLimit,
+                GeoRef geoRef, AsterAPI asterAPI, GameStyle gameStyle) throws IOException
     {
         this.municipalityLimit = municipalityLimit;
         this.geoRef = geoRef;      //TODO hacerlo singleton que no instancie
@@ -51,6 +55,7 @@ public class Game
         this.date = date;
         this.players = players;
         this.state = state;
+        this.style = gameStyle;
         this.municipalities = this.geoRef.municipioPorProvincia(map.getProvince());
         this.setMapLatAndLon();
         this.municipalities = this.municipalities.stream().limit(this.municipalityLimit).collect(Collectors.toList());
@@ -66,9 +71,9 @@ public class Game
             municipality.setGauchos(random.nextInt(15));
 
             if (random.nextInt(100) < 25)
-                municipality.setMode(new ProducerMunicipality());
+                municipality.setMode(new ProducerMunicipality(this.style));
             else
-                municipality.setMode(new DefendingMunicipality());
+                municipality.setMode(new DefendingMunicipality(this.style));
         }
 
     }
@@ -127,6 +132,14 @@ public class Game
             m.setCoefDist(coefDist);
             m.setCoefAlt(coefAlt);
         });
+    }
+
+    public GameStyle getStyle() {
+        return style;
+    }
+
+    public void setStyle(GameStyle style) {
+        this.style = style;
     }
 
     private List<Double> allDistsTo(Municipality municipality, List<Municipality> municipalities) {

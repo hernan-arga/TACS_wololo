@@ -8,12 +8,20 @@ import java.io.IOException;
 @DiscriminatorValue("defending")
 public class DefendingMunicipality extends MunicipalityMode {
 
-    public DefendingMunicipality() throws IOException {
-        this.setCoefs("defendingMunicipality.properties");
+    GameStyle gameStyle;
+
+    public DefendingMunicipality() {
+    }
+
+    public DefendingMunicipality(GameStyle gameStyle) throws IOException {
+        //this.setCoefs("defendingMunicipality.properties");
+        this.gameStyle = gameStyle;
+        this.multDef = gameStyle.defMultDef();
+        this.coefProdGauchos = gameStyle.defCoefProdGauchos();
     }
 
     public MunicipalityMode changeMode() throws IOException {
-        return new ProducerMunicipality();
+        return new ProducerMunicipality(this.gameStyle);
     }
 
 
