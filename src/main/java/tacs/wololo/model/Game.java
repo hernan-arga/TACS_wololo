@@ -3,6 +3,7 @@ package tacs.wololo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
+import tacs.wololo.model.TimerTasks.NotifyTurn;
 
 import javax.persistence.*;
 import java.io.FileNotFoundException;
@@ -40,6 +41,7 @@ public class Game
     @Transient
     GeoRef geoRef;
 
+    Timer timer = new Timer();
     public Game() {
     }
 
@@ -197,9 +199,10 @@ public class Game
     }
 
     public void changeTurn() {
-
+        timer.cancel();
         players.add(players.get(0));
         players.remove(0);
+        timer.schedule(new NotifyTurn(players.get(0)),60000);
 
         players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
 

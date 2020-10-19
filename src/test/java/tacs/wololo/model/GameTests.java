@@ -1,8 +1,20 @@
 package tacs.wololo.model;
 
+import org.junit.Before;
+import org.junit.Test;
+import tacs.wololo.model.APIs.AsterAPI;
+import tacs.wololo.model.APIs.GeoData.Centroide;
+import tacs.wololo.model.APIs.GeoRef;
+import tacs.wololo.services.implementations.GmailService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class GameTests {
 
-    /*
+
     private Game aGame;
     private Game easyGame;
     private Map aMap;
@@ -11,7 +23,7 @@ public class GameTests {
     private Municipality municipality1;
     private Municipality municipality2;
     private Municipality municipality3;
-    private Queue<String> players;
+    private List<String> players;
     GeoRef geoRefMock;
     AsterAPI asterAPImock;
     private static String PROVINCIA = "Salta";
@@ -24,7 +36,7 @@ public class GameTests {
     @Before
     public void init() throws IOException {
 
-        centroide1 = new Centroide(120.1, -60.0);
+        /*centroide1 = new Centroide(120.1, -60.0);
         centroide2 = new Centroide(126.1, -67.0);
         List<Centroide> centroides = new ArrayList<>();
         centroides.add(centroide1);
@@ -94,9 +106,10 @@ public class GameTests {
         realMunicipalities.add(attacker);
         realMunicipalities.add(defender);
         aGame.setMunicipalities(realMunicipalities);
+*/
     }
 
-    @Test
+    /*@Test
     public void getScoreBoard() {
         HashMap<String, Integer> scoreBoard = easyGame.getScoreBoard();
 
@@ -146,7 +159,7 @@ public class GameTests {
 
     @Test
     public void WhenTurnChangesAllPlayersWithoutMunicipalitiesAreRemoved() {
-        Assert.assertEquals(2, aGame.getPlayers().size());
+        Assert.assertEals(2, aGame.getPlayers().size());
         aGame.setMunicipalities(realMunicipalities.stream().limit(1).collect(Collectors.toList()));
         //When turn changes, all players without municipalities are removed
         aGame.changeTurn();
@@ -154,5 +167,12 @@ public class GameTests {
     }
 
      */
+    /*@Test
+    public void sendEmail(){
+        GmailService gmailService = new GmailService();
+        User mati = new User("mati","matiasgamal98@gmail.com","matikpo");
+        gmailService.sendEmail(mati);
+    }*/
+
 }
 
