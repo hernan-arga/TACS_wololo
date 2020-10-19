@@ -44,7 +44,6 @@ public class GameService implements IGameService {
         game = new Game(map, new Date(), playersUsernames, GameState.CREADO,
                 gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI(), gameInfoDto.getGameStyle());
 
-        System.out.println("Llega aca");
         gameRepository.save(game);
 
         return game;

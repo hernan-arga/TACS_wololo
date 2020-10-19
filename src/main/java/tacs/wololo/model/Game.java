@@ -3,12 +3,14 @@ package tacs.wololo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
+import tacs.wololo.model.TimerTasks.NotifyTurn;
 
 import javax.persistence.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.Timer;
 import java.util.stream.Collectors;
 
 @Entity
@@ -40,8 +42,12 @@ public class Game
     @Transient
     GeoRef geoRef;
 
+
     @Enumerated(value = EnumType.STRING)
     GameStyle style;
+
+    @Transient
+    Timer t = new Timer();
 
     public Game() {
     }
@@ -210,9 +216,23 @@ public class Game
     }
 
     public void changeTurn() {
-
+        //fixme: funciona mal el cancel
+        //this.t.cancel();
         players.add(players.get(0));
         players.remove(0);
+        NotifyTurn notifyTurn = new NotifyTurn(players.get(0));
+
+        //Timer t = new Timer();
+        System.out.println("llega aca 1111");
+        this.t.schedule(notifyTurn,5000);
+        System.out.println("llega acaaaaaa");
+
+        // creating timer task, timer
+        /*Task t1 = new Task("Task 1");
+        Task t2 = new Task("Task 2");
+        Timer t = new Timer();
+        t.schedule(t1, 10000); //  executes for every 10 seconds
+        t.schedule(t2, 1000, 2000); // executes for every 2 seconds*/
 
         players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
 
@@ -220,6 +240,8 @@ public class Game
                         forEach(m ->m.produceGauchos(this.map));
 
     }
+
+
 
     public Municipality getMunicipality(String name) {
         return municipalities.stream().filter(m -> m.getNombre().equals(name)).findFirst().orElse(null);
