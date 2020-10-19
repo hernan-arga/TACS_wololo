@@ -47,7 +47,7 @@ public class Game
     GameStyle style;
 
     @Transient
-    Timer t = new Timer();
+    Timer t = null;
 
     public Game() {
     }
@@ -218,6 +218,10 @@ public class Game
     public void changeTurn() {
         //fixme: funciona mal el cancel
         //this.t.cancel();
+        if (!this.t.equals(null)){
+            this.t.cancel();
+        }
+        this.t = new Timer();
         players.add(players.get(0));
         players.remove(0);
         NotifyTurn notifyTurn = new NotifyTurn(players.get(0));
