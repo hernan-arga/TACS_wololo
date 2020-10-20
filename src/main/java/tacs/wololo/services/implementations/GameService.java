@@ -7,15 +7,26 @@ import tacs.wololo.model.APIs.GeoRef;
 import tacs.wololo.model.DTOs.GameInfoDto;
 import tacs.wololo.model.Map;
 import tacs.wololo.model.*;
+import tacs.wololo.model.TimerTasks.NotifyTurn;
 import tacs.wololo.repositories.GamesRepository;
+import tacs.wololo.repositories.UserRepository;
 import tacs.wololo.services.IGameService;
 
+import javax.persistence.Transient;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class GameService implements IGameService {
+
+    Timer t = null;
+
+    @Autowired
+    public UserRepository userRepository;
+
+    @Autowired
+    GmailService gmailService;
 
     @Autowired
     GamesRepository gameRepository;
@@ -87,6 +98,7 @@ public class GameService implements IGameService {
         game.moveGauchos(ammount, source, target);
 
         game.changeTurn();
+        this.notifyPlayer(game.getPlayers().get(0));
 
         gameRepository.save(game);
 
@@ -121,6 +133,8 @@ public class GameService implements IGameService {
 
         game.changeTurn();
 
+        this.notifyPlayer(game.getPlayers().get(0));
+
         gameRepository.save(game);
 
         return game;
@@ -140,6 +154,7 @@ public class GameService implements IGameService {
         source.changeMode();
 
         game.changeTurn();
+        this.notifyPlayer(game.getPlayers().get(0));
 
         gameRepository.save(game);
 
@@ -151,10 +166,25 @@ public class GameService implements IGameService {
         Game game = getGame(username, id);
 
         game.changeTurn();
+        this.notifyPlayer(game.getPlayers().get(0));
 
         gameRepository.save(game);
 
         return game;
+    }
+
+    private void notifyPlayer(String username){
+        if (this.t != null){
+            this.t.cancel();
+        }
+        this.t = new Timer();
+
+        String email = userRepository.findByUsername(username).get().getEmail();
+        NotifyTurn notifyTurn = new NotifyTurn(email);
+
+
+        //Timer t = new Timer();
+        this.t.schedule(notifyTurn,60000);
     }
 
     public Game surrender(String username, Long id)

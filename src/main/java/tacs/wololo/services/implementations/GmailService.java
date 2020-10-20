@@ -1,5 +1,6 @@
 package tacs.wololo.services.implementations;
 
+import org.springframework.stereotype.Service;
 import tacs.wololo.model.Game;
 import tacs.wololo.model.User;
 import tacs.wololo.services.IGmailService;
@@ -11,10 +12,11 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
+@Service
 public class GmailService implements IGmailService {
 
 
-    public static void sendEmail(User user) {
+    public static void sendEmail(String email) {
         final String username = "elapuestoelio@gmail.com";
         final String password = "elapuestoelio";
         String submensaje;
@@ -44,7 +46,7 @@ public class GmailService implements IGmailService {
             message.setFrom(new InternetAddress("from@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(user.getEmail())
+                    InternetAddress.parse(email)
             );
             message.setSubject(submensaje);
             message.setText(mensaje);
