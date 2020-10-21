@@ -210,10 +210,14 @@ public class Game
                 m -> m.getOwner().equals(player));
     }
 
-    private void removePlayerIfHasNotMunicipalities(String player){
+    private void removePlayerIfHasNotMunicipalities(){
+        List<String> cleanPlayers = new ArrayList<>();
+        cleanPlayers = this.players;
+        this.players = cleanPlayers.stream().filter(p -> !hasMunicipalities(p)).collect(Collectors.toList());
+                /*
         if (!hasMunicipalities(player)){
             players.remove(player);
-        }
+        }*/
     }
 
     public void changeTurn() {
@@ -222,7 +226,7 @@ public class Game
         players.add(players.get(0));
         players.remove(0);
 
-        players.forEach(p -> removePlayerIfHasNotMunicipalities(p));
+        this.removePlayerIfHasNotMunicipalities();
 
         municipalities.stream().filter(z ->z.getOwner().equals(players.get(0))).
                         forEach(m ->m.produceGauchos(this.map));
@@ -238,15 +242,10 @@ public class Game
     public void moveGauchos(int amount, Municipality origin, Municipality destination) {
         this.validateEnoughGauchos(amount, origin);
 
-        System.out.println("2");
-
         origin.removeGauchos(amount);
-
-        System.out.println("3");
 
         destination.addGauchos(amount);
 
-        System.out.println("4");
     }
 
     private void validateEnoughGauchos(int amount, Municipality origin) {

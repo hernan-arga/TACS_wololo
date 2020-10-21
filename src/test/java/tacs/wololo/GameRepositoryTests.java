@@ -1,8 +1,20 @@
 package tacs.wololo;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import tacs.wololo.model.Game;
+import tacs.wololo.repositories.GameRepository;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class GameRepositoryTests {
 
-    /*
     @Autowired
     private GameRepository gameRepository;
     private Game funnyGame;
@@ -13,9 +25,9 @@ public class GameRepositoryTests {
     @Before
     public void init() throws ParseException {
 
-        Queue<String> playersFunnyGame =new LinkedList<String>();
-        Queue<String> playersBoringGame =new LinkedList<String>();
-        Queue<String> playersMehGame =new LinkedList<String>();
+        List<String> playersFunnyGame =new ArrayList<String>();
+        List<String> playersBoringGame =new ArrayList<String>();
+        List<String> playersMehGame =new ArrayList<String>();
 
         playersFunnyGame.add("Lucia"); playersFunnyGame.add("Carolina");
         playersFunnyGame.add("Cristian"); playersFunnyGame.add("Sebastian");
@@ -40,6 +52,11 @@ public class GameRepositoryTests {
         Date funnyGameDate = objSDF.parse("2-09-2020");
         Date boringGameDate = objSDF.parse("12-09-2020");
         Date mehGameDate = objSDF.parse("15-09-2020");
+
+        funnyGame.setDate(funnyGameDate);
+        boringGame.setDate(boringGameDate);
+        finishedGame.setDate(boringGameDate);
+        mehGame.setDate(mehGameDate);
 
 
         gameRepository = new GameRepository();
@@ -66,6 +83,7 @@ public class GameRepositoryTests {
         List<Game> gamesBelongsToDates = new ArrayList<Game>();
         gamesBelongsToDates.add(boringGame);
         gamesBelongsToDates.add(mehGame);
+        gamesBelongsToDates.add(finishedGame);
 
         SimpleDateFormat objSDF = new SimpleDateFormat("dd-mm-yyyy");
 
@@ -76,5 +94,5 @@ public class GameRepositoryTests {
                 gameRepository.getGamesByDates(minDate, maxDate));
 
     }
-    */
+
 }

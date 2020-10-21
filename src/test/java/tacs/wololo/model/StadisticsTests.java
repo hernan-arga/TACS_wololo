@@ -1,7 +1,20 @@
 package tacs.wololo.model;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import tacs.wololo.repositories.GameRepository;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class StadisticsTests {
-    /*
+
     @Autowired
     GameRepository gameRepository;
 
@@ -33,8 +46,8 @@ public class StadisticsTests {
         when(boringGame.getState()).thenReturn(GameState.EN_PROGRESO);
         when(mehGame.getState()).thenReturn(GameState.EN_PROGRESO);
 
-        Queue<String> playersWithCarlos =  new LinkedList<>(Arrays.asList("Carlos", "Juan", "Marcos"));
-        Queue<String> playersWithoutCarlos = new LinkedList<>(Arrays.asList("Juan", "Marcos"));
+        List<String> playersWithCarlos =  new ArrayList<>(Arrays.asList("Carlos", "Juan", "Marcos"));
+        List<String> playersWithoutCarlos = new ArrayList<>(Arrays.asList("Juan", "Marcos"));
 
         when(funnyGame.getPlayers()).thenReturn(playersWithCarlos);
         when(boringGame.getPlayers()).thenReturn(playersWithoutCarlos);
@@ -72,6 +85,4 @@ public class StadisticsTests {
 
         Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Adrian"));
     }
-
-     */
 }

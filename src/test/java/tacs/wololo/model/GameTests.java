@@ -1,5 +1,6 @@
 package tacs.wololo.model;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import tacs.wololo.model.APIs.AsterAPI;
@@ -10,7 +11,12 @@ import tacs.wololo.services.implementations.GmailService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameTests {
 
@@ -35,13 +41,11 @@ public class GameTests {
 
     @Before
     public void init() throws IOException {
-
-        /*centroide1 = new Centroide(120.1, -60.0);
+        centroide1 = new Centroide(120.1, -60.0);
         centroide2 = new Centroide(126.1, -67.0);
         List<Centroide> centroides = new ArrayList<>();
         centroides.add(centroide1);
         centroides.add(centroide2);
-
 
         municipality1 = mock(Municipality.class);
         municipality2 = mock(Municipality.class);
@@ -65,11 +69,9 @@ public class GameTests {
         heights.add((double) 100);
         heights.add((double) 150);
 
-        players = new LinkedList<>();
+        players = new ArrayList<>();
         players.add("player 1");
         players.add("player 2");
-        //players.add("fran");
-
 
         aMap = new Map(PROVINCIA);
 
@@ -77,14 +79,15 @@ public class GameTests {
         when(geoRefMock.municipioPorProvincia(PROVINCIA)).thenReturn(municipalities);
         asterAPImock = mock(AsterAPI.class);
         when(asterAPImock.multipleHeights(centroides)).thenReturn(heights);
-        //(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
-        //aGame = new Game(aMap, new Date(), players, GameState.CREADO, MUNICIPALITY_LIMIT, geoRefMock, asterAPImock);
+
+        aGame = new Game(aMap, new Date(), players, GameState.CREADO, MUNICIPALITY_LIMIT,
+                geoRefMock, asterAPImock, GameStyle.NORMAL);
         //TODO El constructor no debería recibir estado de juego
 
         easyGame = new Game();
         municipalities.add(municipality3);
 
-        Queue<String> playersEasyGame = new LinkedList<>();
+        List<String> playersEasyGame = new ArrayList<>();
         playersEasyGame.add("fulano");
         playersEasyGame.add("mengano");
         playersEasyGame.add("marciano");
@@ -106,10 +109,11 @@ public class GameTests {
         realMunicipalities.add(attacker);
         realMunicipalities.add(defender);
         aGame.setMunicipalities(realMunicipalities);
-*/
+
+
     }
 
-    /*@Test
+    @Test
     public void getScoreBoard() {
         HashMap<String, Integer> scoreBoard = easyGame.getScoreBoard();
 
@@ -136,7 +140,6 @@ public class GameTests {
 
     @Test
     public void minHeightReturns100() {
-//(Map map, Date date, Queue<String> players, GameState state, int municipalityLimit, GeoRef geoRef)
         Assert.assertEquals(aGame.getMap().getMinHeight(), 100.0, 0);
     }
 
@@ -147,26 +150,17 @@ public class GameTests {
         Assert.assertEquals(150, defender.getGauchos(), 0.0);
     }
 
-
-    @Test
-    public void changeTurn() {
-        Assert.assertEquals("player 1",aGame.getPlayers().peek());
-        aGame.changeTurn();
-        Assert.assertEquals("player 2", aGame.getPlayers().peek());
-
-    }
-
-
     @Test
     public void WhenTurnChangesAllPlayersWithoutMunicipalitiesAreRemoved() {
-        Assert.assertEals(2, aGame.getPlayers().size());
+        Assert.assertEquals(2, aGame.getPlayers().size());
         aGame.setMunicipalities(realMunicipalities.stream().limit(1).collect(Collectors.toList()));
+
         //When turn changes, all players without municipalities are removed
         aGame.changeTurn();
         Assert.assertEquals(1,aGame.getPlayers().size());
     }
 
-     */
+
     /*@Test
     public void sendEmail(){
         GmailService gmailService = new GmailService();

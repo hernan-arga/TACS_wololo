@@ -33,23 +33,26 @@ public class MunicipalityTests {
     private static double G_TO_ADD_DEFN = 7;
     @Before
     public void init() throws IOException {
-        municipality = new Municipality("strong",10, 10, new ProducerMunicipality(), new Centroide(56.0, 123.0));
-        municipalityStrong = new Municipality("strong",10000, 10, new ProducerMunicipality(), new Centroide(1.0, 1.0));
-        municipalityWeak = new Municipality("weak",5, 10, new ProducerMunicipality(), new Centroide(0.0, 0.0));
+        ProducerMunicipality producerMunicipality = mock(ProducerMunicipality.class);
+        when(producerMunicipality.getCoefProdGauchos()).thenReturn((float) 15);
+        when(producerMunicipality.getMultDef()).thenReturn((float) 1);
+
+
+        municipality = new Municipality("strong",10, 10, producerMunicipality, new Centroide(56.0, 123.0));
+        municipalityStrong = new Municipality("strong",10000, 10, producerMunicipality, new Centroide(1.0, 1.0));
+        municipalityWeak = new Municipality("weak",5, 10, producerMunicipality, new Centroide(0.0, 0.0));
+
 
         //Mismo ejemplo de cálculo que en el enunciado del TP
-        attacker = new Municipality("player 1", 100, 0, new ProducerMunicipality(), new Centroide(0.0, 0.0));
-        defender = new Municipality("player 2", 100, 1500, new ProducerMunicipality(), new Centroide(0.0, -0.1349));
+        ProducerMunicipality producer = new ProducerMunicipality(GameStyle.NORMAL);
+        attacker = new Municipality("player 1", 100, 0, producer, new Centroide(0.0, 0.0));
+        defender = new Municipality("player 2", 100, 1500, producer, new Centroide(0.0, -0.1349));
         aMap = mock(Map.class);
         when(aMap.getMaxHeight()).thenReturn((double) 2000);
         when(aMap.getMinHeight()).thenReturn((double) 1000);
         when(aMap.getDistMin()).thenReturn((double) 10);
         when(aMap.getDistMax()).thenReturn((double) 20);
 
-        /* 10*
-        (this.gauchos*this.multDist(defenderMunicipality, map)
-               - defenderMunicipality.gauchos*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());
-        * */
         map = mock(Map.class);
         when(map.getMaxHeight()).thenReturn((double) 20);
         when(map.getMinHeight()).thenReturn((double) 5);
@@ -73,7 +76,7 @@ public class MunicipalityTests {
         municipalityWeak.attackMunicipality(municipalityStrong, map);
 
         assertEquals(0,municipalityWeak.getGauchos());
-        assertEquals(10000, municipalityStrong.getGauchos());
+        assertEquals(9999, municipalityStrong.getGauchos());
     }
 
     // Cada turno es posible cambiar el estado de un municipio entre producción o defensa
@@ -88,7 +91,7 @@ public class MunicipalityTests {
     public void produceGauchos()
     {
         municipality.produceGauchos(map);
-        assertEquals(12, municipality.getGauchos());
+        assertEquals(22, municipality.getGauchos());
     }
 
 
