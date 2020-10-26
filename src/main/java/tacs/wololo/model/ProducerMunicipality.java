@@ -13,14 +13,13 @@ public class ProducerMunicipality extends MunicipalityMode {
     public ProducerMunicipality() {
     }
 
-    public ProducerMunicipality(GameStyle gameStyle) throws IOException {
-        //this.setCoefs("producerMunicipality.properties");
+    public ProducerMunicipality(GameStyle gameStyle){
         this.gameStyle = gameStyle;
-        this.multDef = gameStyle.prodMultDef();
-        this.coefProdGauchos = gameStyle.prodCoefProdGauchos();
+        this.multDef = gameStyle.getProdMultDef();
+        this.coefProdGauchos = gameStyle.getProdCoefProdGauchos();
     }
 
-    public MunicipalityMode changeMode() throws IOException {
+    public MunicipalityMode changeMode(){
         return new DefendingMunicipality(gameStyle);
     }
 

@@ -13,16 +13,13 @@ public class DefendingMunicipality extends MunicipalityMode {
     public DefendingMunicipality() {
     }
 
-    public DefendingMunicipality(GameStyle gameStyle) throws IOException {
-        //this.setCoefs("defendingMunicipality.properties");
+    public DefendingMunicipality(GameStyle gameStyle){
         this.gameStyle = gameStyle;
-        this.multDef = gameStyle.defMultDef();
-        this.coefProdGauchos = gameStyle.defCoefProdGauchos();
+        this.multDef = gameStyle.getDefMultDef();
+        this.coefProdGauchos = gameStyle.getDefCoefProdGauchos();
     }
 
-    public MunicipalityMode changeMode() throws IOException {
+    public MunicipalityMode changeMode(){
         return new ProducerMunicipality(this.gameStyle);
     }
-
-
 }
