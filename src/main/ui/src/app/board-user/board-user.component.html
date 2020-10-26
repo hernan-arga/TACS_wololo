@@ -5,7 +5,7 @@
     <div class="card card text-white bg-dark">
       <div class="card-header ">
         <h5 class="card-title">Partidas</h5>
-        <p class="card-category">Visualiza el estado de tus partidas</p>
+        <p class="card-category">Visualiza el estado de tus partidas </p>
         <a routerLink="/create">
           <button type="button" class="btn btn-success new-game">Crear partida</button>
         </a>
@@ -36,10 +36,20 @@
               <td>{{game.province}}</td>
               <td>{{game.date | date: 'short'}}</td>
               <td>{{game.state}}</td>
-              <td><button [disabled]="isGameFinished(game)" mat-mini-fab color="primary" 
-                aria-label="Example icon button with a filter list icon" (click)="goToGame(game.id)">
+              <td><button mat-button-toggle matSuffix mat-icon-button
+                [disabled]="isGameFinished(game)" color="primary" 
+                 (click)="goToGame(game.id)">
                 <mat-icon>play_arrow</mat-icon>
-              </button></td>
+              </button>
+              <button mat-button-toggle matSuffix mat-icon-button id="pass-button" *ngIf="isCancelAvailable(game)"
+                  (click)="changeTurn(game.id)">
+              <mat-icon>cancel</mat-icon> 
+              </button>
+              <button mat-button-toggle matSuffix mat-icon-button id="surrender-button" *ngIf="isSurrenderAvailable(game)"
+                      (click)="surrender(game.id)">
+                  <mat-icon>emoji_flags</mat-icon>
+              </button>
+            </td>
             </tr>
           </tbody>
         </table>

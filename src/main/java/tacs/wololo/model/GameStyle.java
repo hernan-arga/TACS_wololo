@@ -6,19 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public enum GameStyle {
-    /*
-    * PENNY(1), NICKEL(5), DIME(10), QUARTER(25); // usual names for US coins
-    // note that the above parentheses and the constructor arguments match
-    private int value;
 
-    Coin(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-    * */
     NORMAL("normalGameStyle.properties"),
     SUPERDEFENSA("superDefensaGameStyle.properties"),
     SUPERPROD("superProdGameStyle.properties");
