@@ -41,9 +41,9 @@ public class ProvinceService implements IProvinceService {
         List<ProvinceInfoDto> newProvincesInfoDto = new ArrayList<ProvinceInfoDto>();
         geoRef.listarProvincias().forEach(provincia ->
         {
-            if(!provinciasBaneadas.contains(provincia.nombre)) {
-                int municipalitiesCant = geoRef.municipioPorProvincia(provincia.nombre).size();
-                newProvincesInfoDto.add(new ProvinceInfoDto(provincia.nombre, municipalitiesCant));
+            if(!provinciasBaneadas.contains(provincia.getNombre())) {
+                int municipalitiesCant = geoRef.municipioPorProvincia(provincia.getNombre()).size();
+                newProvincesInfoDto.add(new ProvinceInfoDto(provincia.getNombre(), municipalitiesCant));
             }
         });
 
