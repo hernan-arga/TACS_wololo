@@ -1,5 +1,6 @@
 package tacs.wololo.model.APIs;
 
+import com.google.gson.Gson;
 import tacs.wololo.model.APIs.GeoData.Provincia;
 import tacs.wololo.model.Municipality;
 
