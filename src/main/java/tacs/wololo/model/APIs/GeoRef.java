@@ -25,13 +25,13 @@ public class GeoRef {
 
 
     public GeoRef() {
-        this.readAttribute();
+        /*this.readAttribute();
 
         if(getFromAPI) {
         //Moodo api
             }
         else //modo json
-
+*/
 
     }
 

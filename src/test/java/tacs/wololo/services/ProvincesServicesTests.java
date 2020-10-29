@@ -29,6 +29,7 @@ public class ProvincesServicesTests {
 
     @Before
     public void init() {
+
         //Lista de province infoDoto
         ProvinceInfoDto mendoza = mock(ProvinceInfoDto.class);
         when(mendoza.getName()).thenReturn("mendoza");
@@ -45,9 +46,10 @@ public class ProvincesServicesTests {
 
         List<Provincia> provincias = new ArrayList<>();
         when(geoRef.listarProvincias()).thenReturn(provincias);
-        when(geoRef.municipioPorNombre());
+        //when(geoRef.municipioPorNombre());
         when(provinceMocke.getProvincesInfo()).thenReturn(provinciasInfoDto);
 
     }
+
 
 }
