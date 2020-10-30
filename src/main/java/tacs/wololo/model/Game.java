@@ -1,19 +1,14 @@
 package tacs.wololo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 import tacs.wololo.model.APIs.AsterAPI;
 import tacs.wololo.model.APIs.GeoRef;
-import tacs.wololo.model.TimerTasks.NotifyTurn;
-import tacs.wololo.repositories.UserRepository;
-import tacs.wololo.services.implementations.GmailService;
 
 import javax.persistence.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.Timer;
 import java.util.stream.Collectors;
 
 @Entity
@@ -119,7 +114,7 @@ public class Game
 
         // Se lee las properties del municipality.properties
         Properties prop = new Properties();
-        String propFileName = "municipality.properties";
+        String propFileName = "properties/municipality.properties";
 
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
 

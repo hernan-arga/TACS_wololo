@@ -1,15 +1,14 @@
 package tacs.wololo.model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public enum GameStyle {
 
-    NORMAL("normalGameStyle.properties"),
-    SUPERDEFENSA("superDefensaGameStyle.properties"),
-    SUPERPROD("superProdGameStyle.properties");
+    NORMAL("properties/normalGameStyle.properties"),
+    SUPERDEFENSA("properties/superDefensaGameStyle.properties"),
+    SUPERPROD("properties/superProdGameStyle.properties");
 
     private float defMultDef;
     private float defCoefProdGauchos;

@@ -4,10 +4,7 @@ package tacs.wololo.model.APIs;
 
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import tacs.wololo.model.APIs.GeoData.DatosMunicipio;
 
-import tacs.wololo.model.APIs.GeoData.DatosProvincia;
 import tacs.wololo.model.APIs.GeoData.Provincia;
 import tacs.wololo.model.Municipality;
 
@@ -21,17 +18,17 @@ import java.util.Properties;
 public class GeoRef {
 
     private boolean getFromAPI;
-    private String apiGeorefProperties = "apiGeoref.properties";
+    private String apiGeorefProperties = "properties/apiGeoref.properties";
+    private ReadModeGeoRef readModeAPIGeoRef;
 
 
     public GeoRef() {
-        /*this.readAttribute();
+        this.readAttribute();
 
-        if(getFromAPI) {
-        //Moodo api
-            }
-        else //modo json
-*/
+        if(getFromAPI)
+            readModeAPIGeoRef = new ReadModeAPIGeoRef();
+        else
+            readModeAPIGeoRef = new ReadModeJSONGeoRef();
 
     }
 
@@ -53,26 +50,21 @@ public class GeoRef {
 
     }
 
-    private String URL = "https://apis.datos.gob.ar/georef/api/";
-
-
-    private RestTemplate restTemplate = new RestTemplate();
-
 
     public Municipality municipioPorNombre(String nombre) {
 
-        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/municipios?nombre="+nombre, DatosMunicipio.class).municipios.get(0);
+        return this.readModeAPIGeoRef.municipioPorNombre(nombre);
 
     }
     public List<Municipality> municipioPorProvincia(String provincia) {
 
-        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/municipios"+"?provincia="+provincia+"&max=1000", DatosMunicipio.class).municipios;
+        return this.readModeAPIGeoRef.municipioPorProvincia(provincia);
 
     }
 
     public List<Provincia> listarProvincias() {
 
-        return restTemplate.getForObject("https://apis.datos.gob.ar/georef/api/provincias", DatosProvincia.class).provincias;
+        return this.readModeAPIGeoRef.listarProvincias();
 
     }
 
