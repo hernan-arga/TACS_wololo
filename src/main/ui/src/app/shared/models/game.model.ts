@@ -1,8 +1,7 @@
-import { Map } from "./Map.model";
-import { GameState } from "./GameState.model";
-import { Player } from "./Player.model";
-import { Municipality } from './municipality.model';
-import { GameStyle } from './gameStyle.model';
+import {Map} from "./map.model";
+import {GameState} from "./gameState.model";
+import {Municipality} from './municipality.model';
+import {GameStyle} from './gameStyle.model';
 
 export class Game {
   id: number;

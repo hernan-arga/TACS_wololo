@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ProvinceInfo } from '../shared/models/provinceInfo.model';
-import { ProvincesService } from '../_services/provinces.service';
-import { UserInfo } from '../shared/models/userInfo.model';
-import { UsersService } from '../_services/users.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { map, startWith } from 'rxjs/operators';
-import { GamesService } from '../_services/games.service';
-import { GameInfo } from '../shared/models/gameInfo.model';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { Router } from '@angular/router';
-import { Rival } from '../shared/models/rival.model';
-import { GameStyle } from '../shared/models/gameStyle.model';
-import { Game } from '../shared/models/Game.model';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProvinceInfo} from '../shared/models/provinceInfo.model';
+import {ProvincesService} from '../_services/provinces.service';
+import {UserInfo} from '../shared/models/userInfo.model';
+import {UsersService} from '../_services/users.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {GamesService} from '../_services/games.service';
+import {GameInfo} from '../shared/models/gameInfo.model';
+import {TokenStorageService} from '../_services/token-storage.service';
+import {Router} from '@angular/router';
+import {Rival} from '../shared/models/rival.model';
+import {GameStyle} from '../shared/models/gameStyle.model';
 
 /**
  * @title Stepper overview
@@ -30,8 +28,8 @@ export class GameCreateComponent implements OnInit {
   rivalsFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isInputDisabled: boolean = true;
-  provinces: ProvinceInfo[] = new Array();
-  users: UserInfo[] = new Array();
+  provinces: ProvinceInfo[] = [];
+  users: UserInfo[] = [];
 
   currentUserUsername: String
   myControl = new FormControl();
@@ -40,7 +38,7 @@ export class GameCreateComponent implements OnInit {
 
   gameStyle: GameStyle = GameStyle.NORMAL;
 
-  possiblesGamesStyles: GameStyle[] = new Array(GameStyle.NORMAL, GameStyle.SUPERDEFENSA, GameStyle.SUPERPROD);
+  possiblesGamesStyles: GameStyle[] = [GameStyle.NORMAL, GameStyle.SUPERDEFENSA, GameStyle.SUPERPROD];
 
   gameStyle2: string = 'a';
 
@@ -51,8 +49,8 @@ export class GameCreateComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private router: Router) { }
 
-  ngOnInit() {    
-    
+  ngOnInit() {
+
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
 
@@ -82,7 +80,7 @@ export class GameCreateComponent implements OnInit {
   isAddRivalDisabled(){
     return this.rivals.length >= 3;
   }
-  
+
 
   isDeleteRivalDisabled(){
     return this.rivals.length <= 1;
@@ -102,7 +100,7 @@ export class GameCreateComponent implements OnInit {
   };
 
   anyUsernameIsNotValid(): boolean{
-    let possibleRivalsUsernames = this.rivals.map(r => {       
+    let possibleRivalsUsernames = this.rivals.map(r => {
       var formControlChild = this.getFormControlRival(r);
       return formControlChild.value;
     });
@@ -114,7 +112,7 @@ export class GameCreateComponent implements OnInit {
     return possibleRivalsUsernames.every(r => {
       return this.users.some(user => r == user.username);
     });
-    
+
   }
 
   isThereRepeatedRivals(possibleRivalsUsernames: Array<string>): boolean{
@@ -130,12 +128,12 @@ export class GameCreateComponent implements OnInit {
 
     return status;
   }
- 
+
 
   anyUsernameIsEmpty(): boolean{
 
     if(this.rivals.length > 0){
-      return this.rivals.some(r => {       
+      return this.rivals.some(r => {
         var formControlChild = this.getFormControlRival(r);
         return formControlChild.hasError('required');
       });
@@ -155,7 +153,7 @@ export class GameCreateComponent implements OnInit {
     var municipalitiesCant = this.secondFormGroup.controls.secondCtrlSecondCondition.value;
     var provinceName = this.provinceSelected.name;
 
-    this.rivals.forEach(r => {       
+    this.rivals.forEach(r => {
       var formControlChild = this.getFormControlRival(r);
       r.username = formControlChild.value;
     });
@@ -177,8 +175,8 @@ export class GameCreateComponent implements OnInit {
   }
 
   addRival(){
-    this.rivals.push(new Rival(this.rivals.length+1));     
-    let rivalControlName = 'rival'+ (this.rivals.length).toString(); 
+    this.rivals.push(new Rival(this.rivals.length+1));
+    let rivalControlName = 'rival'+ (this.rivals.length).toString();
     this.rivalsFormGroup.addControl(rivalControlName, new FormControl('', Validators.required));
   }
 
@@ -188,7 +186,7 @@ export class GameCreateComponent implements OnInit {
     this.rivalsFormGroup.removeControl(rivalControlName);
   }
 
-  convertEnumToString(gameStyle: GameStyle): string{ 
+  convertEnumToString(gameStyle: GameStyle): string{
     return GameStyle[gameStyle];
   }
 

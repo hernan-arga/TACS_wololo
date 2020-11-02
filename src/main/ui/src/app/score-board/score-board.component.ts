@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ScoreBoardShowComponent } from '../score-board-show/score-board-show.component';
-import { Game } from '../shared/models/Game.model';
-import { GamesService } from '../_services/games.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {ScoreBoardShowComponent} from '../score-board-show/score-board-show.component';
+import {Game} from '../shared/models/game.model';
+import {GamesService} from '../_services/games.service';
 
 @Component({
   selector: 'app-score-board',
@@ -15,7 +15,7 @@ import { GamesService } from '../_services/games.service';
 })
 
 export class ScoreBoardComponent implements OnInit {
-    
+
   constructor(public dialog: MatDialog, private gamesService: GamesService) { }
 
   displayedColumns: string[] = ['id', 'province', 'date', 'players', 'actions'];
@@ -63,7 +63,7 @@ export class ScoreBoardComponent implements OnInit {
     let gameId = id;
     this.dialog.open(ScoreBoardShowComponent, {
       width: '600px',
-      data: gameId, 
+      data: gameId,
       disableClose: true
     });
   }

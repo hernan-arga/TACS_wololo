@@ -1,34 +1,27 @@
-import { Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { Game } from '../shared/models/Game.model';
-import { GameInfo } from '../shared/models/gameInfo.model';
-import { GamesService } from '../_services/games.service';
-
-import { Player } from '../shared/models/Player.model';
-import { GameState } from "../shared/models/GameState.model";
-import { CoordinatesService } from '../_services/coordinates.service';
-import { Municipality } from '../shared/models/municipality.model';
-import { MapPosition } from '../shared/models/mapPosition.model';
-import { FormControl, FormGroup, Validator } from '@angular/forms';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { GameMoveGauchosComponent } from '../game-move-gauchos/game-move-gauchos.component';
-import { GameNotTurnToPlayComponent } from '../game-not-turn-to-play/game-not-turn-to-play.component';
-import { delay } from 'rxjs/operators';
-import { Action } from '../shared/models/action.model';
-import { GameMovementSuccessfulComponent } from '../game-movement-successful/game-movement-successful.component';
-import { GameShowMunicipalityStatisticsComponent } from '../game-show-municipality-statistics/game-show-municipality-statistics.component';
-import { GameFinishedShowWinnerComponent } from '../game-finished-show-winner/game-finished-show-winner.component';
-import { Observable } from 'rxjs';
-import { ProvinceLimits } from '../shared/models/ProvinceLimits.model';
-import { ProvincesService } from '../_services/provinces.service';
-import { GamePassTurnComponent } from '../game-pass-turn/game-pass-turn.component';
-import { GameTurnChangedComponent } from '../game-turn-changed/game-turn-changed.component';
-import { GameSurrenderComponent } from '../game-surrender/game-surrender.component';
-import { GameSurrenderedComponent } from '../game-surrendered/game-surrendered.component';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/internal/Subscription';
+import {Game} from '../shared/models/game.model';
+import {GamesService} from '../_services/games.service';
+import {CoordinatesService} from '../_services/coordinates.service';
+import {Municipality} from '../shared/models/municipality.model';
+import {MapPosition} from '../shared/models/mapPosition.model';
+import {FormControl, FormGroup} from '@angular/forms';
+import {TokenStorageService} from '../_services/token-storage.service';
+import {MatDialog} from '@angular/material/dialog';
+import {GameMoveGauchosComponent} from '../game-move-gauchos/game-move-gauchos.component';
+import {GameNotTurnToPlayComponent} from '../game-not-turn-to-play/game-not-turn-to-play.component';
+import {Action} from '../shared/models/action.model';
+import {GameMovementSuccessfulComponent} from '../game-movement-successful/game-movement-successful.component';
+import {GameShowMunicipalityStatisticsComponent} from '../game-show-municipality-statistics/game-show-municipality-statistics.component';
+import {GameFinishedShowWinnerComponent} from '../game-finished-show-winner/game-finished-show-winner.component';
+import {Observable} from 'rxjs';
+import {ProvinceLimits} from '../shared/models/ProvinceLimits.model';
+import {ProvincesService} from '../_services/provinces.service';
+import {GamePassTurnComponent} from '../game-pass-turn/game-pass-turn.component';
+import {GameTurnChangedComponent} from '../game-turn-changed/game-turn-changed.component';
+import {GameSurrenderComponent} from '../game-surrender/game-surrender.component';
+import {GameSurrenderedComponent} from '../game-surrendered/game-surrendered.component';
 
 @Component({
   selector: 'app-game-play',
@@ -50,7 +43,7 @@ export class GamePlayComponent implements OnInit {
   isCurrentlyUserTurn: boolean;
   cantGauchosToMove: number = 0;
 
-  colorsOfMunicipalities: Array<string> = ['Green', 'Red', 'Purple', 'White', 'Cyan', 'Magenta', 'Aquamarine', 
+  colorsOfMunicipalities: Array<string> = ['Green', 'Red', 'Purple', 'White', 'Cyan', 'Magenta', 'Aquamarine',
   'Beige', 'Chocolate', 'Orange', 'darkgoldenrod', 'Violet', 'Olive'];
 
   game: Game; //TODO: cambiar a Game
@@ -63,7 +56,7 @@ export class GamePlayComponent implements OnInit {
   matrizPositions: MapPosition[][] = new Array<Array<MapPosition>>();
 
   municipalitiesByUser: any;
-  
+
   constructor(private gamesService: GamesService, private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
     private coordinateService: CoordinatesService,
@@ -71,7 +64,7 @@ export class GamePlayComponent implements OnInit {
     public dialog: MatDialog,
     private provinceService: ProvincesService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.gameId = params['id']
     });
@@ -79,11 +72,11 @@ export class GamePlayComponent implements OnInit {
       data => {
         this.game = data;
         this.provinceService.getLimits().subscribe(data => {
-          this.provinceLimits = data.find(pl =>pl.name == this.game.province);          
+          this.provinceLimits = data.find(pl =>pl.name == this.game.province);
           this.municipalitiesByUser = this.groupByKey(this.game.municipalities, 'owner');
           this.initializeVariables();
-        });     
-        
+        });
+
       }
     );
   }
@@ -106,23 +99,23 @@ export class GamePlayComponent implements OnInit {
   private groupByKey(array, key) {
     return array
       .reduce((hash, obj) => {
-        if(obj[key] === undefined) return hash; 
+        if(obj[key] === undefined) return hash;
         return Object.assign(hash, { [obj[key]]:( hash[obj[key]] || [] ).concat(obj)})
       }, {})
  }
- 
+
 
   private initializeVariables() {
     const user = this.tokenStorageService.getUser();
     this.currentUserUsername = user.username;
-    this.isCurrentlyUserTurn = this.game.players[0] === this.currentUserUsername;    
+    this.isCurrentlyUserTurn = this.game.players[0] === this.currentUserUsername;
 
     let group = {}
-    
+
     this.game.municipalities.forEach(m => {
       group[m.nombre] = new FormControl('');
     });
-        
+
     this.selectForm = new FormGroup(group);
 
     this.assignImgSize();
@@ -134,7 +127,7 @@ export class GamePlayComponent implements OnInit {
     }
 
     this.getImageDimension(image).subscribe(
-      response => { 
+      response => {
         this.imgSizeX = response.width;
         this.imgSizeY = response.height;
         this.assignMunicipalities();
@@ -149,7 +142,7 @@ export class GamePlayComponent implements OnInit {
         this.openNotYourTurnDialog();
       }
     }
-    
+
     else{
       this.openGameFinishedDialog(this.game.players[0]);
     }
@@ -158,9 +151,9 @@ export class GamePlayComponent implements OnInit {
   }
 
   private assignMunicipalities(){
-    this.game.municipalities.forEach(m => 
+    this.game.municipalities.forEach(m =>
       { this.convertCoordinates(m); this.assignPositionToMunicipality(m); }
-    );  
+    );
   }
 
   //Ecuaciones de interpolacion
@@ -244,7 +237,7 @@ export class GamePlayComponent implements OnInit {
       case 'prepareAttack':
         this.attackMode = true;
         this.municipalityInAction = municipality;
-        this.cdRef.detectChanges(); // Esto es porque tira Expression has changed after it was checked        
+        this.cdRef.detectChanges(); // Esto es porque tira Expression has changed after it was checked
         break;
       case 'prepareMove':
         this.moveMode = true;
@@ -296,7 +289,7 @@ export class GamePlayComponent implements OnInit {
         console.log("Hubo un error al atacar");
       }
     );
-    
+
   }
 
   public moveGauchos(municipalityTarget: Municipality) {

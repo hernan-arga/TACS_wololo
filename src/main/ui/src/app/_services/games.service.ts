@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { UserInfo } from '../shared/models/userInfo.model';
-import { GameInfo } from '../shared/models/gameInfo.model';
-import { Game } from '../shared/models/Game.model';
-import { Municipality } from '../shared/models/municipality.model';
-import { Action } from '../shared/models/action.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {GameInfo} from '../shared/models/gameInfo.model';
+import {Game} from '../shared/models/game.model';
+import {Action} from '../shared/models/action.model';
 
 const API_URL = 'http://localhost:8080/api/';
 const httpOptions = {

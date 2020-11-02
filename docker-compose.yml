@@ -27,5 +27,14 @@ services:
     networks:
       - backend
 
+  front:
+    container_name: frontend
+    build:
+      context: src/main/ui
+      dockerfile: Dockerfile
+    ports:
+    - "4200:4200"
+    restart: always
+
 networks:
   backend:
