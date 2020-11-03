@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito.*;
 import tacs.wololo.model.APIs.GeoData.Provincia;
-import tacs.wololo.model.APIs.GeoRef;
+import tacs.wololo.model.APIs.*;
 import tacs.wololo.model.DTOs.ProvinceInfoDto;
 import tacs.wololo.repositories.ProvinceRepository;
 import tacs.wololo.services.implementations.ProvinceService;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class ProvincesServicesTests {
 
     @Mock
-    private ProvinceRepository provinceMocke;
+    private ProvinceRepository provinceRepository;
 
     @Mock
     private GeoRef geoRef;
@@ -30,8 +30,11 @@ public class ProvincesServicesTests {
     @Before
     public void init() {
 
+        provinceService = new ProvinceService();
+        provinceRepository = new ProvinceRepository();
+
         //Lista de province infoDoto
-        ProvinceInfoDto mendoza = mock(ProvinceInfoDto.class);
+     /*   ProvinceInfoDto mendoza = mock(ProvinceInfoDto.class);
         when(mendoza.getName()).thenReturn("mendoza");
         when(mendoza.getMunicipalitiesCant()).thenReturn(50);
 
@@ -48,7 +51,25 @@ public class ProvincesServicesTests {
         when(geoRef.listarProvincias()).thenReturn(provincias);
         //when(geoRef.municipioPorNombre());
         when(provinceMocke.getProvincesInfo()).thenReturn(provinciasInfoDto);
+        */
 
+
+    }
+
+    //Todo testear getProvinceList
+    //Update provinceList
+
+    @Test
+    public void canObtainAprovince() {
+        List<ProvinceInfoDto> provincesInfoDTOs = provinceService.getProvincesList();
+
+    }
+
+
+    @Test
+    public void canAddProvincesFromAPItoRepository() {
+        provinceService.updateProvincesList();
+        Assert.assertNotNull(provinceRepository.getProvincesInfo());
     }
 
 

@@ -1,8 +1,4 @@
 package tacs.wololo.model.APIs;
-
-
-
-
 import org.springframework.web.bind.annotation.RestController;
 
 import tacs.wololo.model.APIs.GeoData.Provincia;
@@ -18,7 +14,7 @@ import java.util.Properties;
 public class GeoRef {
 
     private boolean getFromAPI;
-    private String apiGeorefProperties = "properties/apiGeoref.properties";
+    private final String apiGeorefProperties = "properties/apiGeoref.properties";
     private ReadModeGeoRef readModeAPIGeoRef;
 
 
@@ -42,6 +38,7 @@ public class GeoRef {
             prop.load(inputStream);
             this.getFromAPI = Boolean.parseBoolean(prop.getProperty("getFromAPI"));
 
+            assert inputStream != null;
             inputStream.close();
         }
         catch (IOException ex) {
@@ -63,7 +60,6 @@ public class GeoRef {
     }
 
     public List<Provincia> listarProvincias() {
-
         return this.readModeAPIGeoRef.listarProvincias();
 
     }

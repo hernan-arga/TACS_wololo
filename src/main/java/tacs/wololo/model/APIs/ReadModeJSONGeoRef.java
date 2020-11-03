@@ -93,7 +93,9 @@ public class ReadModeJSONGeoRef implements ReadModeGeoRef {
 
         List<Provincia> provincias;
         try {
+
             String jsonString = this.mapper.writeValueAsString(jsonNode);
+
             provincias = this.mapper.readValue(jsonString, new TypeReference<List<Provincia>>() {});
         } catch (Exception e) {
             throw new RuntimeException(e);

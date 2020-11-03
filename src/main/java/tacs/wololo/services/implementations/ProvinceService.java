@@ -25,7 +25,8 @@ public class ProvinceService implements IProvinceService {
     ProvinceRepository provinceRepository;
 
     public ProvinceService(){
-
+        this.geoRef = new GeoRef();
+        this.provinceRepository = new ProvinceRepository();
     }
 
     public List<ProvinceInfoDto> getProvincesList() {
