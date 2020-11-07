@@ -29,12 +29,17 @@ services:
 
   front:
     container_name: frontend
+    command: "npm start"
     build:
       context: src/main/ui
       dockerfile: Dockerfile
     ports:
     - "4200:4200"
+    depends_on:
+    - db
     restart: always
+    networks:
+    - backend
 
 networks:
   backend:
