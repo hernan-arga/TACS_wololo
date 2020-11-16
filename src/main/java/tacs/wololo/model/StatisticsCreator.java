@@ -18,17 +18,21 @@ public class StatisticsCreator {
     public HashMap<String, Integer> getStatistics(List<Game> games)
     {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
-
+        final int[] cantStatesGames = {0};
         Arrays.asList(GameState.values()).forEach(s ->{
-                statistics.put(s.name(), this.cantGamesHaveTheState(games, s));}
+                statistics.put(s.name(), this.cantGamesHaveTheState(games, s));
+                cantStatesGames[0] +=this.cantGamesHaveTheState(games, s);
+        }
         );
+
+        statistics.put(GameState.CREADO.toString(), cantStatesGames[0]);
 
         return statistics;
     }
 
     public HashMap<String, Integer> getStatisticsByDates(Date dateMin, Date dateMax)
     {
-        List<Game> games = gameRepository.getGamesByDates(dateMin, dateMax);
+        List<Game> games = gameRepository.getAllByDateBetween(dateMin, dateMax);
 
         return this.getStatistics(games);
     }

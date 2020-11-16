@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "games")
@@ -206,9 +207,9 @@ public class Game
     }
 
     private void removePlayerIfHasNotMunicipalities(){
-        List<String> cleanPlayers = new ArrayList<>();
-        cleanPlayers = this.players;
-        this.players = cleanPlayers.stream().filter(p -> !hasMunicipalities(p)).collect(Collectors.toList());
+        List<String> cleanPlayers = this.players;
+        this.players = cleanPlayers.stream().filter(p -> hasMunicipalities(p)).collect(Collectors.toList());
+
                 /*
         if (!hasMunicipalities(player)){
             players.remove(player);
@@ -217,14 +218,14 @@ public class Game
 
     public void changeTurn() {
         //fixme: funciona mal el cancel
-
         players.add(players.get(0));
         players.remove(0);
-
         this.removePlayerIfHasNotMunicipalities();
 
-        municipalities.stream().filter(z ->z.getOwner().equals(players.get(0))).
-                        forEach(m ->m.produceGauchos(this.map));
+        List<Municipality> municipalities2 = municipalities.stream().filter(z -> z.getOwner().equals(players.get(0))).collect(Collectors.toList());
+
+        municipalities2.
+                        forEach(m -> m.produceGauchos(this.map));
 
     }
 
@@ -281,6 +282,7 @@ public class Game
     public GameState getState() {
         return state;
     }
+
 
     public void setState(GameState state) {
         this.state = state;

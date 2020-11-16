@@ -52,7 +52,7 @@ public class GameService implements IGameService {
 
         Game game = null;
 
-        game = new Game(map, new Date(), playersUsernames, GameState.CREADO,
+        game = new Game(map, new Date(), playersUsernames, GameState.EN_PROGRESO,
                 gameInfoDto.getMunicipalitiesCant(), new GeoRef(), new AsterAPI(), gameInfoDto.getGameStyle());
 
         gameRepository.save(game);
@@ -133,6 +133,10 @@ public class GameService implements IGameService {
 
         game.changeTurn();
 
+        if(game.getPlayers().size()<=1){
+            changeState(game, GameState.FINALIZADO);
+        }
+
         this.notifyPlayer(game.getPlayers().get(0));
 
         gameRepository.save(game);
@@ -193,6 +197,11 @@ public class GameService implements IGameService {
 
         game.surrender(username);
 
+        if(game.getPlayers().size()<=1){
+            changeState(game, GameState.CANCELADO);
+        }
+
+
         gameRepository.save(game);
 
         return game;
@@ -218,6 +227,11 @@ public class GameService implements IGameService {
         // --------
 
         return municipality.getMovements();
+    }
+
+    public void changeState(Game game, GameState state){
+        game.setState(state);
+        gameRepository.save(game);
     }
 
 }

@@ -80,7 +80,7 @@ public class GameTests {
         asterAPImock = mock(AsterAPI.class);
         when(asterAPImock.multipleHeights(centroides)).thenReturn(heights);
 
-        aGame = new Game(aMap, new Date(), players, GameState.CREADO, MUNICIPALITY_LIMIT,
+        aGame = new Game(aMap, new Date(), players, GameState.EN_PROGRESO, MUNICIPALITY_LIMIT,
                 geoRefMock, asterAPImock, GameStyle.NORMAL);
         //TODO El constructor no debería recibir estado de juego
 

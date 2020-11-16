@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tacs.wololo.model.Game;
-import tacs.wololo.repositories.GamesRepositoryImpl;
+import tacs.wololo.repositories.GameRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class GamesRepositoryImplTests {
+public class GameRepositoryTests {
 
     @Autowired
-    private GamesRepositoryImpl gamesRepositoryImpl;
+    private GameRepository gameRepository;
     private Game funnyGame;
     private Game boringGame;
     private Game mehGame;
@@ -59,11 +59,11 @@ public class GamesRepositoryImplTests {
         mehGame.setDate(mehGameDate);
 
 
-        gamesRepositoryImpl = new GamesRepositoryImpl();
-        gamesRepositoryImpl.addGame((long) 1, funnyGame);
-        gamesRepositoryImpl.addGame((long)2, boringGame);
-        gamesRepositoryImpl.addGame((long)3, mehGame);
-        gamesRepositoryImpl.addGame((long)4, finishedGame);
+        gameRepository = new GameRepository();
+        gameRepository.addGame((long) 1, funnyGame);
+        gameRepository.addGame((long)2, boringGame);
+        gameRepository.addGame((long)3, mehGame);
+        gameRepository.addGame((long)4, finishedGame);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class GamesRepositoryImplTests {
         gamesBelongsToSebastian.add(funnyGame);
         gamesBelongsToSebastian.add(mehGame);
 
-        Assert.assertEquals(gamesBelongsToSebastian, gamesRepositoryImpl.getGamesFor("Sebastian"));
+        Assert.assertEquals(gamesBelongsToSebastian, gameRepository.getGamesFor("Sebastian"));
     }
 
     // Proveer estadísticas de cantidad de partidas creadas, en curso, terminadas y canceladas
@@ -91,7 +91,7 @@ public class GamesRepositoryImplTests {
         Date maxDate = objSDF.parse("20-09-2020");
 
         Assert.assertEquals(gamesBelongsToDates,
-                gamesRepositoryImpl.getAllByDateBetween(minDate, maxDate));
+                gameRepository.getAllByDateBetween(minDate, maxDate));
 
     }
 

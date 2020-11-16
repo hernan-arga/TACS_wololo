@@ -1,13 +1,19 @@
 package tacs.wololo.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tacs.wololo.model.Game;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class GamesRepositoryImpl implements GamesRepositoryCustom {
+public class GameRepository {
+
+    @Autowired
+    private EntityManager em;
+
 
     Map<Long, Game> games = new HashMap<>();
 
@@ -37,9 +43,7 @@ public class GamesRepositoryImpl implements GamesRepositoryCustom {
 
     public List<Game> getAllByDateBetween(Date dateMin, Date datemax)
     {
-        System.out.println("1--------");
         System.out.println(games);
-        System.out.println(games.values());
         return games.values().stream().filter(
                 g -> {System.out.println(g); return g.getDate().after(dateMin) && g.getDate().before(datemax);})
                 .collect(Collectors.toList());
