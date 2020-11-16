@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class GameRepository {
+public class GamesRepositoryImpl implements GamesRepositoryCustom {
 
     Map<Long, Game> games = new HashMap<>();
 
@@ -35,10 +35,13 @@ public class GameRepository {
         return games.values().stream().filter(g -> g.getPlayers().contains(username)).collect(Collectors.toList());
     }
 
-    public List<Game> getGamesByDates(Date dateMin, Date datemax)
+    public List<Game> getAllByDateBetween(Date dateMin, Date datemax)
     {
+        System.out.println("1--------");
+        System.out.println(games);
+        System.out.println(games.values());
         return games.values().stream().filter(
-                g -> g.getDate().after(dateMin) && g.getDate().before(datemax))
+                g -> {System.out.println(g); return g.getDate().after(dateMin) && g.getDate().before(datemax);})
                 .collect(Collectors.toList());
     }
 
