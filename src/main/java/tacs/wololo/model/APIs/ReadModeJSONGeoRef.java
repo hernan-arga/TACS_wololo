@@ -79,6 +79,9 @@ public class ReadModeJSONGeoRef implements ReadModeGeoRef {
                 }
             }
 
+            if(cantFound == 0)
+                throw new RuntimeException("The province don't exists");
+
             return municipalities;
 
         }

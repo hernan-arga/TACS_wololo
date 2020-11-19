@@ -60,25 +60,25 @@ public class StadisticsTests {
     }
 
     @Test
-    public void getStatisticsByDates() throws ParseException {
+    public void getStatisticsByDates() {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
         statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 2);
-        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 0);
+        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 3);
 
         Assert.assertEquals(statistics, statisticsCreator.getStatisticsByDates(minDate, maxDate));
     }
 
     @Test
-    public void getIndividualStatistics() throws ParseException {
+    public void getIndividualStatistics() {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
         statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 1);
-        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 0);
+        statistics.put("FINALIZADO", 1); statistics.put("CREADO", 2);
 
         Assert.assertEquals(statistics, statisticsCreator.getIndividualStatistics("Carlos"));
     }
 
     @Test
-    public void getIndividualStatisticsWhenPlayerDontHaveGames() throws ParseException {
+    public void getIndividualStatisticsWhenPlayerDontHaveGames() {
         HashMap<String, Integer> statistics = new HashMap <String, Integer> ();
         statistics.put("CANCELADO", 0); statistics.put("EN_PROGRESO", 0);
         statistics.put("FINALIZADO", 0); statistics.put("CREADO", 0);

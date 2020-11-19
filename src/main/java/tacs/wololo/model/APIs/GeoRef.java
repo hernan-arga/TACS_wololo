@@ -25,7 +25,11 @@ public class GeoRef {
             readModeAPIGeoRef = new ReadModeAPIGeoRef();
         else
             readModeAPIGeoRef = new ReadModeJSONGeoRef();
+    }
 
+    public GeoRef(ReadModeGeoRef readModeAPIGeoRef)
+    {
+        this.readModeAPIGeoRef = readModeAPIGeoRef;
     }
 
     private void readAttribute() {
