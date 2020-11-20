@@ -56,6 +56,8 @@ public class Municipality {
 
     public Municipality() { }
 
+
+
     public Municipality(String owner, int gauchos, double height, MunicipalityMode mode, Centroide centroide)
     {
         this.owner = owner;
@@ -65,12 +67,11 @@ public class Municipality {
         this.centroide = centroide;
     }
 
-    /*
-    * This uses the ‘haversine’ formula to calculate the great-circle distance between two points
-    * – that is, the shortest distance over the earth’s surface – giving an ‘as-the-crow-flies’
-    * distance between the points (ignoring any hills they fly over, of course!).
-    * */
 
+    /*
+    * Calcula la distancia entre municipios utilizando la formula de haversine, que calcula distancias mediante
+    * la longitud y latitud, y el radio de la tierra
+    */
     public double distanceToMunicipality(Municipality other)
     {
         // distance between latitudes and longitudes
@@ -91,15 +92,27 @@ public class Municipality {
         return rad * c;
     }
 
+    /*
+     * Calcula uno de los factores utilizados para determinar si un ataque es eficaz o no
+    */
     double multDist(Municipality anotherMunicipality, Map map){
         return 1 - (distanceToMunicipality(anotherMunicipality)- map.getDistMin())/
                 (coefDist*(map.getDistMax()- map.getDistMin()));
     }
 
+    /*
+     * Calcula uno de los factores utilizados para determinar si un ataque es eficaz o no
+     */
     double multAlt (Map map){
         return 1 + heightMultiplier(map);
     }
 
+
+    /*
+     * Intenta atacar a defender, en el mapa map
+     * si el ataque es exitoso, cambia de dueño al municipio defender y le setea los gauchos restantes al atacante
+     * si el ataque falla, se le setean los gauchos restantes al defender, y 0 al atacante
+     */
     public boolean attackMunicipality(Municipality defender, Map map)
     {
         boolean winTheBattleAttacker = gauchosRemainAfterAttack(defender,map);
@@ -118,53 +131,74 @@ public class Municipality {
 
         return winTheBattleAttacker;
     }
-
+    /*
+     * agrega un movimiento de gauchos al historial de movimientos
+     */
     public void addMovement(Movement movement)
     {
         this.movements.add(movement);
     }
 
     /*
-    * Returns the necessary multiplication factor to calculate the remaining gauchos
-    * */
+    *  Calcula uno de los factores utilizados para determinar si un ataque es eficaz o no
+    */
     private double heightMultiplier(Map map){
        return (this.height - map.getMinHeight())/
                (coefAlt*Math.max(map.getMaxHeight()- map.getMinHeight(),1)); //
     }
 
+    /*
+     *  Calcula cuantos gauchos produce un municipio por turno en un mapa determinado
+     */
     private int gauchosToAdd(Map map){
         return  (int) (mode.getCoefProdGauchos()*(1 - this.heightMultiplier(map)));
     }
 
+    /*
+     * Crea un nuevo Movement con los gauchos preexistentes y los gauchos a agregar, y los agrega al municipio
+     */
     public void produceGauchos(Map map){
         this.addMovement(new MovementProduce(this.gauchos, gauchosToAdd(map)));
         this.addGauchos(gauchosToAdd(map));
 
     }
 
+    /*
+     * Agrega gauchos al municipio
+     */
     public void addGauchos(int gauchos)
     {
         setGauchos(this.gauchos+gauchos);
     }
 
+    /*
+     * elimina gauchos del municipio
+     */
     public void removeGauchos(int gauchos)
     {
         setGauchos(this.gauchos-gauchos);
     }
 
 
-
+    /*
+     * booleano de si quedan o no gauchos luego de un ataque
+     */
     public boolean gauchosRemainAfterAttack(Municipality anotherMunicipality, Map map){
         return endingAttackingGauchos(anotherMunicipality, map)>0;
     }
 
-
+    /*
+     * calculo de cuantos gauchos quedan luego de un ataque
+     */
     public int endingAttackingGauchos(Municipality defenderMunicipality, Map map){
 
        return (int) (this.gauchos*this.multDist(defenderMunicipality, map)
                - defenderMunicipality.getGauchos()*defenderMunicipality.multAlt(map)*defenderMunicipality.getMode().getMultDef());
     }
 
+    /*
+     * calculo de cuantos gauchos quedan luego de defenderse de un ataque
+     */
     int endingDefendersGauchos(Municipality attackingMunicipality, Map map){
 
         return (int) (Math.ceil(gauchos*multAlt(map)* this.getMode().getMultDef()             //TODO: redondear para arriba
@@ -172,6 +206,10 @@ public class Municipality {
                 (multAlt(map)* getMode().getMultDef()));
     }
 
+
+    /*
+     * Llama al modo a cambiarse a la otra opcion (defensa -> produccion, produccion ->defensa)
+     */
     public void changeMode() throws IOException {
        mode = mode.changeMode();
     }
