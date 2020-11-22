@@ -3,6 +3,6 @@
 FROM node:alpine AS my-app-build
 WORKDIR /app
 COPY . .
-RUN npm ci && npm run build:prod
+#RUN npm ci && npm run build:prod
 
 EXPOSE 4200
