@@ -1,0 +1,27 @@
+GET http://localhost:8080/api/games
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/games/by?from=2020-10-6&to=2020-11-6
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/games/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/games/1/municipality/Isla%20del%20Cerrito
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/provinces
+
+GET http://localhost:8080/api/users
+
+GET http://localhost:8080/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/scoreboard/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/statistics/games?from=2020-10-6&to=2020-11-6
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
+
+GET http://localhost:8080/api/statistics/users/franchupedu
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwNjA4MzkxNCwiZXhwIjoxNjA2MTcwMzE0fQ.Lg5JHaqOaJeQnDizOjdZcf-pQkJmKCswQq-AbZiUNBV7fcj7B-zbXtegHb23rATBO5RXT1sYmAQYcNhWL1ZBCA
