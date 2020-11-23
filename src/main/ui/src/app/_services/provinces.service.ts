@@ -7,7 +7,7 @@ import { TokenStorageService } from './token-storage.service';
 import { AuthInterceptor } from '../_helpers/auth.interceptor';
 import { ProvinceLimits } from '../shared/models/ProvinceLimits.model';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://ec2co-ecsel-v938kjf340ap-1893651420.us-east-1.elb.amazonaws.com:8080/api/';
 
 @Injectable({
   providedIn: 'root'

@@ -5,7 +5,7 @@ import {GameInfo} from '../shared/models/gameInfo.model';
 import {Game} from '../shared/models/game.model';
 import {Action} from '../shared/models/action.model';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://ec2co-ecsel-v938kjf340ap-1893651420.us-east-1.elb.amazonaws.com:8080/api/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

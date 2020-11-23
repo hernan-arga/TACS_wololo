@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserInfo } from '../shared/models/userInfo.model';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://ec2co-ecsel-v938kjf340ap-1893651420.us-east-1.elb.amazonaws.com:8080/api/';
 
 @Injectable({
   providedIn: 'root'
