@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/games")
 public class GamesController
 {

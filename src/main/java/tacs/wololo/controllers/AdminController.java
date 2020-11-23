@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController

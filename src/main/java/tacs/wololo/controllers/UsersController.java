@@ -16,7 +16,7 @@ import tacs.wololo.services.implementations.UserService;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
 public class UsersController
 {
