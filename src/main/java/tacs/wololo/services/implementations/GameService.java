@@ -216,16 +216,6 @@ public class GameService implements IGameService {
         if(municipality == null)
             throw new RuntimeException("Municipio no existente");
 
-
-        // TODO: SACAR. Dejo el comentario igual para testear, pero sacar para la entrega.
-        // --------
-        List<Movement> movements = new ArrayList<>();
-        movements.add(new MovementDefend(10, "Chaco", true));
-        movements.add(new MovementProduce(20, 5));
-
-        municipality.setMovements(movements);
-        // --------
-
         return municipality.getMovements();
     }
 
