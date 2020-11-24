@@ -13,12 +13,12 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 
 ### Pre-requisitos 📋
 
-Jdk 1.8
-IDE de java
-IDE de typescript
-Docker
-Mysql
-NodeJS
+* Jdk 1.8
+* IDE de java
+* IDE de typescript
+* Docker
+* Mysql
+* NodeJS
 
 
 
