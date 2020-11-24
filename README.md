@@ -53,10 +53,6 @@ _Correr archivos de test ubicados en "\src\test\java\tacs\wololo"_
 * [AsterAPI](https://www.opentopodata.org/datasets/srtm/) - Informacion topológica
 * [Pixabay](https://pixabay.com/api/docs/) - Imágenes
 
-## Wiki 📖
-ToDo
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
 
 ## Autores ✒️
 
