@@ -12,6 +12,15 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.content = "Bienvenido a Wololo!!"
+    //TODO: Ver que puede ir aca en la pagina principal
+    
+    /*this.userService.getPublicContent().subscribe(
+      data => {
+        this.content = data;
+      },
+      err => {
+        this.content = JSON.parse(err.error).message;
+      }
+    );*/
   }
 }

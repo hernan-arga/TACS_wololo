@@ -27,8 +27,8 @@ export class ScoreBoardComponent implements OnInit {
     end: new FormControl('', Validators.required)
   });
 
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -38,14 +38,12 @@ export class ScoreBoardComponent implements OnInit {
   ngOnInit() {
     this.showMessageNoData = false;
     this.dataSource = new MatTableDataSource<Game>();
-    this.dataSource.paginator = this.paginator;
   }
 
   clearData()
   {
     this.showMessageNoData = false;
     this.dataSource = null;
-    this.dataSource.paginator = this.paginator;
   }
 
   getDateRange() {
@@ -57,7 +55,6 @@ export class ScoreBoardComponent implements OnInit {
         if(data.length == 0)
           this.showMessageNoData = true;
         this.dataSource = new MatTableDataSource<Game>(data);
-        this.dataSource.paginator = this.paginator;
       }
     );
   }
