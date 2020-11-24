@@ -22,11 +22,17 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 
 
 
-### Instalación 🔧
+## Despliegue 📦
 
-_Correr imagen de docker_
 
-docker-compose up --build 
+* En la carpeta raiz del proyecto buildear la imagen ("docker build -t wololo-backend .")
+* Luego correr un container basado en esa imagen("docker run --name wololo-backend-container  -p 8080:8080 wololo-backend")
+* Entrar a \src\main\ui
+* buildear la imagen del front ("docker build -t wololo-frontend.")
+* correr un container basado en esa imagen ("docker run --name wololo-front-container  -p 4200:4200 wololo-front")
+* En el archivo aplication.properties, es necesario poner la referencia a una Base de datos SQL, para el funcionamiento correcto de la app
+* Una vez esten corriendo ambos procesos y la BD este vinculada, la aplicacion deberia ser accesible, con el frontend accesible en la url Localhost:4200
+
 
 
 
@@ -35,9 +41,6 @@ docker-compose up --build
 _Correr archivos de test ubicados en "\src\test\java\tacs\wololo"_
 
 
-## Despliegue 📦
-
-_ToDo_
 
 ## Construido con 🛠️
 
